@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +31,7 @@
             box-sizing: border-box;
             perspective: 1000px;
         }
-        
+
         /* The main container for the game, now with a transform for the swaying effect */
         .game-container-wrapper {
             width: 100%;
@@ -38,21 +39,53 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 0.2s ease-out; /* Smooth transition for the sway */
+            transition: transform 0.2s ease-out;
+            /* Smooth transition for the sway */
         }
-        
+
         /* Camera shake effect */
         @keyframes cameraShake {
-            0%, 100% { transform: rotate(0) translate(0); }
-            10% { transform: rotate(-1deg) translate(-2px, -2px); }
-            20% { transform: rotate(1deg) translate(2px, 2px); }
-            30% { transform: rotate(-1deg) translate(-2px, -2px); }
-            40% { transform: rotate(1deg) translate(2px, 2px); }
-            50% { transform: rotate(-1deg) translate(-2px, -2px); }
-            60% { transform: rotate(1deg) translate(2px, 2px); }
-            70% { transform: rotate(-1deg) translate(-2px, -2px); }
-            80% { transform: rotate(1deg) translate(2px, 2px); }
-            90% { transform: rotate(-1deg) translate(-2px, -2px); }
+
+            0%,
+            100% {
+                transform: rotate(0) translate(0);
+            }
+
+            10% {
+                transform: rotate(-1deg) translate(-2px, -2px);
+            }
+
+            20% {
+                transform: rotate(1deg) translate(2px, 2px);
+            }
+
+            30% {
+                transform: rotate(-1deg) translate(-2px, -2px);
+            }
+
+            40% {
+                transform: rotate(1deg) translate(2px, 2px);
+            }
+
+            50% {
+                transform: rotate(-1deg) translate(-2px, -2px);
+            }
+
+            60% {
+                transform: rotate(1deg) translate(2px, 2px);
+            }
+
+            70% {
+                transform: rotate(-1deg) translate(-2px, -2px);
+            }
+
+            80% {
+                transform: rotate(1deg) translate(2px, 2px);
+            }
+
+            90% {
+                transform: rotate(-1deg) translate(-2px, -2px);
+            }
         }
 
         .camera-shake {
@@ -67,7 +100,7 @@
             max-width: 1200px;
             height: 90vh;
         }
-        
+
         /* New screen for the swimming loading animation */
         .swim-loading-screen {
             display: none;
@@ -93,7 +126,7 @@
             border-right: 2px solid var(--color-border);
             position: relative;
         }
-        
+
         /* New styling for the navigation tabs */
         .navigation-tabs {
             position: absolute;
@@ -104,7 +137,7 @@
             justify-content: flex-start;
             border-bottom: 2px solid var(--color-border);
         }
-        
+
         .tab-button {
             padding: 1rem 2rem;
             font-size: 1.25rem;
@@ -118,7 +151,7 @@
             outline: none;
             position: relative;
         }
-        
+
         /* Style for the new item indicator */
         .new-indicator {
             position: absolute;
@@ -132,9 +165,17 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.5); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.5);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .tab-button.active {
@@ -144,15 +185,18 @@
         /* Styling for the narrative display panel (top-left) */
         .narrative-panel {
             position: absolute;
-            top: 4rem; /* Adjusted to accommodate the new nav bar */
+            top: 4rem;
+            /* Adjusted to accommodate the new nav bar */
             left: 2rem;
             right: 2rem;
             line-height: 1.6;
-            font-size: 0.9em; /* Smaller font size as requested */
+            font-size: 0.9em;
+            /* Smaller font size as requested */
             overflow-y: auto;
-            max-height: calc(100% - 6rem); /* Adjusted to give space for the button at the bottom */
+            max-height: calc(100% - 6rem);
+            /* Adjusted to give space for the button at the bottom */
         }
-        
+
         /* Container for the narrative lines with scroll logic */
         .narrative-lines-container {
             position: relative;
@@ -166,11 +210,12 @@
             margin: 0;
             padding: 0;
         }
-        
+
         .narrative-line.fade-out {
             opacity: 0;
             height: 0;
-            margin-top: -1.6em; /* Adjust to match line-height */
+            margin-top: -1.6em;
+            /* Adjust to match line-height */
             overflow: hidden;
             transition: opacity 1s, height 1s, margin 1s;
         }
@@ -178,8 +223,10 @@
         /* The main interactive button */
         .game-button {
             /* Positioning is now handled by a dedicated container */
-            padding: 0.75rem 1.5rem; /* Smaller padding */
-            font-size: 1rem; /* Smaller font size */
+            padding: 0.75rem 1.5rem;
+            /* Smaller padding */
+            font-size: 1rem;
+            /* Smaller font size */
             font-weight: bold;
             color: var(--color-fg);
             background-color: var(--color-button-bg);
@@ -187,7 +234,7 @@
             cursor: pointer;
             transition: background-color 0.2s;
             text-transform: uppercase;
-            
+
             /* Styles for the cooldown bar animation */
             position: relative;
             overflow: hidden;
@@ -196,11 +243,13 @@
         /* New container for the main button to position it at the bottom */
         .main-button-container {
             position: absolute;
-            bottom: 2rem; /* Position the button 2rem from the bottom of its parent */
+            bottom: 2rem;
+            /* Position the button 2rem from the bottom of its parent */
             left: 50%;
-            transform: translateX(-50%); /* Center the button horizontally */
+            transform: translateX(-50%);
+            /* Center the button horizontally */
         }
-        
+
         /* Cooldown bar inside the button */
         .cooldown-bar {
             position: absolute;
@@ -209,7 +258,8 @@
             height: 5px;
             background-color: var(--color-fg);
             width: 0;
-            transition: width 0.1s linear; /* for smooth updates */
+            transition: width 0.1s linear;
+            /* for smooth updates */
         }
 
         .game-button.disabled {
@@ -218,7 +268,7 @@
             color: #888;
             border-color: #888;
         }
-        
+
         .game-button.stunned-button {
             background-color: #555 !important;
             color: #aaa !important;
@@ -235,12 +285,14 @@
         .inventory-panel {
             flex: 1;
             padding: 1rem;
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
             flex-direction: column;
             align-items: center;
             justify-content: center;
             border-left: 2px solid var(--color-border);
-            max-width: 300px; /* Make the inventory panel a bit smaller */
+            max-width: 300px;
+            /* Make the inventory panel a bit smaller */
         }
 
         .inventory-box {
@@ -267,17 +319,17 @@
         .inventory-item.clickable {
             cursor: pointer;
         }
-        
+
         .inventory-item.selected {
             background-color: var(--color-accent);
         }
-        
+
         .inventory-item.disabled {
             color: #888;
             border-color: #888;
             cursor: not-allowed;
         }
-        
+
         /* New styling for the resource gathering area page */
         .resource-gathering-page {
             display: none;
@@ -288,43 +340,51 @@
             flex-direction: column;
             padding: 2rem;
             text-align: center;
-            gap: 1rem; /* Added gap for the new swim button */
+            gap: 1rem;
+            /* Added gap for the new swim button */
         }
 
         .crafting-recipe {
             border: 2px solid var(--color-border);
-            padding: 1.6rem; /* 20% smaller */
+            padding: 1.6rem;
+            /* 20% smaller */
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.8rem; /* 20% smaller */
-            width: 100%; /* Ensure it takes up container width */
+            gap: 0.8rem;
+            /* 20% smaller */
+            width: 100%;
+            /* Ensure it takes up container width */
             box-sizing: border-box;
         }
-        
+
         /* New styling for the craft area page */
         .craft-area-page {
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
             width: 100%;
             height: 100%;
-            justify-content: flex-start; /* Align to top */
+            justify-content: flex-start;
+            /* Align to top */
             align-items: center;
             flex-direction: column;
             padding: 2rem;
             text-align: center;
             overflow-y: auto;
         }
-        
+
         .crafting-recipes-container {
             width: 100%;
-            display: grid; /* Use grid for 2-column layout */
+            display: grid;
+            /* Use grid for 2-column layout */
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
-        
+
         /* New styling for the achievement area page */
         .achievement-area-page {
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
             width: 100%;
             height: 100%;
             justify-content: flex-start;
@@ -336,7 +396,8 @@
 
         /* Modal Popup styles */
         .modal {
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
             position: fixed;
             z-index: 10;
             left: 0;
@@ -344,7 +405,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(5px);
             justify-content: center;
             align-items: center;
@@ -369,38 +430,45 @@
             border: 2px solid var(--color-border);
             cursor: pointer;
         }
-        
+
         /* Mobile-first responsiveness */
         @media (max-width: 768px) {
             .game-container {
                 flex-direction: column;
                 height: 100vh;
             }
+
             .game-main-area {
                 border-right: none;
                 border-bottom: 2px solid var(--color-border);
                 height: 60%;
                 width: 100%;
             }
+
             .inventory-panel {
                 height: 40%;
                 width: 100%;
-                border-left: none; /* remove left border on mobile */
+                border-left: none;
+                /* remove left border on mobile */
                 max-width: 100%;
             }
+
             .main-button-container {
                 bottom: 2rem;
                 left: 50%;
                 transform: translateX(-50%);
             }
+
             .navigation-tabs {
                 justify-content: space-around;
             }
+
             .crafting-recipes-container {
-                grid-template-columns: 1fr; /* Single column on mobile */
+                grid-template-columns: 1fr;
+                /* Single column on mobile */
             }
         }
-        
+
         .music-control-button {
             position: absolute;
             top: 20px;
@@ -414,7 +482,7 @@
             border: 2px solid var(--color-border);
             cursor: pointer;
         }
-        
+
         /* New achievement styles */
         .achievement-container {
             position: fixed;
@@ -439,12 +507,27 @@
         }
 
         @keyframes fadeInOut {
-            0% { opacity: 0; transform: translateY(20px); }
-            10% { opacity: 1; transform: translateY(0); }
-            90% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(20px); }
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            10% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            90% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
         }
-        
+
         .achievement-title {
             font-size: 1.2rem;
             font-weight: bold;
@@ -453,7 +536,7 @@
         .achievement-description {
             font-size: 0.9rem;
         }
-        
+
         .achievement-rarity {
             font-size: 0.8rem;
             font-style: italic;
@@ -466,7 +549,8 @@
         }
 
         .achievement-rarity-section h2 {
-            border: 2px solid var(--color-border); /* Changed from color-coded to black */
+            border: 2px solid var(--color-border);
+            /* Changed from color-coded to black */
             padding: 0.5rem;
             margin-bottom: 1rem;
             text-align: left;
@@ -479,11 +563,11 @@
             margin-bottom: 1rem;
             box-sizing: border-box;
         }
-        
+
         .achievement-list-item.unlocked {
             background-color: var(--color-accent);
         }
-        
+
         .back-button {
             margin-top: 2rem;
         }
@@ -501,7 +585,8 @@
         .bouncing-text {
             font-size: 2rem;
             font-weight: bold;
-            display: flex; /* To position letters side-by-side */
+            display: flex;
+            /* To position letters side-by-side */
             gap: 0.2rem;
         }
 
@@ -514,6 +599,7 @@
             from {
                 transform: translateY(0);
             }
+
             to {
                 transform: translateY(-10px);
             }
@@ -534,7 +620,7 @@
             background-color: var(--color-fg);
             transition: width 0.1s linear;
         }
-        
+
         /* New CSS for the progression screen */
         .progression-page {
             display: none;
@@ -545,7 +631,7 @@
             height: 100%;
             text-align: center;
         }
-        
+
         .progression-graph {
             display: flex;
             flex-direction: column;
@@ -553,7 +639,7 @@
             gap: 2rem;
             position: relative;
         }
-        
+
         .progression-section {
             border: 2px solid var(--color-border);
             padding: 1rem 2rem;
@@ -564,17 +650,17 @@
             min-width: 300px;
             position: relative;
         }
-        
+
         .progression-section.locked {
             filter: blur(5px);
         }
-        
+
         .connector-line {
             width: 2px;
             height: 2rem;
             background-color: var(--color-border);
         }
-        
+
         /* New Workers screen styles */
         .workers-page {
             display: none;
@@ -586,7 +672,7 @@
             text-align: center;
             padding: 2rem;
         }
-        
+
         .worker-assignment-container {
             display: flex;
             flex-direction: column;
@@ -594,13 +680,13 @@
             width: 100%;
             max-width: 400px;
         }
-        
+
         .worker-stats {
             margin-bottom: 2rem;
             font-size: 1.2rem;
             font-weight: bold;
         }
-        
+
         .assignment-option {
             border: 2px solid var(--color-border);
             padding: 1rem;
@@ -608,7 +694,7 @@
             flex-direction: column;
             gap: 0.5rem;
         }
-        
+
         .assign-button {
             padding: 0.5rem 1rem;
             font-size: 0.9rem;
@@ -618,7 +704,7 @@
             border: 1px solid var(--color-border);
             cursor: pointer;
         }
-        
+
         /* Dive Screen and Mini-game styles */
         .dive-page {
             display: none;
@@ -634,7 +720,7 @@
         #dive-prep-area {
             text-align: center;
         }
-        
+
         .tool-selection-container {
             display: flex;
             flex-direction: column;
@@ -642,7 +728,7 @@
             margin-top: 1rem;
             margin-bottom: 1rem;
         }
-        
+
         .tool-selection-item {
             display: flex;
             align-items: center;
@@ -656,9 +742,10 @@
             gap: 1rem;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Prevent internal scrollbars */
+            overflow: hidden;
+            /* Prevent internal scrollbars */
         }
-        
+
         #minigame-grid {
             font-family: 'Courier New', Courier, monospace;
             font-size: 1.2rem;
@@ -666,19 +753,45 @@
             white-space: pre;
             border: 2px solid var(--color-border);
             padding: 1rem;
-            width: 100%; /* Fill parent */
-            height: 100%; /* Fill parent */
-            flex-grow: 1; /* Take up available vertical space */
+            width: 100%;
+            /* Fill parent */
+            height: 100%;
+            /* Fill parent */
+            flex-grow: 1;
+            /* Take up available vertical space */
             overflow: auto;
             position: relative;
             box-sizing: border-box;
         }
-        
-        .player { color: blue; font-weight: bold; }
-        .boat { color: green; font-weight: bold; }
-        .landmark { color: red; font-weight: bold; cursor: help; position: relative; }
-        .safe-path { color: #aaa; } /* New style for safe paths */
-        .habitat { color: purple; font-weight: bold; } /* New style for habitats */
+
+        .player {
+            color: blue;
+            font-weight: bold;
+        }
+
+        .boat {
+            color: green;
+            font-weight: bold;
+        }
+
+        .landmark {
+            color: red;
+            font-weight: bold;
+            cursor: help;
+            position: relative;
+        }
+
+        .safe-path {
+            color: #aaa;
+        }
+
+        /* New style for safe paths */
+        .habitat {
+            color: purple;
+            font-weight: bold;
+        }
+
+        /* New style for habitats */
 
 
         /* Tooltip for landmarks */
@@ -703,7 +816,7 @@
             visibility: visible;
             opacity: 1;
         }
-        
+
         /* Commands Screen Styles */
         .commands-page {
             display: none;
@@ -715,7 +828,7 @@
             text-align: center;
             gap: 1rem;
         }
-        
+
         .admin-input {
             padding: 0.5rem;
             font-size: 1rem;
@@ -724,12 +837,13 @@
             text-align: center;
             margin-bottom: 1rem;
         }
-        
+
         #admin-status {
             font-style: italic;
-            height: 1.5rem; /* Reserve space to prevent layout shift */
+            height: 1.5rem;
+            /* Reserve space to prevent layout shift */
         }
-        
+
         #admin-controls-area {
             display: flex;
             flex-direction: column;
@@ -737,7 +851,8 @@
         }
 
         .toggle-switch {
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
@@ -773,15 +888,15 @@
             transition: 0.3s;
         }
 
-        .toggle-switch input:checked + label {
+        .toggle-switch input:checked+label {
             background: #008000;
         }
 
-        .toggle-switch input:checked + label:after {
+        .toggle-switch input:checked+label:after {
             left: calc(100% - 2.5px);
             transform: translateX(-100%);
         }
-        
+
         /* Combat Modal Styles */
         #combat-modal .modal-content {
             max-width: 600px;
@@ -816,7 +931,7 @@
             width: 100%;
             transition: width 0.2s;
         }
-        
+
         .combat-actions {
             margin-top: 1rem;
             display: flex;
@@ -824,7 +939,7 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-        
+
         #combat-log {
             margin-top: 1rem;
             height: 60px;
@@ -833,7 +948,7 @@
             padding: 0.5rem;
             text-align: left;
         }
-        
+
         /* Save/Load Screen Styles */
         .save-load-page {
             display: none;
@@ -845,12 +960,12 @@
             text-align: center;
             gap: 1.5rem;
         }
-        
+
         .save-load-section {
             width: 80%;
             max-width: 500px;
         }
-        
+
         .save-load-textarea {
             width: 100%;
             height: 150px;
@@ -859,7 +974,7 @@
             border: 2px solid var(--color-border);
             resize: vertical;
         }
-        
+
         /* New Dive UI Styles */
         #dive-ui-container {
             display: flex;
@@ -870,13 +985,13 @@
             max-width: 800px;
             margin-top: 1rem;
         }
-        
+
         #dive-stats {
             display: flex;
             gap: 1rem;
             align-items: center;
         }
-        
+
         #dive-inventory-display {
             border: 2px solid var(--color-border);
             padding: 0.5rem;
@@ -906,20 +1021,20 @@
             background-color: var(--color-bg);
             width: 300px;
         }
-        
+
         #landmark-choices {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
             margin: 1rem 0;
         }
-        
+
         #landmark-actions {
             display: flex;
             justify-content: center;
             gap: 1rem;
         }
-        
+
         /* Statistics Screen Styles */
         .statistics-page {
             display: none;
@@ -931,13 +1046,13 @@
             padding: 2rem;
             overflow-y: auto;
         }
-        
+
         .stats-container {
             width: 100%;
             max-width: 600px;
             text-align: left;
         }
-        
+
         .stats-container h2 {
             border-bottom: 2px solid var(--color-border);
             padding-bottom: 0.5rem;
@@ -947,7 +1062,8 @@
         /* Speedrun Timer Styles */
         .speedrun-timer {
             position: fixed;
-            bottom: 50px; /* Raised up */
+            bottom: 50px;
+            /* Raised up */
             left: 20px;
             font-family: 'Courier New', Courier, monospace;
             font-size: 2rem;
@@ -958,7 +1074,7 @@
             padding: 0.5rem 1rem;
             z-index: 5;
         }
-        
+
         /* Owner Credit Styles */
         .owner-credit {
             position: fixed;
@@ -971,12 +1087,12 @@
             font-size: 1rem;
             font-weight: bold;
         }
-        
+
         .owner-credit img {
             height: 24px;
             width: 24px;
         }
-        
+
         /* Wave Animation */
         .ocean {
             position: fixed;
@@ -1011,11 +1127,19 @@
         }
 
         @keyframes wave {
-            0% {transform: translateX(0);}
-            50% {transform: translateX(-25%);}
-            100% {transform: translateX(-50%);}
+            0% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(-25%);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
-        
+
         /* Bestiary Styles */
         .bestiary-page {
             display: none;
@@ -1027,7 +1151,7 @@
             padding: 2rem;
             overflow-y: auto;
         }
-        
+
         .bestiary-entry {
             border: 2px solid var(--color-border);
             padding: 1rem;
@@ -1035,14 +1159,107 @@
             width: 100%;
             max-width: 600px;
         }
-        
+
         .bestiary-entry h3 {
             margin-top: 0;
         }
 
+        /* PATCH CSS */
+        #nursery-screen,
+        #merchant-screen {
+            background: #222;
+            color: #fff;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 12px;
+        }
 
+        .incubator-slot {
+            width: 48px;
+            height: 48px;
+            background: #fff;
+            border: 2px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .egg-box {
+            display: inline-block;
+            width: 110px;
+            height: 120px;
+            border: 2px solid #222;
+            background: #fff;
+            margin: 10px;
+            border-radius: 8px;
+            text-align: center;
+            vertical-align: top;
+            cursor: pointer;
+            transition: box-shadow 0.2s;
+        }
+
+        .egg-box:hover {
+            box-shadow: 0 0 8px #00bfff;
+        }
+
+        .egg-name {
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        .egg-price {
+            font-size: 1.08em;
+            margin-bottom: 4px;
+        }
+
+        .pet-catalog-list {
+            display: grid;
+            grid-template-columns: repeat(5, 32px);
+            gap: 4px;
+            margin-top: 10px;
+        }
+
+        .pet-catalog-tiny {
+            width: 28px;
+            height: 28px;
+            background: #fff;
+            border: 1px solid #000;
+            filter: blur(3px);
+            cursor: pointer;
+        }
+
+        .pet-catalog-tiny.unlocked {
+            filter: none;
+        }
+
+        .pet-catalog-tiny.equipped {
+            border: 2px solid #2fa32f;
+        }
+
+        #pet-detail-popup {
+            position: absolute;
+            background: #fff;
+            color: #111;
+            border: 2px solid #000;
+            padding: 10px;
+            border-radius: 6px;
+            min-width: 180px;
+            z-index: 10;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-5px);
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="game-container-wrapper">
         <div class="game-container">
@@ -1054,8 +1271,10 @@
                 <button id="achievements-tab" class="tab-button">Achievements</button>
                 <button id="workers-tab" class="tab-button" style="display: none;">Workers<span id="workers-indicator" class="new-indicator" style="display: none;"></span></button>
                 <button id="dive-tab" class="tab-button" style="display: none;">Dive<span id="dive-indicator" class="new-indicator" style="display: none;"></span></button>
+                <button id="nursery-tab" class="tab-button" style="display: none;">Nursery</button>
+                <button id="merchant-tab" class="tab-button" style="display: none;">Egg Merchant</button>
             </div>
-            
+
             <!-- Main Game Area -->
             <div id="game-screen" class="game-main-area" style="display: flex;">
                 <div class="narrative-panel">
@@ -1071,13 +1290,13 @@
                     </button>
                 </div>
                 <!-- Speedrun Timer -->
-                 <div id="speedrun-timer" class="speedrun-timer">00:00:00</div>
-                 <!-- Owner Credit -->
-                 <div class="owner-credit">
-                     <span>ALoyfulGuy</span>
-                     <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub">
-                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Netlify_logo_%282%29.svg/1200px-Netlify_logo_%282%29.svg.png" alt="Netlify">
-                 </div>
+                <div id="speedrun-timer" class="speedrun-timer">00:00:00</div>
+                <!-- Owner Credit -->
+                <div class="owner-credit">
+                    <span>ALoyfulGuy</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Netlify_logo_%282%29.svg/1200px-Netlify_logo_%282%29.svg.png" alt="Netlify">
+                </div>
             </div>
 
             <!-- Resource Gathering Area Page -->
@@ -1092,7 +1311,7 @@
                     <div id="cooldown-bar-swim" class="cooldown-bar" style="width: 0;"></div>
                 </button>
             </div>
-            
+
             <!-- Dive Area Page -->
             <div id="dive-screen" class="dive-page">
                 <div id="dive-prep-area">
@@ -1118,7 +1337,7 @@
                                 </div>
                             </div>
                             <button id="use-bandage-button" class="game-button">Use Bandage (<span id="dive-bandage-count">0</span>)</button>
-                             <button id="build-habitat-button" class="game-button" style="display: none;">Build Habitat</button>
+                            <button id="build-habitat-button" class="game-button" style="display: none;">Build Habitat</button>
                         </div>
                         <div id="dive-inventory-display">
                             <!-- Dive inventory slots will be shown here -->
@@ -1127,7 +1346,7 @@
                     <p>Use arrow keys or WASD to move. Find # for loot. Return to $ to finish.</p>
                 </div>
             </div>
-            
+
             <!-- Crafting Area Page -->
             <div id="crafting-screen" class="craft-area-page">
                 <h2>CRAFTING</h2>
@@ -1145,7 +1364,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- New Workers Page -->
             <div id="workers-screen" class="workers-page">
                 <h1>WORKERS</h1>
@@ -1177,20 +1396,30 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Achievements Area Page -->
             <div id="achievements-screen" class="achievement-area-page">
                 <h1>Achievements</h1>
                 <div id="achievement-list-container" style="width: 100%; max-width: 600px;">
-                    <div class="achievement-rarity-section"><h2>Common</h2></div>
-                    <div class="achievement-rarity-section"><h2>Rare</h2></div>
-                    <div class="achievement-rarity-section"><h2>Legendary</h2></div>
-                    <div class="achievement-rarity-section"><h2>Mythical</h2></div>
-                    <div class="achievement-rarity-section"><h2>Secret</h2></div>
+                    <div class="achievement-rarity-section">
+                        <h2>Common</h2>
+                    </div>
+                    <div class="achievement-rarity-section">
+                        <h2>Rare</h2>
+                    </div>
+                    <div class="achievement-rarity-section">
+                        <h2>Legendary</h2>
+                    </div>
+                    <div class="achievement-rarity-section">
+                        <h2>Mythical</h2>
+                    </div>
+                    <div class="achievement-rarity-section">
+                        <h2>Secret</h2>
+                    </div>
                 </div>
                 <button id="back-button" class="game-button back-button">Back</button>
             </div>
-            
+
             <!-- Progression Area Page -->
             <div id="progression-screen" class="progression-page">
                 <h1>Story Progression</h1>
@@ -1207,7 +1436,7 @@
                 </div>
                 <button id="progression-back-button" class="game-button back-button">Back</button>
             </div>
-            
+
             <!-- Commands Area Page -->
             <div id="commands-screen" class="commands-page">
                 <h1>Admin Commands</h1>
@@ -1239,7 +1468,7 @@
                 </div>
                 <button id="commands-back-button" class="game-button back-button">Back</button>
             </div>
-            
+
             <!-- Save/Load Page -->
             <div id="save-load-screen" class="save-load-page">
                 <h1>Save & Load Game</h1>
@@ -1266,7 +1495,7 @@
                 <button id="bestiary-button" class="game-button" style="margin-top: 1rem;">Bestiary</button>
                 <button id="statistics-back-button" class="game-button back-button">Back</button>
             </div>
-            
+
             <!-- Bestiary Page -->
             <div id="bestiary-screen" class="bestiary-page">
                 <h1>Bestiary</h1>
@@ -1274,6 +1503,65 @@
                     <!-- Enemy info will be dynamically added here -->
                 </div>
                 <button id="bestiary-back-button" class="game-button back-button">Back to Stats</button>
+            </div>
+
+            <!-- Nursery Page -->
+            <div id="nursery-screen" class="nursery-page" style="display: none;">
+                <h2>Deep-Sea Creature Nursery</h2>
+                <div id="incubator-area">
+                    <h3>Incubators</h3>
+                    <div id="incubator-slots" style="display:flex;gap:16px;">
+                        <div class="incubator-slot" data-slot="0"></div>
+                        <div class="incubator-slot" data-slot="1"></div>
+                        <div class="incubator-slot" data-slot="2"></div>
+                        <div class="incubator-slot" data-slot="3"></div>
+                        <div class="incubator-slot" data-slot="4"></div>
+                    </div>
+                </div>
+                <div id="egg-inventory-area">
+                    <h3>Egg Inventory</h3>
+                    <div id="egg-inventory-list" style="display:flex;gap:12px;"></div>
+                </div>
+                <div id="pet-catalog-area">
+                    <h3>Pet Catalog</h3>
+                    <div id="pet-catalog-list" style="display:grid;grid-template-columns:repeat(5,32px);gap:4px;"></div>
+                    <div id="pet-detail-popup" style="display:none;"></div>
+                </div>
+                <button id="nursery-back-button" class="game-button back-button">Back</button>
+            </div>
+
+            <!-- Merchant Page -->
+            <div id="merchant-screen" class="merchant-page" style="display: none;">
+                <h2>Egg Merchant</h2>
+                <div id="pearl-display" style="margin-bottom:12px;">Pearls: <span id="pearl-count">0</span></div>
+                <div id="egg-shop">
+                    <div class="egg-box" data-type="common">
+                        <div class="egg-name">Common Egg</div>
+                        <div class="egg-art" style="font-size:28px;">⬯</div>
+                        <div class="egg-price">800 pearls</div>
+                    </div>
+                    <div class="egg-box" data-type="complex">
+                        <div class="egg-name">Complex Egg</div>
+                        <div class="egg-art" style="font-size:28px;">⬯</div>
+                        <div class="egg-price">2,400 pearls</div>
+                    </div>
+                    <div class="egg-box" data-type="elite">
+                        <div class="egg-name">Elite Egg</div>
+                        <div class="egg-art" style="font-size:28px;">⬯</div>
+                        <div class="egg-price">8,000 pearls</div>
+                    </div>
+                    <div class="egg-box" data-type="apocryphal">
+                        <div class="egg-name">Apocryphal Egg</div>
+                        <div class="egg-art" style="font-size:28px;">⬯</div>
+                        <div class="egg-price">20,000 pearls</div>
+                    </div>
+                    <div class="egg-box" data-type="secret">
+                        <div class="egg-name">Secret Egg</div>
+                        <div class="egg-art" style="font-size:28px;">⬯</div>
+                        <div class="egg-price">32,000 pearls</div>
+                    </div>
+                </div>
+                <button id="merchant-back-button" class="game-button back-button">Back</button>
             </div>
 
 
@@ -1291,7 +1579,7 @@
                         <span>Wood: </span>
                         <span id="wood-count">0</span>
                     </div>
-                     <div id="screws-item" class="inventory-item" style="display: none;">
+                    <div id="screws-item" class="inventory-item" style="display: none;">
                         <span>Screws: </span>
                         <span id="screws-count">0</span>
                     </div>
@@ -1325,10 +1613,10 @@
                     <div id="diving-gear-item" class="inventory-item" style="display: none;">
                         <span>Simple Diving Gear</span>
                     </div>
-                     <div id="dive-bag-item" class="inventory-item" style="display: none;">
+                    <div id="dive-bag-item" class="inventory-item" style="display: none;">
                         <span>Dive Bag</span>
                     </div>
-                     <div id="furnace-item" class="inventory-item" style="display: none;">
+                    <div id="furnace-item" class="inventory-item" style="display: none;">
                         <span>Furnace</span>
                     </div>
                     <div id="spear-item" class="inventory-item" style="display: none;">
@@ -1337,7 +1625,7 @@
                     <div id="air-tank-item" class="inventory-item" style="display: none;">
                         <span>Better Air Tank</span>
                     </div>
-                     <!-- New Dive Items -->
+                    <!-- New Dive Items -->
                     <div id="pearl-item" class="inventory-item" style="display: none;">
                         <span>Pearl: </span>
                         <span id="pearl-count">0</span>
@@ -1385,14 +1673,14 @@
             <button id="cut-rope-button" class="modal-button">Cut the Rope</button>
         </div>
     </div>
-    
+
     <div id="light-fire-modal" class="modal">
         <div class="modal-content">
             <p>You have a woodpile and a match. Use them to light the fire?</p>
             <button id="light-fire-button" class="modal-button">Light the Pile</button>
         </div>
     </div>
-    
+
     <!-- New modal for welcoming a new crew member -->
     <div id="new-person-modal" class="modal">
         <div class="modal-content">
@@ -1400,7 +1688,7 @@
             <button id="take-in-person-button" class="modal-button">Take In</button>
         </div>
     </div>
-    
+
     <!-- New modal for reinforced shelter crew members -->
     <div id="new-people-modal" class="modal">
         <div class="modal-content">
@@ -1409,7 +1697,7 @@
         </div>
     </div>
 
-    
+
     <!-- New modal for import confirmation -->
     <div id="import-confirm-modal" class="modal">
         <div class="modal-content">
@@ -1418,7 +1706,7 @@
             <button id="cancel-import-button" class="modal-button">Cancel</button>
         </div>
     </div>
-    
+
     <!-- The music control button and audio tag -->
     <button id="music-control" class="music-control-button">Music: Off</button>
     <button id="achievements-button" class="music-control-button" style="top: 70px;">Achievements</button>
@@ -1432,7 +1720,7 @@
 
     <!-- Achievement pop-up container -->
     <div id="achievement-container" class="achievement-container"></div>
-    
+
     <!-- New screen for the swimming loading animation -->
     <div id="swim-loading-screen" class="swim-loading-screen">
         <div class="bouncing-text">
@@ -1446,14 +1734,14 @@
             <div id="loading-bar" class="loading-bar"></div>
         </div>
     </div>
-    
+
     <!-- New modal for the swim game results -->
     <div id="swim-result-modal" class="modal">
         <div id="swim-result-modal-content" class="modal-content">
             <!-- Content will be dynamically populated -->
         </div>
     </div>
-    
+
     <!-- New modal for solo events -->
     <div id="solo-event-modal" class="modal">
         <div id="solo-event-modal-content" class="modal-content">
@@ -1472,7 +1760,7 @@
             <div id="dive-inventory-popup-content"></div>
         </div>
     </div>
-    
+
     <!-- New modal for Sunken Battleship choice -->
     <div id="battleship-choice-modal" class="modal">
         <div class="modal-content">
@@ -1487,7 +1775,7 @@
         </div>
     </div>
 
-    
+
     <!-- New modal for combat loot -->
     <div id="loot-modal" class="modal">
         <div id="loot-modal-content" class="modal-content">
@@ -1502,7 +1790,7 @@
             <button id="resume-game-button" class="modal-button">Resume</button>
         </div>
     </div>
-    
+
     <!-- New modal for combat -->
     <div id="combat-modal" class="modal">
         <div class="modal-content">
@@ -1538,7 +1826,7 @@
             <div id="combat-log"></div>
         </div>
     </div>
-    
+
     <!-- Wave Animation Container -->
     <div class="ocean">
         <div class="wave"></div>
@@ -1612,28 +1900,28 @@
         const assignSwimmerButton = document.getElementById('assign-swimmer');
         const recallWoodGathererButton = document.getElementById('recall-wood-gatherer');
         const recallSwimmerButton = document.getElementById('recall-swimmer');
-        
+
         // New elements for progression screen
         const progressionButton = document.getElementById('progression-button');
         const progressionScreen = document.getElementById('progression-screen');
         const progressionBackButton = document.getElementById('progression-back-button');
         const section2 = document.getElementById('section-2');
         const section3 = document.getElementById('section-3');
-        
+
         // Music control elements
         const musicControlBtn = document.getElementById('music-control');
         const backgroundMusic = document.getElementById('background-music');
         const clickSound = document.getElementById('click-sound');
-        
+
         // New elements for the loading screen
         const swimLoadingScreen = document.getElementById('swim-loading-screen');
         const loadingBar = document.getElementById('loading-bar');
         const bouncingText = document.querySelector('.bouncing-text');
-        
+
         // New elements for the solo event modal
         const soloEventModal = document.getElementById('solo-event-modal');
         const soloEventModalContent = document.getElementById('solo-event-modal-content');
-        
+
         // New elements for diving
         const diveTab = document.getElementById('dive-tab');
         const diveIndicator = document.getElementById('dive-indicator');
@@ -1665,7 +1953,7 @@
         const screwsItem = document.getElementById('screws-item');
         const screwsCountSpan = document.getElementById('screws-count');
 
-        
+
         // New elements for commands
         const commandsButton = document.getElementById('commands-button');
         const commandsScreen = document.getElementById('commands-screen');
@@ -1679,7 +1967,7 @@
         const godHealthToggle = document.getElementById('god-health-toggle');
         const noEnemiesToggle = document.getElementById('no-enemies-toggle');
         const commandsBackButton = document.getElementById('commands-back-button');
-        
+
         // New landmark and combat elements
         const landmarkModalContainer = document.getElementById('landmark-modal-container');
         const landmarkModalContent = document.getElementById('landmark-modal-content');
@@ -1701,7 +1989,7 @@
         const fleeButton = document.getElementById('flee-button');
         const battleshipChoiceModal = document.getElementById('battleship-choice-modal');
 
-        
+
         // Purity Crafting elements
         const purityCraftingContainer = document.getElementById('purity-crafting-container');
         const purityRecipesContainer = document.getElementById('purity-recipes-container');
@@ -1724,11 +2012,11 @@
         const importConfirmModal = document.getElementById('import-confirm-modal');
         const confirmImportButton = document.getElementById('confirm-import-button');
         const cancelImportButton = document.getElementById('cancel-import-button');
-        
+
         // Tangle button
         const tangleButton = document.getElementById('tangle-button');
         const tangleCooldownBar = document.getElementById('cooldown-bar-tangle');
-        
+
         // AFK elements
         const afkModal = document.getElementById('afk-modal');
         const resumeGameButton = document.getElementById('resume-game-button');
@@ -1742,12 +2030,12 @@
         const bestiaryScreen = document.getElementById('bestiary-screen');
         const bestiaryContainer = document.getElementById('bestiary-container');
         const bestiaryBackButton = document.getElementById('bestiary-back-button');
-        
+
         // Timer elements
         const speedrunTimer = document.getElementById('speedrun-timer');
 
 
-        
+
         // State variables to track game progress
         let searchCount = 0;
         let isFree = false;
@@ -1766,7 +2054,7 @@
         let selectedItems = new Set();
         let unlockedAchievements = new Set();
         let encounteredEnemies = new Set();
-        
+
         // New state for story progression and events
         let isSection2 = false;
         let isSection3 = false;
@@ -1779,7 +2067,7 @@
         let hasShownFireHint = false;
         let hasFoundRepairShip = false;
         let hasFoundBattleship = false;
-        
+
         // New state for workers and shelters
         let totalWorkers = 0;
         let idleWorkers = 0;
@@ -1789,7 +2077,7 @@
         let sheltersBuilt = 0;
         let reinforcedSheltersBuilt = 0;
         const MAX_REINFORCED_SHELTERS = 5;
-        
+
         // New state for diving
         let hasDivingGear = false;
         let hasSpear = false;
@@ -1810,12 +2098,15 @@
         let diveTools = [];
         let diveBandages = 0;
         let minigameMap = [];
-        let playerPosition = { x: 0, y: 0 };
+        let playerPosition = {
+            x: 0,
+            y: 0
+        };
         let playerPath = []; // To track path for safe routes
         let safePaths = []; // To store successful paths
         const MAP_SIZE = 51; // Increased map size
         let rareEnemyPathwayChance = 0.05; // Base 5% chance, increases
-        
+
         // New state for combat
         const DEFAULT_MAX_PLAYER_HEALTH = 15;
         let MAX_PLAYER_HEALTH = DEFAULT_MAX_PLAYER_HEALTH;
@@ -1840,13 +2131,13 @@
         let hasGodHealth = false;
         let noEnemies = false;
         let unlockedAdminCommands = new Set();
-        
+
         // New state for purity materials
         let tungstenCount = 0;
         let kevlarCount = 0;
         let reinforcedStoneCount = 0;
         let reinforcedWoodCount = 0;
-        
+
         // Cooldown durations & Timers
         const searchCooldownDuration = 700;
         let swimCooldownDuration = 90000;
@@ -1860,18 +2151,18 @@
         let isCooldownReduced = false;
         let initialSwimCooldown = 90000;
         let initialGatherCooldown = 4000;
-        
+
         // AFK Timer
         let afkTimer = null;
         const AFK_TIMEOUT = 300000; // 5 minutes
         let isGamePaused = false;
-        
+
         // Worker intervals
         const workerWoodInterval = 20000;
         const workerSwimInterval = 20000;
         let woodWorkerIntervals = [];
         let swimWorkerIntervals = [];
-        
+
         // Statistics tracking
         let gameStats = {
             totalWoodCollected: 0,
@@ -1882,7 +2173,7 @@
             totalDives: 0,
             enemiesSlain: {}
         };
-        
+
         // Timer state
         let gameTime = 0;
         let timerInterval = null;
@@ -1899,14 +2190,14 @@
             "Success! You have the knife. Now to get free.",
             "You have found a rusted knife. Use it to cut the ropes?",
         ];
-        
+
         const narrativeLogFree = [
             "You are free now. You look around, and all you see is an endless, black ocean.",
             "You notice some wooden crates floating in the water. Maybe you can grab some wood to build a fire.",
             "You see something glinting on the deck. It is a rusted axehead, without a handle. It's too heavy to wield.",
             "You continue searching the boat, but find nothing else of interest."
         ];
-        
+
         const narrativeLogAfterWoodpile = [
             "You continue to search the boat. It feels like you have searched every inch.",
             "You hear a sloshing sound, and you see a small puddle of thick, black oil on the deck. It seems to have leaked from a barrel.",
@@ -1917,7 +2208,7 @@
             "You search the boat again, but find nothing new of interest.",
             "Your fingers brush against a small, damp cardboard box. Inside, there is one single match, thankfully dry."
         ];
-        
+
         // Narrative text for solo events
         const section2NarrativeLines = [
             "A chilling gust of wind blows past you, making the boat creak ominously. You hug yourself for warmth.",
@@ -1928,22 +2219,86 @@
 
         // Achievement data
         const achievements = {
-            getting_free: { title: "Getting Free", description: "You cut the ropes that bound you.", rarity: "Common" },
-            axe_without_handle: { title: "Axe without the Handle", description: "You found a heavy, rusted axehead.", rarity: "Common" },
-            chop_chop_chop: { title: "Chop, Chop, Chop", description: "You gathered 5 pieces of wood.", rarity: "Common" },
-            woodpile_obtained: { title: "Woodpile Obtained", description: "You crafted a bundle of wood for a fire.", rarity: "Common" },
-            reeking_of_petroleum: { title: "Reeking of Petroleum", description: "You found a tiny cup of thick black oil.", rarity: "Common" },
-            one_and_only: { title: "One and Only", description: "You found a single match with one in the matchbox.", rarity: "Common" },
-            fire_lit: { title: "A Warm Glow", description: "You lit the fire and survived the cold.", rarity: "Rare" },
-            first_swim: { title: "First Swim", description: "You bravely swam into the dark ocean.", rarity: "Common" },
-            section_2_beginning: { title: "Section 2: Beginning to Begin", description: "You've successfully returned from your first swim.", rarity: "Rare" },
-            first_member: { title: "A Helping Hand", description: "You welcomed another person to your boat.", rarity: "Common" },
-            helpful_hands: { title: "Helpful Hands", description: "You received materials from one of your workers.", rarity: "Common" },
-            deep_diver: { title: "Deep Diver", description: "You crafted diving gear to explore the depths.", rarity: "Rare" },
-            deep_sea_dweller: { title: "Deep-Sea Dweller", description: "You placed your first underwater habitat.", rarity: "Rare" },
-            god_mode: { title: "You Little Sh*t", description: "You have enabled free crafting.", rarity: "Secret" },
-            afk_lol: { title: "You didn’t think that actually worked…", description: "You triggered the AFK timer.", rarity: "Secret" },
-            welcome_back: { title: "Welcome Back", description: "You loaded a previous save file.", rarity: "Legendary" }
+            getting_free: {
+                title: "Getting Free",
+                description: "You cut the ropes that bound you.",
+                rarity: "Common"
+            },
+            axe_without_handle: {
+                title: "Axe without the Handle",
+                description: "You found a heavy, rusted axehead.",
+                rarity: "Common"
+            },
+            chop_chop_chop: {
+                title: "Chop, Chop, Chop",
+                description: "You gathered 5 pieces of wood.",
+                rarity: "Common"
+            },
+            woodpile_obtained: {
+                title: "Woodpile Obtained",
+                description: "You crafted a bundle of wood for a fire.",
+                rarity: "Common"
+            },
+            reeking_of_petroleum: {
+                title: "Reeking of Petroleum",
+                description: "You found a tiny cup of thick black oil.",
+                rarity: "Common"
+            },
+            one_and_only: {
+                title: "One and Only",
+                description: "You found a single match with one in the matchbox.",
+                rarity: "Common"
+            },
+            fire_lit: {
+                title: "A Warm Glow",
+                description: "You lit the fire and survived the cold.",
+                rarity: "Rare"
+            },
+            first_swim: {
+                title: "First Swim",
+                description: "You bravely swam into the dark ocean.",
+                rarity: "Common"
+            },
+            section_2_beginning: {
+                title: "Section 2: Beginning to Begin",
+                description: "You've successfully returned from your first swim.",
+                rarity: "Rare"
+            },
+            first_member: {
+                title: "A Helping Hand",
+                description: "You welcomed another person to your boat.",
+                rarity: "Common"
+            },
+            helpful_hands: {
+                title: "Helpful Hands",
+                description: "You received materials from one of your workers.",
+                rarity: "Common"
+            },
+            deep_diver: {
+                title: "Deep Diver",
+                description: "You crafted diving gear to explore the depths.",
+                rarity: "Rare"
+            },
+            deep_sea_dweller: {
+                title: "Deep-Sea Dweller",
+                description: "You placed your first underwater habitat.",
+                rarity: "Rare"
+            },
+            god_mode: {
+                title: "You Little Sh*t",
+                description: "You have enabled free crafting.",
+                rarity: "Secret"
+            },
+            afk_lol: {
+                title: "You didn’t think that actually worked…",
+                description: "You triggered the AFK timer.",
+                rarity: "Secret"
+            },
+            welcome_back: {
+                title: "Welcome Back",
+                description: "You loaded a previous save file.",
+                rarity: "Legendary"
+            }
         };
 
         // Function to unlock an achievement and display the pop-up
@@ -1952,7 +2307,7 @@
                 return; // Already unlocked, do nothing
             }
             unlockedAchievements.add(achievementId);
-            
+
             const achievement = achievements[achievementId];
             const popup = document.createElement('div');
             popup.classList.add('achievement-popup');
@@ -1962,7 +2317,7 @@
                 <div class="achievement-rarity">${achievement.rarity}</div>
             `;
             achievementContainer.appendChild(popup);
-            
+
             // Remove the popup after the animation finishes
             setTimeout(() => {
                 popup.remove();
@@ -1983,7 +2338,7 @@
                     hasAnyAchievements = true;
                     const achievement = achievements[id];
                     const section = Array.from(document.querySelectorAll('.achievement-rarity-section h2')).find(h2 => h2.textContent.toLowerCase() === achievement.rarity.toLowerCase()).parentElement;
-                    
+
                     if (section) {
                         const item = document.createElement('div');
                         item.classList.add('achievement-list-item', 'unlocked');
@@ -2002,7 +2357,7 @@
                 document.querySelector('.achievement-rarity-section').appendChild(message);
             }
         }
-        
+
         // Function to add a narrative line to the panel with a fade-in effect
         function addNarrativeLine(text) {
             const p = document.createElement('p');
@@ -2025,11 +2380,11 @@
             void p.offsetWidth;
             p.style.opacity = '1';
             p.style.transform = 'translateY(0)';
-            
+
             // Scroll to the bottom of the narrative panel to show new text
             narrativePanel.scrollTop = narrativePanel.scrollHeight;
         }
-        
+
         // --- Cooldown and Timer Management ---
         let activeCooldowns = [];
 
@@ -2047,10 +2402,10 @@
 
             cooldownButton.classList.add('disabled');
             if (cooldownBar) cooldownBar.style.width = '100%';
-            
+
             let timeLeft = finalDuration;
             const interval = 100;
-            
+
             const timerData = {
                 button: cooldownButton,
                 bar: cooldownBar,
@@ -2064,20 +2419,20 @@
 
                 timerData.timeLeft -= interval;
                 const percentage = (timerData.timeLeft / timerData.duration) * 100;
-                if(timerData.bar) timerData.bar.style.width = percentage + '%';
+                if (timerData.bar) timerData.bar.style.width = percentage + '%';
 
                 if (timerData.timeLeft <= 0) {
                     clearInterval(timerId);
                     timerData.button.classList.remove('disabled');
-                    if(timerData.bar) timerData.bar.style.width = '0%';
+                    if (timerData.bar) timerData.bar.style.width = '0%';
                     activeCooldowns = activeCooldowns.filter(t => t.id !== timerId);
                 }
             }, interval);
-            
+
             timerData.id = timerId;
             activeCooldowns.push(timerData);
         }
-        
+
         // --- Modal and Popup Management ---
         function showModal(modalFunction) {
             if (isGamePaused) {
@@ -2100,17 +2455,17 @@
             totalWorkers++;
             idleWorkers++;
             updateWorkerStats();
-            
+
             if (totalWorkers === 1) {
                 unlockAchievement('first_member');
                 workersTab.style.display = 'block';
                 workersIndicator.style.display = 'block';
                 addNarrativeLine("You have a new crew member! You can now assign tasks to them in the new 'Workers' tab.");
             }
-            
+
             updateShelterRecipe();
         }
-        
+
         function recruitNewPeople() {
             newPeopleModal.style.display = 'none';
             totalWorkers += 2;
@@ -2118,7 +2473,7 @@
             updateWorkerStats();
             updateReinforcedShelterRecipe();
         }
-        
+
         // Function to handle shelter crafting
         function craftShelter() {
             if (sheltersBuilt >= shelterCosts.length) {
@@ -2138,18 +2493,18 @@
                 }
                 sheltersBuilt++;
                 addNarrativeLine(`You've built shelter #${sheltersBuilt}! It cost ${isFreeCrafting ? 0 : cost} wood.`);
-                
+
                 setTimeout(() => {
                     showModal(() => newPersonModal.style.display = 'flex');
                 }, 10000);
-                
+
                 updateShelterRecipe();
 
             } else {
                 addNarrativeLine(`You need ${cost} wood to build the next shelter. You only have ${woodCount}.`);
             }
         }
-        
+
         function craftReinforcedShelter() {
             if (reinforcedSheltersBuilt >= MAX_REINFORCED_SHELTERS) {
                 addNarrativeLine("You have built the maximum number of reinforced shelters.");
@@ -2172,12 +2527,12 @@
                 }
                 reinforcedSheltersBuilt++;
                 addNarrativeLine(`You've built reinforced shelter #${reinforcedSheltersBuilt}!`);
-                
+
                 const randomDelay = Math.random() * 5000 + 5000; // 5-10 seconds
                 setTimeout(() => {
                     showModal(() => newPeopleModal.style.display = 'flex');
                 }, randomDelay);
-                
+
                 updateReinforcedShelterRecipe();
 
             } else {
@@ -2185,7 +2540,7 @@
             }
         }
 
-        
+
         // Function to dynamically add or update a crafting recipe
         function addCraftingRecipe(name, cost, buttonId, recipeId, clickHandler, containerId = 'crafting-recipes-container', description = null) {
             const container = document.getElementById(containerId);
@@ -2216,7 +2571,7 @@
                 updateReinforcedShelterRecipe(); // Show reinforced shelter recipe when max normal shelters are built
                 return;
             }
-            
+
             const cost = shelterCosts[sheltersBuilt];
             const name = `Small Shelter #${sheltersBuilt + 1}`;
             const buttonId = `craft-shelter-${sheltersBuilt}`;
@@ -2234,7 +2589,7 @@
                 newButton.addEventListener('click', craftShelter);
             }
         }
-        
+
         function updateReinforcedShelterRecipe() {
             const recipeId = 'craft-reinforced-shelter-recipe';
             let recipe = document.getElementById(recipeId);
@@ -2243,7 +2598,7 @@
                 if (recipe) recipe.style.display = 'none';
                 return;
             }
-            
+
             const woodCost = 25 + (reinforcedSheltersBuilt * 25);
             const reinforcedWoodCost = 2;
             const name = `Reinforced Shelter #${reinforcedSheltersBuilt + 1}`;
@@ -2332,7 +2687,7 @@
                 addNarrativeLine("You search the boat again, but find nothing new.");
             }
         }
-        
+
         // Function to handle gathering wood
         function gatherWood() {
             if (gatherWoodButton.classList.contains('disabled')) return;
@@ -2368,7 +2723,7 @@
                 addNarrativeLine(`You need 5 wood. You only have ${woodCount}.`);
             }
         }
-        
+
         // Function to handle clicking inventory items
         function handleInventoryClick(item) {
             if (selectedItems.has(item)) {
@@ -2399,8 +2754,8 @@
 
         // Function to handle switching between screens
         function switchScreen(screen) {
-            const allScreens = [gameScreen, resourceGatheringScreen, craftingScreen, achievementsScreen, progressionScreen, workersScreen, diveScreen, commandsScreen, saveLoadScreen, statisticsScreen, bestiaryScreen];
-            const allTabs = [gameTab, resourceTab, craftingTab, achievementsTab, workersTab, diveTab];
+            const allScreens = [gameScreen, resourceGatheringScreen, craftingScreen, achievementsScreen, progressionScreen, workersScreen, diveScreen, commandsScreen, saveLoadScreen, statisticsScreen, bestiaryScreen, document.getElementById('nursery-screen'), document.getElementById('merchant-screen')];
+            const allTabs = [gameTab, resourceTab, craftingTab, achievementsTab, workersTab, diveTab, document.getElementById('nursery-tab'), document.getElementById('merchant-tab')];
 
             allScreens.forEach(s => s.style.display = 'none');
             allTabs.forEach(t => t.classList.remove('active'));
@@ -2428,7 +2783,7 @@
                 progressionScreen.style.display = 'flex';
                 if (isSection2) section2.classList.remove('locked');
                 else section2.classList.add('locked');
-                 if (isSection3) section3.classList.remove('locked');
+                if (isSection3) section3.classList.remove('locked');
                 else section3.classList.add('locked');
             } else if (screen === 'workers') {
                 workersScreen.style.display = 'flex';
@@ -2451,9 +2806,15 @@
             } else if (screen === 'bestiary') {
                 bestiaryScreen.style.display = 'flex';
                 updateBestiaryScreen();
+            } else if (screen === 'nursery') {
+                document.getElementById('nursery-screen').style.display = 'block';
+                document.getElementById('nursery-tab').classList.add('active');
+            } else if (screen === 'merchant') {
+                document.getElementById('merchant-screen').style.display = 'block';
+                document.getElementById('merchant-tab').classList.add('active');
             }
         }
-        
+
         // Function to handle the knife click
         function openKnifeModal() {
             showModal(() => cutRopeModal.style.display = 'flex');
@@ -2471,7 +2832,7 @@
             isFree = true;
             searchCount = 0;
         }
-        
+
         // Function to handle music play/pause
         function toggleMusic() {
             if (backgroundMusic.paused) {
@@ -2484,7 +2845,7 @@
                 musicControlBtn.textContent = 'Music: Off';
             }
         }
-        
+
         // --- Solo Event Logic ---
         function loseRandomItem() {
             const availableItems = [];
@@ -2493,14 +2854,14 @@
             if (fabricCount > 0) availableItems.push('Fabric');
             if (ropeCount > 0) availableItems.push('Rope');
             if (metallicScrapCount > 0) availableItems.push('Metallic Scrap');
-            
+
             if (availableItems.length === 0) return "Nothing was lost.";
             const itemToLose = availableItems[Math.floor(Math.random() * availableItems.length)];
-            
+
             addItemToInventory(itemToLose, -1);
             return `A piece of ${itemToLose.toLowerCase()} was knocked overboard.`;
         }
-        
+
         function applyTemporaryReduction(type, reduction) {
             if (isCooldownReduced) return;
             isCooldownReduced = true;
@@ -2508,7 +2869,7 @@
             const originalGather = initialGatherCooldown;
             if (type === 'all' || type === 'swim') swimCooldownDuration *= reduction;
             if (type === 'all' || type === 'gather') gatherCooldownDuration *= reduction;
-            
+
             setTimeout(() => {
                 if (!isGamePaused) {
                     swimCooldownDuration = originalSwim;
@@ -2519,18 +2880,70 @@
             }, cooldownReductionDuration);
         }
 
-        const soloEvents = [
-            { type: 'good', title: "A Curious Bottle", description: "You found a bottle with a strange, shimmering liquid inside.", effect: () => { applyTemporaryReduction('swim', 0.5); addNarrativeLine("Swim cooldown halved for 2 minutes!"); } },
-            { type: 'good', title: "Plankton Bloom", description: "Luminous plankton makes it easier to find things.", effect: () => { applyTemporaryReduction('gather', 0.7); addNarrativeLine("Gather cooldown reduced for 2 minutes!"); } },
-            { type: 'good', title: "Lost Fishing Net", description: "You find a discarded fishing net containing two pieces of Rope.", effect: () => addItemToInventory('Rope', 2) },
-            { type: 'good', title: "A Swarm of Fish", description: "A school of fish passes by, leaving a sharp stone on your deck.", effect: () => addItemToInventory('Stone', 1) },
-            { type: 'good', title: "Drifting Debris", description: "A large piece of driftwood floats by with metallic scrap embedded in it.", effect: () => addItemToInventory('Metallic Scrap', 2) },
-            { type: 'good', title: "A Sudden Gust of Wind", description: "An unexpected gust of wind gives you a burst of energy.", effect: () => { applyTemporaryReduction('all', 0.9); addNarrativeLine("All cooldowns reduced by 10% for 2 minutes!"); } },
-            { type: 'good', title: "A Calm Moment", description: "The waves and wind fall completely still. Your mind sharpens.", effect: () => { startCooldown(swimButton, swimCooldownBar, 0); startCooldown(gatherWoodButton, gatherCooldownBar, 0); addNarrativeLine("Swim and gather cooldowns have been reset!"); } },
-            { type: 'bad', title: "Unexpected Scrape", description: "A jagged piece of debris scrapes the boat. A random item falls from the deck.", effect: () => addNarrativeLine(loseRandomItem()) },
-            { type: 'bad', title: "A Corrupted Pouch", description: "You spot a pouch, but a rogue wave hits. The pouch is lost, and so is a random item.", effect: () => addNarrativeLine(loseRandomItem()) },
-            { type: 'bad', title: "Loose Gear", description: "While adjusting your gear, a loose clasp snaps open. A random item slips into the water.", effect: () => addNarrativeLine(loseRandomItem()) }
-        ];
+        const soloEvents = [{
+            type: 'good',
+            title: "A Curious Bottle",
+            description: "You found a bottle with a strange, shimmering liquid inside.",
+            effect: () => {
+                applyTemporaryReduction('swim', 0.5);
+                addNarrativeLine("Swim cooldown halved for 2 minutes!");
+            }
+        }, {
+            type: 'good',
+            title: "Plankton Bloom",
+            description: "Luminous plankton makes it easier to find things.",
+            effect: () => {
+                applyTemporaryReduction('gather', 0.7);
+                addNarrativeLine("Gather cooldown reduced for 2 minutes!");
+            }
+        }, {
+            type: 'good',
+            title: "Lost Fishing Net",
+            description: "You find a discarded fishing net containing two pieces of Rope.",
+            effect: () => addItemToInventory('Rope', 2)
+        }, {
+            type: 'good',
+            title: "A Swarm of Fish",
+            description: "A school of fish passes by, leaving a sharp stone on your deck.",
+            effect: () => addItemToInventory('Stone', 1)
+        }, {
+            type: 'good',
+            title: "Drifting Debris",
+            description: "A large piece of driftwood floats by with metallic scrap embedded in it.",
+            effect: () => addItemToInventory('Metallic Scrap', 2)
+        }, {
+            type: 'good',
+            title: "A Sudden Gust of Wind",
+            description: "An unexpected gust of wind gives you a burst of energy.",
+            effect: () => {
+                applyTemporaryReduction('all', 0.9);
+                addNarrativeLine("All cooldowns reduced by 10% for 2 minutes!");
+            }
+        }, {
+            type: 'good',
+            title: "A Calm Moment",
+            description: "The waves and wind fall completely still. Your mind sharpens.",
+            effect: () => {
+                startCooldown(swimButton, swimCooldownBar, 0);
+                startCooldown(gatherWoodButton, gatherCooldownBar, 0);
+                addNarrativeLine("Swim and gather cooldowns have been reset!");
+            }
+        }, {
+            type: 'bad',
+            title: "Unexpected Scrape",
+            description: "A jagged piece of debris scrapes the boat. A random item falls from the deck.",
+            effect: () => addNarrativeLine(loseRandomItem())
+        }, {
+            type: 'bad',
+            title: "A Corrupted Pouch",
+            description: "You spot a pouch, but a rogue wave hits. The pouch is lost, and so is a random item.",
+            effect: () => addNarrativeLine(loseRandomItem())
+        }, {
+            type: 'bad',
+            title: "Loose Gear",
+            description: "While adjusting your gear, a loose clasp snaps open. A random item slips into the water.",
+            effect: () => addNarrativeLine(loseRandomItem())
+        }];
 
         function triggerSoloEvent() {
             const randomEvent = soloEvents[Math.floor(Math.random() * soloEvents.length)];
@@ -2544,12 +2957,14 @@
                     randomEvent.effect();
                     soloEventModal.style.display = 'none';
                     startSoloEventTimer();
-                }, { once: true });
+                }, {
+                    once: true
+                });
                 soloEventModal.style.display = 'flex';
             };
             showModal(modalFn);
         }
-        
+
         function checkAndTriggerSoloEvent() {
             if (isPlayerSwimming || isPlayerDiving) {
                 eventQueue.push(soloEvents[Math.floor(Math.random() * soloEvents.length)]);
@@ -2557,7 +2972,7 @@
                 triggerSoloEvent();
             }
         }
-        
+
         function processQueuedEvents() {
             if (eventQueue.length > 0) {
                 const queuedEvent = eventQueue.shift();
@@ -2571,19 +2986,23 @@
                         queuedEvent.effect();
                         soloEventModal.style.display = 'none';
                         startSoloEventTimer();
-                    }, { once: true });
+                    }, {
+                        once: true
+                    });
                     soloEventModal.style.display = 'flex';
                 };
                 showModal(modalFn);
             }
         }
-        
+
         function startSoloEventTimer() {
             if (soloEventTimer) clearTimeout(soloEventTimer);
             const randomTime = Math.random() * (420000 - 180000) + 180000;
-            soloEventTimer = setTimeout(() => { if (!isGamePaused) checkAndTriggerSoloEvent(); }, randomTime);
+            soloEventTimer = setTimeout(() => {
+                if (!isGamePaused) checkAndTriggerSoloEvent();
+            }, randomTime);
         }
-        
+
         function startNarrativeTimer() {
             if (narrativeTimer) clearTimeout(narrativeTimer);
             const randomTime = Math.random() * (120000 - 60000) + 60000;
@@ -2604,7 +3023,7 @@
             }
             // Swim lock for reinforced shelters
             if (sheltersBuilt === 5 && reinforcedSheltersBuilt > 0 && (totalWorkers - 5) / 2 < reinforcedSheltersBuilt) {
-                 addNarrativeLine("You are busy building a reinforced shelter and cannot swim right now.");
+                addNarrativeLine("You are busy building a reinforced shelter and cannot swim right now.");
                 return;
             }
             if (swimButton.classList.contains('disabled')) return;
@@ -2615,8 +3034,9 @@
             inventoryPanel.style.display = 'none';
             swimLoadingScreen.style.display = 'flex';
             loadingBar.style.width = '0%';
-            
+
             let startTime = null;
+
             function updateLoadingBar(timestamp) {
                 if (isGamePaused) {
                     startTime = null; // Reset start time when paused
@@ -2635,13 +3055,13 @@
             addNarrativeLine("You dive into the cold, dark water...");
             unlockAchievement('first_swim');
         }
-        
+
         function findMaterial() {
             isPlayerSwimming = false;
             const materials = ['Wood', 'Stone', 'Fabric', 'Rope', 'Metallic Scrap'];
             const reward = materials[Math.floor(Math.random() * materials.length)];
             const quantity = Math.floor(Math.random() * 5) + 1;
-            
+
             swimLoadingScreen.style.display = 'none';
             const modalFn = () => {
                 swimResultModal.style.display = 'flex';
@@ -2649,14 +3069,14 @@
                     <p>You found <b>${quantity} ${reward}</b>!</p>
                     <button id="collect-and-return-button" class="modal-button">Collect and return</button>
                 `;
-                
+
                 document.getElementById('collect-and-return-button').addEventListener('click', () => {
                     gameContainerWrapper.classList.add('camera-shake');
                     setTimeout(() => gameContainerWrapper.classList.remove('camera-shake'), 500);
 
                     addItemToInventory(reward, quantity);
                     swimResultModal.style.display = 'none';
-                    
+
                     if (!isSection2) {
                         isSection2 = true;
                         unlockAchievement('section_2_beginning');
@@ -2666,7 +3086,7 @@
                         craftingIndicator.style.display = 'block';
                         updateShelterRecipe();
                         addCraftingRecipe(`Simple Diving Gear`, `5 Fabric, 2 Stone, 1 Metallic, 1 Rope`, `craft-diving-gear`, `diving-gear-recipe`, craftDivingGear);
-                         addCraftingRecipe('Dive Bag', '10 Fabric, 5 Rope', 'craft-dive-bag', 'dive-bag-recipe', craftDiveBag, 'crafting-recipes-container', 'Increases dive inventory by 4 slots.');
+                        addCraftingRecipe('Dive Bag', '10 Fabric, 5 Rope', 'craft-dive-bag', 'dive-bag-recipe', craftDiveBag, 'crafting-recipes-container', 'Increases dive inventory by 4 slots.');
                     }
 
                     startCooldown(swimButton, swimCooldownBar, swimCooldownDuration);
@@ -2674,11 +3094,13 @@
                     switchScreen('game');
                     processQueuedEvents();
                     processPopupQueue();
-                }, { once: true });
+                }, {
+                    once: true
+                });
             };
             showModal(modalFn);
         }
-        
+
         // --- Worker Logic ---
         function updateWorkerStats() {
             idleWorkers = totalWorkers - woodGatherers - swimmers;
@@ -2721,7 +3143,7 @@
                 addNarrativeLine("You have no idle workers to assign.");
             }
         }
-        
+
         function recallWorker(task) {
             if (task === 'wood' && woodGatherers > 0) {
                 woodGatherers--;
@@ -2738,54 +3160,166 @@
         }
 
         function addItemToInventory(item, quantity) {
-            switch(item) {
-                case 'Wood': woodCount += quantity; gameStats.totalWoodCollected += quantity > 0 ? quantity : 0; break;
-                case 'Stone': stoneCount += quantity; gameStats.totalStoneCollected += quantity > 0 ? quantity : 0; break;
-                case 'Fabric': fabricCount += quantity; gameStats.totalFabricCollected += quantity > 0 ? quantity : 0; break;
-                case 'Rope': ropeCount += quantity; gameStats.totalRopeCollected += quantity > 0 ? quantity : 0; break;
-                case 'Metallic Scrap': metallicScrapCount += quantity; gameStats.totalMetallicScrapCollected += quantity > 0 ? quantity : 0; break;
-                case 'Pearl': pearlCount += quantity; break;
-                case 'Harpoon Gun': hasHarpoonGun = true; break;
-                case 'Harpoon Ammo': harpoonAmmoCount += quantity; break;
-                case 'Bandage': bandageCount += quantity; break;
-                case 'Screws': screwsCount += quantity; break;
-                case 'Tungsten': tungstenCount += quantity; break;
-                case 'Kevlar': kevlarCount += quantity; break;
-                case 'Reinforced Stone': reinforcedStoneCount += quantity; break;
-                case 'Reinforced Wood': reinforcedWoodCount += quantity; break;
+            switch (item) {
+                case 'Wood':
+                    woodCount += quantity;
+                    gameStats.totalWoodCollected += quantity > 0 ? quantity : 0;
+                    break;
+                case 'Stone':
+                    stoneCount += quantity;
+                    gameStats.totalStoneCollected += quantity > 0 ? quantity : 0;
+                    break;
+                case 'Fabric':
+                    fabricCount += quantity;
+                    gameStats.totalFabricCollected += quantity > 0 ? quantity : 0;
+                    break;
+                case 'Rope':
+                    ropeCount += quantity;
+                    gameStats.totalRopeCollected += quantity > 0 ? quantity : 0;
+                    break;
+                case 'Metallic Scrap':
+                    metallicScrapCount += quantity;
+                    gameStats.totalMetallicScrapCollected += quantity > 0 ? quantity : 0;
+                    break;
+                case 'Pearl':
+                    pearlCount += quantity;
+                    break;
+                case 'Harpoon Gun':
+                    hasHarpoonGun = true;
+                    break;
+                case 'Harpoon Ammo':
+                    harpoonAmmoCount += quantity;
+                    break;
+                case 'Bandage':
+                    bandageCount += quantity;
+                    break;
+                case 'Screws':
+                    screwsCount += quantity;
+                    break;
+                case 'Tungsten':
+                    tungstenCount += quantity;
+                    break;
+                case 'Kevlar':
+                    kevlarCount += quantity;
+                    break;
+                case 'Reinforced Stone':
+                    reinforcedStoneCount += quantity;
+                    break;
+                case 'Reinforced Wood':
+                    reinforcedWoodCount += quantity;
+                    break;
             }
             updateAllResourceCounts();
         }
-        
+
         // --- Diving Logic ---
         const enemies = {
-            moray: { id: 'moray', name: 'Moray Eel', health: 6, minDmg: 1, maxDmg: 2, cooldown: 1500, attackName: 'Snag' },
-            hatchetfish: { id: 'hatchetfish', name: 'Hatchetfish', health: 5, minDmg: 2, maxDmg: 3, cooldown: 1500, attackName: 'Chomp' },
-            stargazer: { id: 'stargazer', name: 'Stargazer', health: 8, minDmg: 3, maxDmg: 3, cooldown: 2300, attackName: 'Charged Bite' },
-            catshark: { id: 'catshark', name: 'Deep-Sea Catshark', health: 15, minDmg: 1, maxDmg: 1, cooldown: 1500, attackName: 'Bite' },
-            spider: { id: 'spider', name: 'Colossal Sea Spider', health: 15, minDmg: 2, maxDmg: 3, cooldown: 1000, attackName: 'Stab', special: 'whip' },
-            viperfish: { id: 'viperfish', name: 'Viperfish', health: 20, minDmg: 1, maxDmg: 1, cooldown: 1000, attackName: 'Snag' },
-            gulpereel: { id: 'gulpereel', name: 'Gulper Eel', health: 20, minDmg: 2, maxDmg: 3, cooldown: 2000, attackName: 'Bite' },
-            whalefish: { id: 'whalefish', name: 'Whalefish', health: 30, minDmg: 1, maxDmg: 1, cooldown: 500, attackName: 'Ram', special: 'headbutt' }
+            moray: {
+                id: 'moray',
+                name: 'Moray Eel',
+                health: 6,
+                minDmg: 1,
+                maxDmg: 2,
+                cooldown: 1500,
+                attackName: 'Snag'
+            },
+            hatchetfish: {
+                id: 'hatchetfish',
+                name: 'Hatchetfish',
+                health: 5,
+                minDmg: 2,
+                maxDmg: 3,
+                cooldown: 1500,
+                attackName: 'Chomp'
+            },
+            stargazer: {
+                id: 'stargazer',
+                name: 'Stargazer',
+                health: 8,
+                minDmg: 3,
+                maxDmg: 3,
+                cooldown: 2300,
+                attackName: 'Charged Bite'
+            },
+            catshark: {
+                id: 'catshark',
+                name: 'Deep-Sea Catshark',
+                health: 15,
+                minDmg: 1,
+                maxDmg: 1,
+                cooldown: 1500,
+                attackName: 'Bite'
+            },
+            spider: {
+                id: 'spider',
+                name: 'Colossal Sea Spider',
+                health: 15,
+                minDmg: 2,
+                maxDmg: 3,
+                cooldown: 1000,
+                attackName: 'Stab',
+                special: 'whip'
+            },
+            viperfish: {
+                id: 'viperfish',
+                name: 'Viperfish',
+                health: 20,
+                minDmg: 1,
+                maxDmg: 1,
+                cooldown: 1000,
+                attackName: 'Snag'
+            },
+            gulpereel: {
+                id: 'gulpereel',
+                name: 'Gulper Eel',
+                health: 20,
+                minDmg: 2,
+                maxDmg: 3,
+                cooldown: 2000,
+                attackName: 'Bite'
+            },
+            whalefish: {
+                id: 'whalefish',
+                name: 'Whalefish',
+                health: 30,
+                minDmg: 1,
+                maxDmg: 1,
+                cooldown: 500,
+                attackName: 'Ram',
+                special: 'headbutt'
+            }
         };
-        
+
         const landmarks = {
-            common: [
-                { name: 'Kelp Forest', lootTable: ['Metallic Scrap', 'Fabric', 'Rope'] },
-                { name: 'Coral Reef', lootTable: ['Stone', 'Fabric'] },
-                { name: 'Dying Coral Reef', lootTable: ['Stone', 'Metallic Scrap'] }
-            ],
-            rare: [
-                { name: 'Sunken Battleship', lootTable: [] },
-                { name: 'Sunken Yacht', lootTable: ['Fabric', 'Rope', 'Pearl'] },
-                { name: 'Sunken Repair Ship', lootTable: ['Metallic Scrap', 'Screws'] }
-            ]
+            common: [{
+                name: 'Kelp Forest',
+                lootTable: ['Metallic Scrap', 'Fabric', 'Rope']
+            }, {
+                name: 'Coral Reef',
+                lootTable: ['Stone', 'Fabric']
+            }, {
+                name: 'Dying Coral Reef',
+                lootTable: ['Stone', 'Metallic Scrap']
+            }],
+            rare: [{
+                name: 'Sunken Battleship',
+                lootTable: []
+            }, {
+                name: 'Sunken Yacht',
+                lootTable: ['Fabric', 'Rope', 'Pearl']
+            }, {
+                name: 'Sunken Repair Ship',
+                lootTable: ['Metallic Scrap', 'Screws']
+            }]
         };
 
         function craftDivingGear() {
             if (isFreeCrafting || (fabricCount >= 5 && stoneCount >= 2 && metallicScrapCount >= 1 && ropeCount >= 1)) {
                 if (!isFreeCrafting) {
-                    fabricCount -= 5; stoneCount -= 2; metallicScrapCount -= 1; ropeCount -= 1;
+                    fabricCount -= 5;
+                    stoneCount -= 2;
+                    metallicScrapCount -= 1;
+                    ropeCount -= 1;
                     updateAllResourceCounts();
                 }
                 hasDivingGear = true;
@@ -2803,11 +3337,12 @@
                 addNarrativeLine("You don't have enough materials.");
             }
         }
-        
+
         function craftDiveBag() {
             if (isFreeCrafting || (fabricCount >= 10 && ropeCount >= 5)) {
                 if (!isFreeCrafting) {
-                    fabricCount -= 10; ropeCount -= 5;
+                    fabricCount -= 10;
+                    ropeCount -= 5;
                     updateAllResourceCounts();
                 }
                 hasDiveBag = true;
@@ -2819,11 +3354,13 @@
                 addNarrativeLine("You don't have enough materials.");
             }
         }
-        
+
         function craftFurnace() {
             if (isFreeCrafting || (metallicScrapCount >= 10 && tungstenCount >= 2 && woodCount >= 50)) {
                 if (!isFreeCrafting) {
-                    metallicScrapCount -= 10; tungstenCount -= 2; woodCount -= 50;
+                    metallicScrapCount -= 10;
+                    tungstenCount -= 2;
+                    woodCount -= 50;
                     updateAllResourceCounts();
                 }
                 hasFurnace = true;
@@ -2835,11 +3372,12 @@
                 addNarrativeLine("You don't have enough materials.");
             }
         }
-        
+
         function craftScrews() {
             if (isFreeCrafting || (metallicScrapCount >= 1 && stoneCount >= 1)) {
                 if (!isFreeCrafting) {
-                    metallicScrapCount -= 1; stoneCount -= 1;
+                    metallicScrapCount -= 1;
+                    stoneCount -= 1;
                     updateAllResourceCounts();
                 }
                 addItemToInventory('Screws', 1);
@@ -2848,7 +3386,7 @@
                 addNarrativeLine("You don't have enough materials.");
             }
         }
-        
+
         function craftUnderwaterHabitat() {
             if (habitatsBuilt >= MAX_HABITATS) {
                 addNarrativeLine("You have built the maximum number of habitats.");
@@ -2856,7 +3394,9 @@
             }
             if (isFreeCrafting || (tungstenCount >= 3 && metallicScrapCount >= 45 && screwsCount >= 100)) {
                 if (!isFreeCrafting) {
-                    tungstenCount -= 3; metallicScrapCount -= 45; screwsCount -= 100;
+                    tungstenCount -= 3;
+                    metallicScrapCount -= 45;
+                    screwsCount -= 100;
                     updateAllResourceCounts();
                 }
                 habitatsBuilt++;
@@ -2877,27 +3417,36 @@
             }
             if (isFreeCrafting || (woodCount >= 2 && stoneCount >= 1 && metallicScrapCount >= 1 && ropeCount >= 1)) {
                 if (!isFreeCrafting) {
-                    woodCount -= 2; stoneCount -= 1; metallicScrapCount -= 1; ropeCount -= 1;
+                    woodCount -= 2;
+                    stoneCount -= 1;
+                    metallicScrapCount -= 1;
+                    ropeCount -= 1;
                     updateAllResourceCounts();
                 }
                 hasSpear = true;
                 spearItem.style.display = 'flex';
                 addNarrativeLine("You've crafted a sturdy Spear.");
-            } else { addNarrativeLine("You lack the materials."); }
+            } else {
+                addNarrativeLine("You lack the materials.");
+            }
         }
 
         function craftBetterAirTank() {
             if (isFreeCrafting || (stoneCount >= 5 && ropeCount >= 1 && fabricCount >= 2)) {
                 if (!isFreeCrafting) {
-                    stoneCount -= 5; ropeCount -= 1; fabricCount -= 2;
+                    stoneCount -= 5;
+                    ropeCount -= 1;
+                    fabricCount -= 2;
                     updateAllResourceCounts();
                 }
                 hasBetterAirTank = true;
                 airTankItem.style.display = 'flex';
                 addNarrativeLine("You've crafted a Better Air Tank.");
-            } else { addNarrativeLine("You can't craft this without the right materials."); }
+            } else {
+                addNarrativeLine("You can't craft this without the right materials.");
+            }
         }
-        
+
         function craftFishingNet() {
             if (isFreeCrafting || ropeCount >= 20) {
                 if (!isFreeCrafting) {
@@ -2907,71 +3456,107 @@
                 hasFishingNet = true;
                 fishingNetItem.style.display = 'flex';
                 addNarrativeLine("You've crafted a Fishing Net.");
-            } else { addNarrativeLine("You need 20 rope."); }
+            } else {
+                addNarrativeLine("You need 20 rope.");
+            }
         }
-        
+
         function craftBandage() {
             if (isFreeCrafting || (fabricCount >= 2 && woodCount >= 1)) {
                 if (!isFreeCrafting) {
-                    fabricCount -= 2; woodCount -= 1;
+                    fabricCount -= 2;
+                    woodCount -= 1;
                     updateAllResourceCounts();
                 }
                 addItemToInventory('Bandage', 1);
                 addNarrativeLine("You've crafted a simple bandage.");
-            } else { addNarrativeLine("You need 2 Fabric and 1 Wood."); }
+            } else {
+                addNarrativeLine("You need 2 Fabric and 1 Wood.");
+            }
         }
-        
+
         function craftHarpoonGun() {
             if (isFreeCrafting || (tungstenCount >= 5 && kevlarCount >= 1 && reinforcedStoneCount >= 2 && ropeCount >= 10)) {
                 if (!isFreeCrafting) {
-                    tungstenCount -= 5; kevlarCount -= 1; reinforcedStoneCount -= 2; ropeCount -= 10;
+                    tungstenCount -= 5;
+                    kevlarCount -= 1;
+                    reinforcedStoneCount -= 2;
+                    ropeCount -= 10;
                     updateAllResourceCounts();
                 }
                 hasHarpoonGun = true;
                 harpoonGunItem.style.display = 'flex';
                 document.getElementById('harpoon-gun-recipe').style.display = 'none';
                 addNarrativeLine("You've crafted a powerful Harpoon Gun.");
-            } else { addNarrativeLine("You lack the materials for the Harpoon Gun."); }
+            } else {
+                addNarrativeLine("You lack the materials for the Harpoon Gun.");
+            }
         }
 
         function craftHarpoonAmmo() {
             if (isFreeCrafting || (reinforcedStoneCount >= 1 && metallicScrapCount >= 1)) {
                 if (!isFreeCrafting) {
-                    reinforcedStoneCount -= 1; metallicScrapCount -= 1;
+                    reinforcedStoneCount -= 1;
+                    metallicScrapCount -= 1;
                     updateAllResourceCounts();
                 }
                 addItemToInventory('Harpoon Ammo', 2);
                 addNarrativeLine("You crafted 2 Harpoon Ammo.");
-            } else { addNarrativeLine("You need 1 Reinforced Stone and 1 Metallic Scrap."); }
+            } else {
+                addNarrativeLine("You need 1 Reinforced Stone and 1 Metallic Scrap.");
+            }
         }
-        
+
         function craftTungsten() {
             if (isFreeCrafting || metallicScrapCount >= 50) {
-                if (!isFreeCrafting) { metallicScrapCount -= 50; updateAllResourceCounts(); }
+                if (!isFreeCrafting) {
+                    metallicScrapCount -= 50;
+                    updateAllResourceCounts();
+                }
                 addItemToInventory('Tungsten', 1);
                 addNarrativeLine("You smelted scrap into a dense Tungsten ingot.");
-            } else { addNarrativeLine("Not enough Metallic Scrap."); }
+            } else {
+                addNarrativeLine("Not enough Metallic Scrap.");
+            }
         }
+
         function craftKevlar() {
             if (isFreeCrafting || fabricCount >= 100) {
-                if (!isFreeCrafting) { fabricCount -= 100; updateAllResourceCounts(); }
+                if (!isFreeCrafting) {
+                    fabricCount -= 100;
+                    updateAllResourceCounts();
+                }
                 addItemToInventory('Kevlar', 1);
                 addNarrativeLine("You wove fabric into a sheet of durable Kevlar.");
-            } else { addNarrativeLine("Not enough Fabric."); }
+            } else {
+                addNarrativeLine("Not enough Fabric.");
+            }
         }
+
         function craftReinforcedStone() {
             if (isFreeCrafting || stoneCount >= 50) {
-                if (!isFreeCrafting) { stoneCount -= 50; updateAllResourceCounts(); }
+                if (!isFreeCrafting) {
+                    stoneCount -= 50;
+                    updateAllResourceCounts();
+                }
                 addItemToInventory('Reinforced Stone', 1);
                 addNarrativeLine("You compressed stones into a block of Reinforced Stone.");
-            } else { addNarrativeLine("Not enough Stone."); }
+            } else {
+                addNarrativeLine("Not enough Stone.");
+            }
         }
+
         function craftReinforcedWood() {
             if (isFreeCrafting || woodCount >= 50) {
-                if (!isFreeCrafting) { woodCount -= 50; updateAllResourceCounts(); }
+                if (!isFreeCrafting) {
+                    woodCount -= 50;
+                    updateAllResourceCounts();
+                }
                 addItemToInventory('Reinforced Wood', 1);
                 addNarrativeLine("You treated and bound wood, making it unnaturally strong.");
-            } else { addNarrativeLine("Not enough Wood."); }
+            } else {
+                addNarrativeLine("Not enough Wood.");
+            }
         }
 
         function updateDivePrepUI() {
@@ -2985,20 +3570,30 @@
         }
 
         function generateMinigameMap() {
-            minigameMap = Array(MAP_SIZE).fill(null).map(() => Array(MAP_SIZE).fill({ type: 'path' }));
+            minigameMap = Array(MAP_SIZE).fill(null).map(() => Array(MAP_SIZE).fill({
+                type: 'path'
+            }));
             const center = Math.floor(MAP_SIZE / 2);
-            
+
             const totalLandmarks = 20;
             for (let i = 0; i < totalLandmarks; i++) {
                 const x = Math.floor(Math.random() * MAP_SIZE);
                 const y = Math.floor(Math.random() * MAP_SIZE);
                 const distFromCenter = Math.sqrt(Math.pow(x - center, 2) + Math.pow(y - center, 2));
                 let landmarkType = (distFromCenter > MAP_SIZE * 0.3 && Math.random() < 0.3) ? landmarks.rare[Math.floor(Math.random() * landmarks.rare.length)] : landmarks.common[Math.floor(Math.random() * landmarks.common.length)];
-                if (x !== center || y !== center) minigameMap[y][x] = { type: 'landmark', details: landmarkType };
+                if (x !== center || y !== center) minigameMap[y][x] = {
+                    type: 'landmark',
+                    details: landmarkType
+                };
             }
 
-            minigameMap[center][center] = { type: 'boat' };
-            playerPosition = { x: center, y: center };
+            minigameMap[center][center] = {
+                type: 'boat'
+            };
+            playerPosition = {
+                x: center,
+                y: center
+            };
         }
 
         function renderMinigame() {
@@ -3032,16 +3627,16 @@
                 return;
             }
             if (beginDiveButton.classList.contains('disabled')) return;
-            
+
             rareEnemyPathwayChance = 0.05; // Reset rare enemy chance
             isPlayerDiving = true;
             gameStats.totalDives++;
             divePrepArea.style.display = 'none';
             diveMinigameArea.style.display = 'flex';
-            
+
             // Reset used status for habitats at the start of a new dive
             placedHabitats.forEach(h => h.usedThisDive = false);
-            
+
             MAX_PLAYER_HEALTH = hasGodHealth ? 500 : DEFAULT_MAX_PLAYER_HEALTH;
             playerHealth = MAX_PLAYER_HEALTH;
             diveMoves = 20;
@@ -3053,7 +3648,7 @@
             const netCheckbox = document.getElementById('select-net');
             const harpoonCheckbox = document.getElementById('select-harpoon');
             const bandageInput = document.getElementById('select-bandages');
-            
+
             diveBandages = 0;
             if (bandageInput && parseInt(bandageInput.value) > 0) {
                 const bandagesToTake = Math.min(bandageCount, parseInt(bandageInput.value));
@@ -3062,28 +3657,38 @@
                 bandageCountSpan.textContent = bandageCount;
             }
 
-            if (airTankCheckbox && airTankCheckbox.checked) { diveMoves += 20; diveTools.push('air-tank'); }
-            if (spearCheckbox && spearCheckbox.checked) { diveTools.push('spear'); }
-            if (netCheckbox && netCheckbox.checked) { diveTools.push('net'); }
-            if (harpoonCheckbox && harpoonCheckbox.checked) { diveTools.push('harpoon'); }
+            if (airTankCheckbox && airTankCheckbox.checked) {
+                diveMoves += 20;
+                diveTools.push('air-tank');
+            }
+            if (spearCheckbox && spearCheckbox.checked) {
+                diveTools.push('spear');
+            }
+            if (netCheckbox && netCheckbox.checked) {
+                diveTools.push('net');
+            }
+            if (harpoonCheckbox && harpoonCheckbox.checked) {
+                diveTools.push('harpoon');
+            }
 
             diveInventory = [];
             generateMinigameMap(); // This regenerates landmarks every dive
             renderMinigame();
             document.addEventListener('keydown', handlePlayerMovement);
         }
-        
+
         function handlePlayerMovement(e) {
             if (isPlayerInCombat) {
-                 if (e.key === '1') playerAttack('fist');
-                 else if (e.key === '2' && diveTools.includes('spear')) playerAttack('spear');
-                 else if (e.key === '3' && diveTools.includes('net')) playerTangle();
-                 else if (e.key === '4' && diveTools.includes('harpoon')) playerAttack('harpoon');
-                 else if (e.key === '0') useBandage();
+                if (e.key === '1') playerAttack('fist');
+                else if (e.key === '2' && diveTools.includes('spear')) playerAttack('spear');
+                else if (e.key === '3' && diveTools.includes('net')) playerTangle();
+                else if (e.key === '4' && diveTools.includes('harpoon')) playerAttack('harpoon');
+                else if (e.key === '0') useBandage();
                 return;
             }
 
-            let newX = playerPosition.x, newY = playerPosition.y;
+            let newX = playerPosition.x,
+                newY = playerPosition.y;
             if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w') newY--;
             else if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') newY++;
             else if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') newX--;
@@ -3091,8 +3696,14 @@
             else return;
 
             if (newY >= 0 && newY < MAP_SIZE && newX >= 0 && newX < MAP_SIZE) {
-                playerPosition = { x: newX, y: newY };
-                playerPath.push({x: newX, y: newY});
+                playerPosition = {
+                    x: newX,
+                    y: newY
+                };
+                playerPath.push({
+                    x: newX,
+                    y: newY
+                });
                 if (!hasInfiniteMoves) diveMoves--;
 
                 const currentTile = minigameMap[newY][newX];
@@ -3101,15 +3712,14 @@
 
                 if (habitatAtLocation && !habitatAtLocation.usedThisDive) {
                     useHabitat(habitatAtLocation);
-                }
-                else if (currentTile.type === 'path' && !noEnemies && !isOnSafePath) {
+                } else if (currentTile.type === 'path' && !noEnemies && !isOnSafePath) {
                     // Check for rare enemies first
                     if (Math.random() < rareEnemyPathwayChance) {
                         const rareEnemies = [enemies.whalefish, enemies.spider];
                         startCombat(rareEnemies[Math.floor(Math.random() * rareEnemies.length)]);
                         rareEnemyPathwayChance = 0.05; // Reset chance
                         return; // Stop further checks
-                    } 
+                    }
                     // Then check for common enemies
                     else if (Math.random() < 0.15) { // 15% chance for common
                         const commonEnemies = Object.values(enemies).filter(e => !['whalefish', 'spider'].includes(e.id));
@@ -3121,7 +3731,9 @@
 
                 } else if (currentTile.type === 'landmark') {
                     openLandmark(currentTile.details);
-                    minigameMap[newY][newX] = { type: 'path' };
+                    minigameMap[newY][newX] = {
+                        type: 'path'
+                    };
                 } else if (currentTile.type === 'boat') {
                     endDive(true);
                     return;
@@ -3131,7 +3743,7 @@
                 if (diveMoves <= 0 && !hasInfiniteMoves) endDive(false);
             }
         }
-        
+
         function endDive(isSuccess) {
             document.removeEventListener('keydown', handlePlayerMovement);
             isPlayerDiving = false;
@@ -3140,16 +3752,19 @@
             startCooldown(beginDiveButton, diveCooldownBar, diveCooldownDuration);
             MAX_PLAYER_HEALTH = DEFAULT_MAX_PLAYER_HEALTH; // Reset health
             rareEnemyPathwayChance = 0.05; // Reset rare enemy chance
-            
+
             bandageCount += diveBandages; // Return unused bandages
             bandageCountSpan.textContent = bandageCount;
-            
+
             if (isSuccess) {
                 addNarrativeLine("You returned to the boat safely.");
                 // Merge unique path coordinates into safePaths
                 const pathSet = new Set(safePaths.map(p => `${p.x},${p.y}`));
                 playerPath.forEach(p => pathSet.add(`${p.x},${p.y}`));
-                safePaths = Array.from(pathSet).map(s => ({ x: parseInt(s.split(',')[0]), y: parseInt(s.split(',')[1]) }));
+                safePaths = Array.from(pathSet).map(s => ({
+                    x: parseInt(s.split(',')[0]),
+                    y: parseInt(s.split(',')[1])
+                }));
 
                 diveInventory.forEach(slot => {
                     if (slot) {
@@ -3173,18 +3788,18 @@
                     spearItem.style.display = 'none';
                     addNarrativeLine("Your spear was lost in the depths.");
                 }
-                 if (!hasFoundRepairShip) { // Still unlock recipes on first dive failure
+                if (!hasFoundRepairShip) { // Still unlock recipes on first dive failure
                     showRepairShipRecipes();
                 }
             }
             diveInventory = [];
             diveTools = [];
-            
+
             switchScreen('game');
             processQueuedEvents();
             processPopupQueue();
         }
-        
+
         // --- Landmark & Combat Logic ---
         function openLandmark(details) {
             if (details.name === 'Sunken Battleship') {
@@ -3199,7 +3814,7 @@
                 return;
             }
 
-             if (details.name === 'Sunken Repair Ship' && !hasFoundRepairShip) {
+            if (details.name === 'Sunken Repair Ship' && !hasFoundRepairShip) {
                 showRepairShipRecipes();
                 hasFoundRepairShip = true;
                 const modalFn = () => {
@@ -3208,12 +3823,14 @@
                     popup.style.display = 'flex';
                     popup.innerHTML = `<div class="modal-content"><p>You've discovered new crafting recipes!</p><button class="modal-button">OK</button></div>`;
                     document.body.appendChild(popup);
-                    popup.querySelector('button').addEventListener('click', () => popup.remove(), { once: true });
+                    popup.querySelector('button').addEventListener('click', () => popup.remove(), {
+                        once: true
+                    });
                 };
                 showModal(modalFn);
             }
             let tempDiveInv = JSON.parse(JSON.stringify(diveInventory)); // Create a temporary copy for this interaction
-            
+
             const renderLandmark = (secondPhase = false) => {
                 let lootHTML = `<h3>${secondPhase ? 'Further Exploration' : 'You explored the'} ${details.name}</h3>`;
                 const lootOptions = [];
@@ -3221,7 +3838,10 @@
                 for (let i = 0; i < 4; i++) {
                     const item = availableLoot[Math.floor(Math.random() * availableLoot.length)];
                     const quantity = Math.floor(Math.random() * 4) + 1; // 1-4
-                    lootOptions.push({ item, quantity });
+                    lootOptions.push({
+                        item,
+                        quantity
+                    });
                 }
 
                 lootHTML += '<p>Choose what to take:</p><div id="landmark-choices">';
@@ -3232,9 +3852,9 @@
                 if (!secondPhase) lootHTML += `<button id="explore-further" class="modal-button">Explore Further</button>`;
                 lootHTML += `<button id="confirm-landmark" class="modal-button">Confirm & Leave</button></div>`;
                 landmarkModalContent.innerHTML = lootHTML;
-                
+
                 renderDiveInventoryPopup(tempDiveInv);
-                
+
                 document.querySelectorAll('.choice-button').forEach(btn => {
                     btn.addEventListener('click', () => {
                         const item = btn.dataset.item;
@@ -3258,22 +3878,26 @@
                         } else {
                             renderLandmark(true);
                         }
-                    }, { once: true });
+                    }, {
+                        once: true
+                    });
                 }
 
                 document.getElementById('confirm-landmark').addEventListener('click', () => {
                     diveInventory = tempDiveInv; // Finalize inventory
                     landmarkModalContainer.style.display = 'none';
                     renderMinigame();
-                }, { once: true });
+                }, {
+                    once: true
+                });
             };
-            
+
             showModal(() => {
                 landmarkModalContainer.style.display = 'flex';
                 renderLandmark();
             });
         }
-        
+
         function renderDiveInventoryPopup(inventory) {
             let invHTML = '';
             for (let i = 0; i < DIVE_INV_SLOTS; i++) {
@@ -3308,7 +3932,10 @@
             // Try to add to a new slot
             while (remainingQuantity > 0 && inventory.length < DIVE_INV_SLOTS) {
                 const amountToAdd = Math.min(remainingQuantity, DIVE_STACK_LIMIT);
-                inventory.push({ item: item, quantity: amountToAdd });
+                inventory.push({
+                    item: item,
+                    quantity: amountToAdd
+                });
                 remainingQuantity -= amountToAdd;
             }
             return remainingQuantity;
@@ -3326,7 +3953,9 @@
                     addCombatLog(`You used a bandage and healed for ${healedAmount} HP.`);
                     isHealOnCooldown = true;
                     startCooldown(healButton, healCooldownBar, healCooldownDuration);
-                    setTimeout(() => { isHealOnCooldown = false; }, getCooldownDuration(healCooldownDuration));
+                    setTimeout(() => {
+                        isHealOnCooldown = false;
+                    }, getCooldownDuration(healCooldownDuration));
                     updateHealthBars();
                 } else {
                     addNarrativeLine(`You used a bandage and healed for ${healedAmount} HP.`);
@@ -3334,38 +3963,42 @@
                 }
             }
         }
-        
+
         function startCombat(enemyData, noLoot = false) {
             isPlayerInCombat = true;
-            currentEnemy = { ...enemyData, noLoot };
+            currentEnemy = { ...enemyData,
+                noLoot
+            };
             combatTurnCounter = 0;
             enemyHealth = currentEnemy.health;
             maxEnemyHealth = currentEnemy.health;
             encounteredEnemies.add(currentEnemy.id);
-            
+
             showModal(() => {
                 combatModal.style.display = 'flex';
                 enemyName.textContent = currentEnemy.name;
                 updateHealthBars();
                 combatLog.innerHTML = `<div>A wild ${currentEnemy.name} appears!</div>`;
-                
+
                 spearAttackButton.style.display = diveTools.includes('spear') ? 'inline-block' : 'none';
                 tangleButton.style.display = diveTools.includes('net') ? 'inline-block' : 'none';
                 harpoonAttackButton.style.display = diveTools.includes('harpoon') && harpoonAmmoCount > 0 ? 'inline-block' : 'none';
-                
+
                 enemyAttackInterval = setInterval(enemyAttack, currentEnemy.cooldown);
             });
         }
-        
+
         function playerAttack(type) {
             if (!isPlayerInCombat || isPlayerStunned) return;
-            
+
             if (Math.random() < 0.10) { // 10% miss chance
                 addCombatLog("Your attack missed!");
                 return;
             }
 
-            let damage = 0, cooldown = 850, attackName = '';
+            let damage = 0,
+                cooldown = 850,
+                attackName = '';
             if (type === 'fist' && !fistAttackButton.classList.contains('disabled') && !isFistDisabled) {
                 damage = Math.floor(Math.random() * 2) + 1;
                 attackName = 'punched';
@@ -3386,21 +4019,21 @@
                     return;
                 }
             } else return;
-            
+
             enemyHealth -= damage;
             addCombatLog(`You ${attackName} the ${currentEnemy.name} for ${damage} damage.`);
             updateHealthBars();
             if (enemyHealth <= 0) endCombat('win');
         }
-        
+
         function playerTangle() {
             if (!isPlayerInCombat || isPlayerStunned || tangleButton.classList.contains('disabled')) return;
-            
+
             addCombatLog(`You tangle the ${currentEnemy.name}!`);
             isEnemyStunned = true;
             clearInterval(enemyAttackInterval); // Stop enemy attacks
             startCooldown(tangleButton, tangleCooldownBar, tangleCooldownDuration);
-            
+
             // Set a timeout to unstun the enemy
             enemyStunTimeout = setTimeout(() => {
                 if (isPlayerInCombat) { // Only if combat is still ongoing
@@ -3411,45 +4044,50 @@
                 enemyStunTimeout = null;
             }, 2000);
         }
-        
+
         function enemyAttack() {
             if (isEnemyStunned || isGamePaused) return;
             combatTurnCounter++;
-            
+
             if (currentEnemy.special === 'whip' && combatTurnCounter > 1) {
                 currentEnemy.special = null;
                 isPlayerStunned = true;
                 fistAttackButton.classList.add('stunned-button');
                 spearAttackButton.classList.add('stunned-button');
                 addCombatLog(`The ${currentEnemy.name} whips its leg, stunning you!`);
-                setTimeout(() => { 
-                    if(!isGamePaused) { 
-                        isPlayerStunned = false; 
+                setTimeout(() => {
+                    if (!isGamePaused) {
+                        isPlayerStunned = false;
                         fistAttackButton.classList.remove('stunned-button');
                         spearAttackButton.classList.remove('stunned-button');
-                        addCombatLog("You are no longer stunned."); 
-                    } 
+                        addCombatLog("You are no longer stunned.");
+                    }
                 }, 3000);
                 return;
             }
             if (currentEnemy.special === 'headbutt' && combatTurnCounter % 5 === 0) {
                 isFistDisabled = true;
                 addCombatLog(`The ${currentEnemy.name} headbutts you, jarring your arms!`);
-                setTimeout(() => { if(!isGamePaused) { isFistDisabled = false; addCombatLog("You can use your fists again."); } }, 3000);
+                setTimeout(() => {
+                    if (!isGamePaused) {
+                        isFistDisabled = false;
+                        addCombatLog("You can use your fists again.");
+                    }
+                }, 3000);
             }
 
             if (Math.random() < 0.2) {
                 addCombatLog(`The ${currentEnemy.name}'s attack missed!`);
                 return;
             }
-            
+
             const damage = Math.floor(Math.random() * (currentEnemy.maxDmg - currentEnemy.minDmg + 1)) + currentEnemy.minDmg;
             playerHealth -= damage;
             addCombatLog(`The ${currentEnemy.name} used ${currentEnemy.attackName} for ${damage} damage.`);
             updateHealthBars();
             if (playerHealth <= 0) endCombat('loss');
         }
-        
+
         function attemptFlee() {
             if (fleeButton.classList.contains('disabled')) return;
             startCooldown(fleeButton, null, 2000);
@@ -3460,7 +4098,7 @@
                 addCombatLog("You failed to escape!");
             }
         }
-        
+
         function endCombat(result) {
             clearInterval(enemyAttackInterval);
             if (enemyStunTimeout) {
@@ -3468,7 +4106,7 @@
                 enemyStunTimeout = null;
             }
             isPlayerInCombat = false;
-            
+
             if (result === 'win') {
                 const enemyType = currentEnemy.name;
                 if (!gameStats.enemiesSlain[enemyType]) gameStats.enemiesSlain[enemyType] = 0;
@@ -3490,7 +4128,7 @@
                     endDive(false);
                 }, 1500);
             } else if (result === 'flee') {
-                 setTimeout(() => {
+                setTimeout(() => {
                     combatModal.style.display = 'none';
                     renderMinigame();
                 }, 1500);
@@ -3500,7 +4138,7 @@
         function showLootPopup() {
             const enemyType = currentEnemy.name;
             let droppedItem, dropQuantity;
-            
+
             if (['Colossal Sea Spider', 'Whalefish'].includes(enemyType)) {
                 if (Math.random() < 0.45) {
                     const purityMaterials = ['Tungsten', 'Kevlar', 'Reinforced Stone', 'Reinforced Wood'];
@@ -3533,11 +4171,13 @@
                 document.getElementById('close-loot-modal').addEventListener('click', () => {
                     lootModal.style.display = 'none';
                     renderMinigame();
-                }, { once: true });
+                }, {
+                    once: true
+                });
             };
             showModal(modalFn);
         }
-        
+
         function updateHealthBars() {
             playerHealth = Math.max(0, playerHealth);
             const playerHealthPercent = (playerHealth / MAX_PLAYER_HEALTH) * 100;
@@ -3545,14 +4185,14 @@
             divePlayerHealthBar.style.width = `${playerHealthPercent}%`;
             playerHealthText.textContent = `${playerHealth} / ${MAX_PLAYER_HEALTH}`;
             diveHealthText.textContent = `${playerHealth} / ${MAX_PLAYER_HEALTH}`;
-            
+
             if (isPlayerInCombat) {
                 enemyHealth = Math.max(0, enemyHealth);
                 enemyHealthBar.style.width = `${(enemyHealth / maxEnemyHealth) * 100}%`;
                 enemyHealthText.textContent = `${enemyHealth} / ${maxEnemyHealth}`;
             }
         }
-        
+
         function addCombatLog(text) {
             combatLog.innerHTML += `<div>${text}</div>`;
             combatLog.scrollTop = combatLog.scrollHeight;
@@ -3590,57 +4230,169 @@
                     unlockedAdminCommands.add(commandId);
                     adminStatus.textContent = `Command unlocked: ${toggleContainer.querySelector('span').textContent}`;
                 }
+            } else if (code === 'naturalpetmagnet') {
+                petsCatalog.forEach(p => p.unlocked = true);
+                petUnlockAdmin = true;
+                renderPetCatalog();
+                addNarrativeLine("All pets unlocked via admin code!");
             } else {
                 adminStatus.textContent = 'Incorrect Code.';
             }
             adminCodeInput.value = '';
         }
-        
+
         function prepareSaveData() {
             const gameState = {
-                resources: { wood: woodCount, stone: stoneCount, fabric: fabricCount, rope: ropeCount, scrap: metallicScrapCount, bandage: bandageCount, pearl: pearlCount, ammo: harpoonAmmoCount, screws: screwsCount },
-                purity: { tungsten: tungstenCount, kevlar: kevlarCount, rStone: reinforcedStoneCount, rWood: reinforcedWoodCount },
-                flags: { search: searchCount, isFree, axeheadFound, hasWoodpile: hasUnlitWoodpile, hasLiquid: hasFlammableLiquid, hasMatch, isSection2, isSection3, fireHint: hasShownFireHint, foundRepairShip: hasFoundRepairShip, foundBattleship: hasFoundBattleship },
-                crafted: { gear: hasDivingGear, spear: hasSpear, tank: hasBetterAirTank, gun: hasHarpoonGun, net: hasFishingNet, diveBag: hasDiveBag, furnace: hasFurnace },
-                workers: { total: totalWorkers, idle: idleWorkers, wood: woodGatherers, swim: swimmers, shelters: sheltersBuilt, rShelters: reinforcedSheltersBuilt },
+                resources: {
+                    wood: woodCount,
+                    stone: stoneCount,
+                    fabric: fabricCount,
+                    rope: ropeCount,
+                    scrap: metallicScrapCount,
+                    bandage: bandageCount,
+                    pearl: pearlCount,
+                    ammo: harpoonAmmoCount,
+                    screws: screwsCount
+                },
+                purity: {
+                    tungsten: tungstenCount,
+                    kevlar: kevlarCount,
+                    rStone: reinforcedStoneCount,
+                    rWood: reinforcedWoodCount
+                },
+                flags: {
+                    search: searchCount,
+                    isFree,
+                    axeheadFound,
+                    hasWoodpile: hasUnlitWoodpile,
+                    hasLiquid: hasFlammableLiquid,
+                    hasMatch,
+                    isSection2,
+                    isSection3,
+                    fireHint: hasShownFireHint,
+                    foundRepairShip: hasFoundRepairShip,
+                    foundBattleship: hasFoundBattleship
+                },
+                crafted: {
+                    gear: hasDivingGear,
+                    spear: hasSpear,
+                    tank: hasBetterAirTank,
+                    gun: hasHarpoonGun,
+                    net: hasFishingNet,
+                    diveBag: hasDiveBag,
+                    furnace: hasFurnace
+                },
+                workers: {
+                    total: totalWorkers,
+                    idle: idleWorkers,
+                    wood: woodGatherers,
+                    swim: swimmers,
+                    shelters: sheltersBuilt,
+                    rShelters: reinforcedSheltersBuilt
+                },
                 achievements: Array.from(unlockedAchievements),
-                admin: { mode: isAdminMode, free: isFreeCrafting, fast: isCooldownHacked, infMoves: hasInfiniteMoves, godHealth: hasGodHealth, noEnemies: noEnemies, unlocked: Array.from(unlockedAdminCommands) },
+                admin: {
+                    mode: isAdminMode,
+                    free: isFreeCrafting,
+                    fast: isCooldownHacked,
+                    infMoves: hasInfiniteMoves,
+                    godHealth: hasGodHealth,
+                    noEnemies: noEnemies,
+                    unlocked: Array.from(unlockedAdminCommands)
+                },
                 paths: safePaths,
-                habitats: { built: habitatsBuilt, placed: placedHabitats },
+                habitats: {
+                    built: habitatsBuilt,
+                    placed: placedHabitats
+                },
                 stats: gameStats,
                 time: gameTime,
-                enemies: Array.from(encounteredEnemies)
+                enemies: Array.from(encounteredEnemies),
+                // PATCH SAVE
+                pearls,
+                eggInventory,
+                incubatorSlots,
+                petsCatalog,
+                equippedPets,
+                starterEggGiven,
             };
             exportTextarea.value = btoa(JSON.stringify(gameState));
         }
-        
+
         function confirmImport() {
             if (importTextarea.value.trim() !== '') {
                 showModal(() => importConfirmModal.style.display = 'flex');
             }
         }
-        
+
         function loadGame() {
             importConfirmModal.style.display = 'none';
             try {
                 const savedState = JSON.parse(atob(importTextarea.value));
-                
-                woodCount = savedState.resources.wood || 0; stoneCount = savedState.resources.stone || 0; fabricCount = savedState.resources.fabric || 0; ropeCount = savedState.resources.rope || 0; metallicScrapCount = savedState.resources.scrap || 0; bandageCount = savedState.resources.bandage || 0; pearlCount = savedState.resources.pearl || 0; harpoonAmmoCount = savedState.resources.ammo || 0; screwsCount = savedState.resources.screws || 0;
-                tungstenCount = savedState.purity.tungsten || 0; kevlarCount = savedState.purity.kevlar || 0; reinforcedStoneCount = savedState.purity.rStone || 0; reinforcedWoodCount = savedState.purity.rWood || 0;
-                searchCount = savedState.flags.search || 0; isFree = savedState.flags.isFree || false; axeheadFound = savedState.flags.axeheadFound || false; hasUnlitWoodpile = savedState.flags.hasWoodpile || false; hasFlammableLiquid = savedState.flags.hasLiquid || false; hasMatch = savedState.flags.hasMatch || false; isSection2 = savedState.flags.isSection2 || false; isSection3 = savedState.flags.isSection3 || false; hasShownFireHint = savedState.flags.fireHint || false; hasFoundRepairShip = savedState.flags.foundRepairShip || false; hasFoundBattleship = savedState.flags.foundBattleship || false;
-                hasDivingGear = savedState.crafted.gear || false; hasSpear = savedState.crafted.spear || false; hasBetterAirTank = savedState.crafted.tank || false; hasHarpoonGun = savedState.crafted.gun || false; hasFishingNet = savedState.crafted.net || false; hasDiveBag = savedState.crafted.diveBag || false; hasFurnace = savedState.crafted.furnace || false;
-                totalWorkers = savedState.workers.total || 0; woodGatherers = savedState.workers.wood || 0; swimmers = savedState.workers.swim || 0; sheltersBuilt = savedState.workers.shelters || 0; reinforcedSheltersBuilt = savedState.workers.rShelters || 0;
+
+                woodCount = savedState.resources.wood || 0;
+                stoneCount = savedState.resources.stone || 0;
+                fabricCount = savedState.resources.fabric || 0;
+                ropeCount = savedState.resources.rope || 0;
+                metallicScrapCount = savedState.resources.scrap || 0;
+                bandageCount = savedState.resources.bandage || 0;
+                pearlCount = savedState.resources.pearl || 0;
+                harpoonAmmoCount = savedState.resources.ammo || 0;
+                screwsCount = savedState.resources.screws || 0;
+                tungstenCount = savedState.purity.tungsten || 0;
+                kevlarCount = savedState.purity.kevlar || 0;
+                reinforcedStoneCount = savedState.purity.rStone || 0;
+                reinforcedWoodCount = savedState.purity.rWood || 0;
+                searchCount = savedState.flags.search || 0;
+                isFree = savedState.flags.isFree || false;
+                axeheadFound = savedState.flags.axeheadFound || false;
+                hasUnlitWoodpile = savedState.flags.hasWoodpile || false;
+                hasFlammableLiquid = savedState.flags.hasLiquid || false;
+                hasMatch = savedState.flags.hasMatch || false;
+                isSection2 = savedState.flags.isSection2 || false;
+                isSection3 = savedState.flags.isSection3 || false;
+                hasShownFireHint = savedState.flags.fireHint || false;
+                hasFoundRepairShip = savedState.flags.foundRepairShip || false;
+                hasFoundBattleship = savedState.flags.foundBattleship || false;
+                hasDivingGear = savedState.crafted.gear || false;
+                hasSpear = savedState.crafted.spear || false;
+                hasBetterAirTank = savedState.crafted.tank || false;
+                hasHarpoonGun = savedState.crafted.gun || false;
+                hasFishingNet = savedState.crafted.net || false;
+                hasDiveBag = savedState.crafted.diveBag || false;
+                hasFurnace = savedState.crafted.furnace || false;
+                totalWorkers = savedState.workers.total || 0;
+                woodGatherers = savedState.workers.wood || 0;
+                swimmers = savedState.workers.swim || 0;
+                sheltersBuilt = savedState.workers.shelters || 0;
+                reinforcedSheltersBuilt = savedState.workers.rShelters || 0;
                 unlockedAchievements = new Set(savedState.achievements || []);
                 if (savedState.admin) {
-                    isAdminMode = savedState.admin.mode || false; isFreeCrafting = savedState.admin.free || false; isCooldownHacked = savedState.admin.fast || false; hasInfiniteMoves = savedState.admin.infMoves || false; hasGodHealth = savedState.admin.godHealth || false; noEnemies = savedState.admin.noEnemies || false;
+                    isAdminMode = savedState.admin.mode || false;
+                    isFreeCrafting = savedState.admin.free || false;
+                    isCooldownHacked = savedState.admin.fast || false;
+                    hasInfiniteMoves = savedState.admin.infMoves || false;
+                    hasGodHealth = savedState.admin.godHealth || false;
+                    noEnemies = savedState.admin.noEnemies || false;
                     unlockedAdminCommands = new Set(savedState.admin.unlocked || []);
                 }
                 safePaths = savedState.paths || [];
                 habitatsBuilt = savedState.habitats.built || 0;
                 placedHabitats = savedState.habitats.placed || [];
-                gameStats = savedState.stats || { totalWoodCollected: 0, enemiesSlain: {} };
+                gameStats = savedState.stats || {
+                    totalWoodCollected: 0,
+                    enemiesSlain: {}
+                };
                 gameTime = savedState.time || 0;
                 encounteredEnemies = new Set(savedState.enemies || []);
+
+                // PATCH LOAD
+                pearls = savedState.pearls || 0;
+                eggInventory = savedState.eggInventory || [];
+                incubatorSlots = savedState.incubatorSlots || [null, null, null, null, null];
+                petsCatalog = savedState.petsCatalog || [];
+                equippedPets = savedState.equippedPets || [];
+                starterEggGiven = !!savedState.starterEggGiven;
 
 
                 updateUIFromLoad();
@@ -3652,7 +4404,7 @@
                 console.error("Load error:", error);
             }
         }
-        
+
         function updateUIFromLoad() {
             updateAllResourceCounts();
             axeItem.style.display = axeheadFound ? 'block' : 'none';
@@ -3673,7 +4425,7 @@
             workersTab.style.display = totalWorkers > 0 ? 'block' : 'none';
             diveTab.style.display = hasDivingGear ? 'block' : 'none';
             updateWorkerStats();
-            
+
             // Admin toggles from save
             freeCraftingToggle.checked = isFreeCrafting;
             fastCooldownsToggle.checked = isCooldownHacked;
@@ -3684,7 +4436,7 @@
                 const container = document.getElementById(`${id}-container`);
                 if (container) container.style.display = 'flex';
             });
-            
+
             // Re-add crafting recipes
             document.getElementById('crafting-recipes-container').innerHTML = `<div class="crafting-recipe" id="woodpile-recipe"><p>Unlit Woodpile</p><p>Requires: 5 Wood</p><button id="craft-woodpile-button" class="game-button">Craft</button></div>`;
             document.getElementById('craft-woodpile-button').addEventListener('click', craftWoodpile);
@@ -3699,11 +4451,11 @@
                 addCraftingRecipe('Better Air Tank', '5 Stone, 1 Rope, 2 Fabric', 'craft-air-tank', 'air-tank-recipe', craftBetterAirTank);
                 addCraftingRecipe('Bandage', '2 Fabric, 1 Wood', 'craft-bandage', 'bandage-recipe', craftBandage);
             }
-             if (hasFoundRepairShip) {
+            if (hasFoundRepairShip) {
                 showRepairShipRecipes();
                 if (hasFurnace) {
-                     document.getElementById('furnace-recipe').style.display = 'none';
-                     addCraftingRecipe('Screws', '1 Metallic Scrap, 1 Stone', 'craft-screws', 'screws-recipe', craftScrews, 'Essential for advanced construction.');
+                    document.getElementById('furnace-recipe').style.display = 'none';
+                    addCraftingRecipe('Screws', '1 Metallic Scrap, 1 Stone', 'craft-screws', 'screws-recipe', craftScrews, 'Essential for advanced construction.');
                 }
                 if (habitatsBuilt >= MAX_HABITATS) {
                     document.getElementById('habitat-recipe').style.display = 'none';
@@ -3714,18 +4466,48 @@
                 addCraftingRecipe('Harpoon Ammo (x2)', '1 R. Stone, 1 Metallic Scrap', 'craft-harpoon-ammo', 'harpoon-ammo-recipe', craftHarpoonAmmo);
             }
             if (unlockedAchievements.has('deep_diver')) { // Check if dive gear was ever crafted
-                 addCraftingRecipe('Fishing Net', '20 Rope', 'craft-fishing-net', 'fishing-net-recipe', craftFishingNet);
-                 purityCraftingContainer.style.display = 'block';
-                 addCraftingRecipe('Tungsten', '50 Metallic Scrap', 'craft-tungsten', 'tungsten-recipe', craftTungsten, 'purity-recipes-container');
-                 addCraftingRecipe('Kevlar', '100 Fabric', 'craft-kevlar', 'kevlar-recipe', craftKevlar, 'purity-recipes-container');
-                 addCraftingRecipe('Reinforced Stone', '50 Stone', 'craft-r-stone', 'r-stone-recipe', craftReinforcedStone, 'purity-recipes-container');
-                 addCraftingRecipe('Reinforced Wood', '50 Wood', 'craft-r-wood', 'r-wood-recipe', craftReinforcedWood, 'purity-recipes-container');
+                addCraftingRecipe('Fishing Net', '20 Rope', 'craft-fishing-net', 'fishing-net-recipe', craftFishingNet);
+                purityCraftingContainer.style.display = 'block';
+                addCraftingRecipe('Tungsten', '50 Metallic Scrap', 'craft-tungsten', 'tungsten-recipe', craftTungsten, 'purity-recipes-container');
+                addCraftingRecipe('Kevlar', '100 Fabric', 'craft-kevlar', 'kevlar-recipe', craftKevlar, 'purity-recipes-container');
+                addCraftingRecipe('Reinforced Stone', '50 Stone', 'craft-r-stone', 'r-stone-recipe', craftReinforcedStone, 'purity-recipes-container');
+                addCraftingRecipe('Reinforced Wood', '50 Wood', 'craft-r-wood', 'r-wood-recipe', craftReinforcedWood, 'purity-recipes-container');
             }
+
+            // PATCH LOAD UI
+            renderEggInventory();
+            renderIncubators();
+            renderPetCatalog();
+            updatePearlDisplay();
         }
 
         function updateAllResourceCounts() {
-            woodCountSpan.textContent = woodCount; stoneCountSpan.textContent = stoneCount; fabricCountSpan.textContent = fabricCount; ropeCountSpan.textContent = ropeCount; metallicScrapCountSpan.textContent = metallicScrapCount; bandageCountSpan.textContent = bandageCount; pearlCountSpan.textContent = pearlCount; harpoonAmmoCountSpan.textContent = harpoonAmmoCount; tungstenCountSpan.textContent = tungstenCount; kevlarCountSpan.textContent = kevlarCount; reinforcedStoneCountSpan.textContent = reinforcedStoneCount; reinforcedWoodCountSpan.textContent = reinforcedWoodCount; screwsCountSpan.textContent = screwsCount;
-            woodItem.style.display = woodCount > 0 ? 'flex' : 'none'; stoneItem.style.display = stoneCount > 0 ? 'flex' : 'none'; fabricItem.style.display = fabricCount > 0 ? 'flex' : 'none'; ropeItem.style.display = ropeCount > 0 ? 'flex' : 'none'; metallicScrapItem.style.display = metallicScrapCount > 0 ? 'flex' : 'none'; bandageItem.style.display = bandageCount > 0 ? 'flex' : 'none'; pearlItem.style.display = pearlCount > 0 ? 'flex' : 'none'; harpoonAmmoItem.style.display = harpoonAmmoCount > 0 ? 'flex' : 'none'; tungstenItem.style.display = tungstenCount > 0 ? 'flex' : 'none'; kevlarItem.style.display = kevlarCount > 0 ? 'flex' : 'none'; reinforcedStoneItem.style.display = reinforcedStoneCount > 0 ? 'flex' : 'none'; reinforcedWoodItem.style.display = reinforcedWoodCount > 0 ? 'flex' : 'none'; screwsItem.style.display = screwsCount > 0 ? 'flex' : 'none';
+            woodCountSpan.textContent = woodCount;
+            stoneCountSpan.textContent = stoneCount;
+            fabricCountSpan.textContent = fabricCount;
+            ropeCountSpan.textContent = ropeCount;
+            metallicScrapCountSpan.textContent = metallicScrapCount;
+            bandageCountSpan.textContent = bandageCount;
+            pearlCountSpan.textContent = pearlCount;
+            harpoonAmmoCountSpan.textContent = harpoonAmmoCount;
+            tungstenCountSpan.textContent = tungstenCount;
+            kevlarCountSpan.textContent = kevlarCount;
+            reinforcedStoneCountSpan.textContent = reinforcedStoneCount;
+            reinforcedWoodCountSpan.textContent = reinforcedWoodCount;
+            screwsCountSpan.textContent = screwsCount;
+            woodItem.style.display = woodCount > 0 ? 'flex' : 'none';
+            stoneItem.style.display = stoneCount > 0 ? 'flex' : 'none';
+            fabricItem.style.display = fabricCount > 0 ? 'flex' : 'none';
+            ropeItem.style.display = ropeCount > 0 ? 'flex' : 'none';
+            metallicScrapItem.style.display = metallicScrapCount > 0 ? 'flex' : 'none';
+            bandageItem.style.display = bandageCount > 0 ? 'flex' : 'none';
+            pearlItem.style.display = pearlCount > 0 ? 'flex' : 'none';
+            harpoonAmmoItem.style.display = harpoonAmmoCount > 0 ? 'flex' : 'none';
+            tungstenItem.style.display = tungstenCount > 0 ? 'flex' : 'none';
+            kevlarItem.style.display = kevlarCount > 0 ? 'flex' : 'none';
+            reinforcedStoneItem.style.display = reinforcedStoneCount > 0 ? 'flex' : 'none';
+            reinforcedWoodItem.style.display = reinforcedWoodCount > 0 ? 'flex' : 'none';
+            screwsItem.style.display = screwsCount > 0 ? 'flex' : 'none';
         }
 
         function updateStatisticsScreen() {
@@ -3745,14 +4527,14 @@
             }
             statsContainer.innerHTML += enemyStatsHTML;
         }
-        
+
         function updateBestiaryScreen() {
             bestiaryContainer.innerHTML = '';
             if (encounteredEnemies.size === 0) {
                 bestiaryContainer.innerHTML = '<p>You have not encountered any enemies yet.</p>';
                 return;
             }
-            
+
             for (const enemyId of encounteredEnemies) {
                 const enemy = enemies[enemyId];
                 if (enemy) {
@@ -3778,7 +4560,7 @@
                 unlockAchievement('afk_lol');
             }, AFK_TIMEOUT);
         }
-        
+
         // --- Timer Logic ---
         function startTimer() {
             if (timerInterval) clearInterval(timerInterval);
@@ -3796,11 +4578,15 @@
             const seconds = (gameTime % 60).toString().padStart(2, '0');
             speedrunTimer.textContent = `${hours}:${minutes}:${seconds}`;
         }
-        
-         // --- Habitat Logic ---
+
+        // --- Habitat Logic ---
         function buildHabitat() {
             if (habitatsBuilt > placedHabitats.length) {
-                placedHabitats.push({ x: playerPosition.x, y: playerPosition.y, usedThisDive: false });
+                placedHabitats.push({
+                    x: playerPosition.x,
+                    y: playerPosition.y,
+                    usedThisDive: false
+                });
                 addNarrativeLine("You've placed an Underwater Habitat.");
                 if (!isSection3) {
                     isSection3 = true;
@@ -3809,34 +4595,778 @@
                 renderMinigame();
             }
         }
-        
+
         function useHabitat(habitat) {
             habitat.usedThisDive = true;
             let airRestored = 20;
-            if(hasBetterAirTank) airRestored = 40; // Base 20 + Tank 20
+            if (hasBetterAirTank) airRestored = 40; // Base 20 + Tank 20
             diveMoves += airRestored;
-            
+
             const healedAmount = Math.min(10, MAX_PLAYER_HEALTH - playerHealth);
             playerHealth += healedAmount;
 
             addNarrativeLine(`Habitat restored ${airRestored} moves and healed ${healedAmount} HP.`);
             renderMinigame();
         }
-        
+
         function showRepairShipRecipes() {
             if (!document.getElementById('furnace-recipe')) {
                 addCraftingRecipe('Furnace', '10 Metallic Scrap, 2 Tungsten, 50 Wood', 'craft-furnace', 'furnace-recipe', craftFurnace, 'crafting-recipes-container', 'Allows for smelting and creating advanced components.');
             }
             if (!document.getElementById('habitat-recipe')) {
-                 addCraftingRecipe('Underwater Habitat', '3 Tungsten, 45 Metallic Scrap, 100 Screws', 'craft-habitat', 'habitat-recipe', craftUnderwaterHabitat, 'crafting-recipes-container', 'A small, safe outpost for deep-sea exploration.');
+                addCraftingRecipe('Underwater Habitat', '3 Tungsten, 45 Metallic Scrap, 100 Screws', 'craft-habitat', 'habitat-recipe', craftUnderwaterHabitat, 'crafting-recipes-container', 'A small, safe outpost for deep-sea exploration.');
             }
         }
-        
+
         function playClickSound() {
             clickSound.currentTime = 0;
             clickSound.play();
         }
 
+        // --- PATCH: State Variables ---
+        let pearls = 0;
+        let eggInventory = []; // {type, label, id, state: 'unincubated'|'incubating'|'ready', timerEnd, petTypeIfReady}
+        let incubatorSlots = [null, null, null, null, null]; // index: eggID or null
+        let petsCatalog = []; // {name, rarity, perk, icon, unlocked, equipped}
+        let equippedPets = []; // array of pet IDs, max 2
+        let petUnlockAdmin = false;
+        let starterEggGiven = false;
+
+        // PATCH: Tab unlock logic, after finding 'Abandoned Coral Reef'
+        function unlockNurseryMerchantTabs() {
+            document.getElementById('nursery-tab').style.display = '';
+            document.getElementById('merchant-tab').style.display = '';
+            addNarrativeLine("You have unlocked the Nursery and Egg Merchant!");
+        }
+
+        // PATCH: Initialize pet catalog (tiny boxes, all locked/blurred)
+        function initializePetCatalog() {
+            petsCatalog = [{
+                name: 'Nudibranch',
+                rarity: 'Common',
+                perk: 'Adaptive Defense - 5% dodge special',
+                icon: 'NH',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Seahorse',
+                rarity: 'Common',
+                perk: 'Swift Current - +5 dive moves',
+                icon: 'SE',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Starfish',
+                rarity: 'Common',
+                perk: 'Regenerative Aid - Heal 1/5s',
+                icon: 'SH',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Sea Slug',
+                rarity: 'Common',
+                perk: 'Slime Trail - 10% slowed hit CD',
+                icon: 'SG',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Hermit Crab',
+                rarity: 'Common',
+                perk: 'Fortify - +10% max hp',
+                icon: 'HB',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Anemone Shrimp',
+                rarity: 'Common',
+                perk: 'Symbiotic Guard - Absorb 3 dmg',
+                icon: 'AS',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Spiny Water Flea',
+                rarity: 'Common',
+                perk: 'Piercing Swarm - +1 dmg',
+                icon: 'SF',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Brittle Star',
+                rarity: 'Common',
+                perk: 'Cooldown Link - -10% other pet CD',
+                icon: 'BS',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Feather Star',
+                rarity: 'Common',
+                perk: 'Stealthy Current - 10% enemy miss',
+                icon: 'FS',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Sea Urchin',
+                rarity: 'Common',
+                perk: 'Spiky Aura - 1 dmg on hit',
+                icon: 'SU',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Dumbo Octopus',
+                rarity: 'Uncommon',
+                perk: 'Deep Descent - +10% hp/15s',
+                icon: 'DS',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Cuttlefish',
+                rarity: 'Uncommon',
+                perk: 'Invisibility Ink - 2s invis',
+                icon: 'CF',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Pufferfish',
+                rarity: 'Uncommon',
+                perk: 'Cooldown Link - -20% other pet CD',
+                icon: 'PF',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Giant Clam',
+                rarity: 'Uncommon',
+                perk: 'Protective Shell - Absorb 8 dmg',
+                icon: 'GC',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Sea Turtle',
+                rarity: 'Uncommon',
+                perk: 'Enduring Shell - +20% def/8s',
+                icon: 'ST',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Leafy Seadragon',
+                rarity: 'Uncommon',
+                perk: 'Camouflage - +15% enemy miss',
+                icon: 'LD',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Flying Fish',
+                rarity: 'Uncommon',
+                perk: 'Evasive Leap - dodge first 5 hits',
+                icon: 'FF',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Atlantic Blue Tang',
+                rarity: 'Uncommon',
+                perk: 'Quick-Heal - +20% healing',
+                icon: 'AT',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Vampire Crab',
+                rarity: 'Uncommon',
+                perk: 'Sanguine Strike - 10% lifesteal',
+                icon: 'VC',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Blue Ringed Octopus',
+                rarity: 'Uncommon',
+                perk: 'Venomous Touch - 15% poison crit',
+                icon: 'BO',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Lionfish',
+                rarity: 'Rare',
+                perk: 'Venomous Spines - 2/s poison',
+                icon: 'LF',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Bobtail Squid',
+                rarity: 'Rare',
+                perk: 'Light Pulse - 4s blind, +20% CD',
+                icon: 'BS',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Box Jellyfish',
+                rarity: 'Rare',
+                perk: 'Venomous Tentacle - 5% 20 poison',
+                icon: 'BJ',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Glass Squid',
+                rarity: 'Rare',
+                perk: 'Crystal Shroud - 1s invuln',
+                icon: 'GQ',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Bobbit Worm',
+                rarity: 'Rare',
+                perk: 'Cooldown Link - -15% other pet CD',
+                icon: 'BW',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Sarcastic Fringehead',
+                rarity: 'Rare',
+                perk: 'Fierce Territory - +2/2s on <5hp',
+                icon: 'SF',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Warty Frogfish',
+                rarity: 'Rare',
+                perk: 'Angler\'s Bait - +20% dmg, 5s',
+                icon: 'WF',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Pink See-Through Fantasia',
+                rarity: 'Rare',
+                perk: 'Ethereal Flow - -25% dmg',
+                icon: 'PF',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Strawberry Squid',
+                rarity: 'Rare',
+                perk: 'Lightburst - 2s disorient, +25% CD',
+                icon: 'SQ',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Flamingo Tongue Snail',
+                rarity: 'Rare',
+                perk: 'Deflecting Shell - 10% reflect',
+                icon: 'FS',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Sea Angel',
+                rarity: 'Epic',
+                perk: 'Spirit\'s Grace - 3hp/s for 5s',
+                icon: 'SA',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Yeti Crab',
+                rarity: 'Epic',
+                perk: 'Frostbite - 10% freeze 2s',
+                icon: 'YC',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Comb Jelly',
+                rarity: 'Epic',
+                perk: 'Bioluminescent Trail - 2/s & +20% CD',
+                icon: 'CJ',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Vampire Squid',
+                rarity: 'Epic',
+                perk: 'Abyssal Shield - Absorb 25 dmg',
+                icon: 'VS',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Barreleye Fish',
+                rarity: 'Epic',
+                perk: 'Clarity of Sight - +25% crit',
+                icon: 'BF',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Coelacanth',
+                rarity: 'Epic',
+                perk: 'Cooldown Link - -20% other pet CD',
+                icon: 'CC',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Bobbit Worm (Epic)',
+                rarity: 'Epic',
+                perk: 'Tunneling Strike - 2s invuln',
+                icon: 'BW',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Giant Spider Crab',
+                rarity: 'Epic',
+                perk: 'Pincer Crush - 10 dmg, 3s stun',
+                icon: 'GC',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Flashlight Fish',
+                rarity: 'Epic',
+                perk: 'Blinding Flash - 2s stun',
+                icon: 'FF',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Cookiecutter Shark',
+                rarity: 'Epic',
+                perk: 'Bite of the Abyss - 2/s bleed',
+                icon: 'CS',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Giant Isopod',
+                rarity: 'Legendary',
+                perk: 'Hardened Exoskeleton - +50% armor/5s',
+                icon: 'GD',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Giant Tube Worm',
+                rarity: 'Legendary',
+                perk: 'Ventilation Blast - 18 dmg',
+                icon: 'GW',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Snailfish',
+                rarity: 'Legendary',
+                perk: 'Evasive Slime - +30% dodge/3s',
+                icon: 'SN',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Moon Jellyfish',
+                rarity: 'Legendary',
+                perk: 'Calming Aura - heal 50hp, cleanse',
+                icon: 'MJ',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Dragonfish (Legendary)',
+                rarity: 'Legendary',
+                perk: 'Cooldown Link - -25% other pet CD',
+                icon: 'DF',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Pacific Blackdragon',
+                rarity: 'Legendary',
+                perk: 'Shadow Meld - 3s invis/immune',
+                icon: 'PB',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Wobbegong Shark',
+                rarity: 'Legendary',
+                perk: 'Ambush Hunter - +40% back dmg',
+                icon: 'WS',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Manta Ray',
+                rarity: 'Legendary',
+                perk: 'Abyssal Glide - 3s invuln',
+                icon: 'MR',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Gulper Eel',
+                rarity: 'Legendary',
+                perk: 'Lacerating Bite - 10 dmg',
+                icon: 'GE',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Mimic Octopus',
+                rarity: 'Legendary',
+                perk: 'Adaptive Mimicry - reflect special (50%)',
+                icon: 'MS',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Lion\'s Mane Jellyfish',
+                rarity: 'Mythic',
+                perk: 'Venomous Barrage - 1/s 20s, 1x/encounter',
+                icon: 'LM',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Chimaera',
+                rarity: 'Mythic',
+                perk: 'Living Fossil - +50% hp, -15% CD',
+                icon: 'CH',
+                unlocked: false,
+                equipped: false
+            }, {
+                name: 'Immortal Jellyfish',
+                rarity: 'Secret',
+                perk: 'Rejuvenation Cycle - revive, +20% dmg/10s, 1x/encounter',
+                icon: 'IJ',
+                unlocked: false,
+                equipped: false
+            }];
+            renderPetCatalog();
+        }
+
+        function renderPetCatalog() {
+            const list = document.getElementById('pet-catalog-list');
+            list.innerHTML = '';
+            petsCatalog.forEach((pet, i) => {
+                let box = document.createElement('div');
+                box.className = 'pet-catalog-tiny' + (pet.unlocked ? ' unlocked' : '') + (pet.equipped ? ' equipped' : '');
+                box.title = pet.unlocked ? pet.name : '???';
+                box.innerText = pet.unlocked ? pet.icon : '';
+                box.onmouseenter = e => showPetPopup(pet, i, box);
+                box.onmouseleave = e => hidePetPopup();
+                box.onclick = () => {
+                    if (!pet.unlocked) return;
+                    if (pet.equipped) {
+                        pet.equipped = false;
+                        equippedPets = equippedPets.filter(idx => idx !== i);
+                    } else {
+                        if (equippedPets.length >= 2) {
+                            addNarrativeLine("Max 2 pets equipped at once. Unequip one first.");
+                            return;
+                        }
+                        pet.equipped = true;
+                        equippedPets.push(i);
+                    }
+                    renderPetCatalog();
+                };
+                list.appendChild(box);
+            });
+        }
+
+        /* ------------------ PATCH: Merchant Egg Purchase Logic ------------------ */
+        const eggTypes = [{
+            type: 'common',
+            label: 'Common Egg',
+            price: 50,
+            hatch: 5 * 60,
+            odds: {
+                common: 0.7,
+                uncommon: 0.2,
+                rare: 0.1
+            }
+        }, {
+            type: 'complex',
+            label: 'Complex Egg',
+            price: 200,
+            hatch: 15 * 60,
+            odds: {
+                uncommon: 0.5,
+                rare: 0.3,
+                epic: 0.15,
+                common: 0.05
+            }
+        }, {
+            type: 'elite',
+            label: 'Elite Egg',
+            price: 500,
+            hatch: 30 * 60,
+            odds: {
+                rare: 0.45,
+                epic: 0.4,
+                legendary: 0.1,
+                uncommon: 0.05
+            }
+        }, {
+            type: 'apocryphal',
+            label: 'Apocryphal Egg',
+            price: 1000,
+            hatch: 60 * 60,
+            odds: {
+                legendary: 0.65,
+                mythical: 0.2,
+                epic: 0.15
+            }
+        }, {
+            type: 'secret',
+            label: 'Secret Egg',
+            price: 2500,
+            hatch: 2 * 60 * 60,
+            odds: {
+                legendary: 0.45,
+                mythical: 0.5,
+                secret: 0.05
+            }
+        }, ];
+
+        function updatePearlDisplay() {
+            const el = document.getElementById('pearl-count');
+            if (el) el.textContent = pearls;
+        }
+
+        /* ------------------ PATCH: Egg Inventory, Incubation, Hatching  ------------------ */
+        function renderEggInventory() {
+            const inv = document.getElementById('egg-inventory-list');
+            if (!inv) return;
+            inv.innerHTML = '';
+            eggInventory.forEach((egg, idx) => {
+                const el = document.createElement('div');
+                el.className = 'egg-inventory-egg';
+                el.style = 'width:32px;height:32px;background:#fff;border:1px solid #000;text-align:center;cursor:pointer;margin:3px;';
+                el.innerHTML = `<div style="font-size:28px;">⬯</div><div style="font-size:10px;">${egg.label}</div>`;
+                el.title = egg.label + (egg.state === 'incubating' ? ' (Incubating)' : '');
+                el.onclick = () => selectEggForIncubation(idx);
+                inv.appendChild(el);
+            });
+        }
+
+        function renderIncubators() {
+            const area = document.getElementById('incubator-slots');
+            if (!area) return;
+            Array.from(area.children).forEach((slotDiv, i) => {
+                const eggId = incubatorSlots[i];
+                slotDiv.innerHTML = '';
+                if (eggId) {
+                    const egg = eggInventory.find(e => e.id === eggId);
+                    if (!egg) {
+                        slotDiv.style.background = '#eee';
+                        return;
+                    }
+                    if (egg.state === 'ready') {
+                        slotDiv.innerHTML = `<div style="font-size:32px;animation:shake 0.5s infinite alternate;">⬯</div>`;
+                        slotDiv.title = 'Ready to hatch! Click to hatch';
+                        slotDiv.onclick = () => hatchEgg(i, eggId);
+                    } else {
+                        const tleft = Math.max(0, Math.floor((egg.timerEnd - Date.now()) / 1000));
+                        slotDiv.innerHTML = `<div style="font-size:32px;">⬯</div><div style="font-size:10px;">${egg.label}<br>${Math.floor(tleft/60)}:${('0'+(tleft%60)).slice(-2)}</div>`;
+                        slotDiv.title = 'Incubating';
+                        slotDiv.onclick = null;
+                    }
+                    slotDiv.style.background = '#fff';
+                } else {
+                    slotDiv.innerHTML = '';
+                    slotDiv.title = 'Empty slot. Click an egg to incubate here.';
+                    slotDiv.style.background = '#eee';
+                }
+            });
+        }
+
+        function selectEggForIncubation(invIdx) {
+            // Find first empty incubator
+            const slot = incubatorSlots.findIndex(s => !s);
+            if (slot === -1) {
+                addNarrativeLine("No incubator slots are free.");
+                return;
+            }
+            const egg = eggInventory[invIdx];
+            if (!egg || egg.state !== 'unincubated') return;
+            // Start timer
+            const eggConf = eggTypes.find(e => e.type === egg.type);
+            egg.timerEnd = Date.now() + (eggConf ? eggConf.hatch * 1000 : 60000); // fallback 1min
+            egg.state = 'incubating';
+            incubatorSlots[slot] = egg.id;
+            renderEggInventory();
+            renderIncubators();
+            addNarrativeLine(`You started incubating a ${egg.label}.`);
+        }
+
+        function updateIncubatorsTick() {
+            for (let i = 0; i < incubatorSlots.length; i++) {
+                const eggId = incubatorSlots[i];
+                if (!eggId) continue;
+                const egg = eggInventory.find(e => e.id === eggId);
+                if (egg && egg.state === 'incubating' && Date.now() >= egg.timerEnd) {
+                    egg.state = 'ready';
+                    renderIncubators();
+                    addNarrativeLine(`Your ${egg.label} is ready to hatch!`);
+                }
+            }
+        }
+        setInterval(updateIncubatorsTick, 1000);
+
+        // Hatching = wheel spin animation (simplified), pick a pet, handle duplicate
+        function hatchEgg(slot, eggId) {
+            const egg = eggInventory.find(e => e.id === eggId);
+            if (!egg || egg.state !== 'ready') return;
+            // Start popup: simplified, real implementation would show a spin/wheel
+            let petWon = randomPetFromEggType(egg.type);
+            let already = petsCatalog.find(p => p.name === petWon && p.unlocked);
+            if (already) {
+                pearls += 10;
+                updatePearlDisplay();
+                addNarrativeLine(`Duplicate pet! You get 10 pearls.`);
+            } else {
+                let catIdx = petsCatalog.findIndex(p => p.name === petWon);
+                if (catIdx !== -1) {
+                    petsCatalog[catIdx].unlocked = true;
+                    addNarrativeLine(`You hatched a new pet: ${petWon}!`);
+                    renderPetCatalog();
+                }
+            }
+            // Remove egg from slot/inventory
+            incubatorSlots[slot] = null;
+            let invIdx = eggInventory.findIndex(e => e.id === eggId);
+            if (invIdx !== -1) eggInventory.splice(invIdx, 1);
+            renderEggInventory();
+            renderIncubators();
+        }
+
+        /* ---- Helper for egg type to pet species ---- */
+        function randomPetFromEggType(type) {
+            const egg = eggTypes.find(e => e.type === type);
+            if (!egg) return petsCatalog[Math.floor(Math.random() * petsCatalog.length)].name;
+
+            let rand = Math.random(),
+                sum = 0,
+                chosenRarity = null;
+            for (const [rarity, chance] of Object.entries(egg.odds)) {
+                sum += chance;
+                if (rand < sum) {
+                    chosenRarity = rarity.charAt(0).toUpperCase() + rarity.slice(1);
+                    break;
+                }
+            }
+            let pool = petsCatalog.filter(p => p.rarity === chosenRarity);
+            if (pool.length === 0) pool = petsCatalog; // Fallback to all if no pets of chosen rarity
+            let idx = Math.floor(Math.random() * pool.length);
+            return pool[idx].name;
+        }
+
+        /* ------------------ PATCH: Pet Equip/Unequip Logic ------------------ */
+        function showPetPopup(pet, idx, anchor) {
+            if (!pet.unlocked) return;
+            const popup = document.getElementById('pet-detail-popup');
+            popup.innerHTML = `<b>${pet.name} (${pet.rarity})</b><br><i>${pet.perk}</i><br>` +
+                `<div style="margin:8px 0;">Icon: <span style="display:inline-block;width:20px;text-align:center;">${pet.icon}</span></div>` +
+                `<button onclick="equipPet(${idx})">${pet.equipped?'Unequip':'Equip'}</button>`;
+            popup.style.display = 'block';
+            const rect = anchor.getBoundingClientRect();
+            popup.style.top = (window.scrollY + rect.bottom + 8) + 'px';
+            popup.style.left = (window.scrollX + rect.left - 40) + 'px';
+        }
+
+        function hidePetPopup() {
+            document.getElementById('pet-detail-popup').style.display = 'none';
+        }
+
+        function equipPet(idx) {
+            let pet = petsCatalog[idx];
+            if (!pet.unlocked) return;
+            if (pet.equipped) {
+                pet.equipped = false;
+                equippedPets = equippedPets.filter(i => i !== idx);
+            } else {
+                if (equippedPets.length >= 2) {
+                    addNarrativeLine("Max 2 pets equipped.");
+                    return;
+                }
+                pet.equipped = true;
+                equippedPets.push(idx);
+            }
+            renderPetCatalog();
+            hidePetPopup();
+        }
+
+        /* ------------------ PATCH: Starter Egg Logic ------------------ */
+        function giveStarterEggIfNeeded() {
+            if (!starterEggGiven) {
+                eggInventory.push({
+                    id: 'egg' + Date.now() + Math.floor(Math.random() * 10000),
+                    type: 'elite',
+                    label: 'Starter Rare Egg',
+                    state: 'unincubated'
+                });
+                starterEggGiven = true;
+                renderEggInventory();
+                addNarrativeLine("You received a special starter egg! Incubate it to gain your first pet.");
+            }
+        }
+
+        /* ------------------ PATCH: Deep Dive, Enemy, Pearl, and Bandage Logic ------------------ */
+        let maxBandages = 20;
+
+        /* Patch: Enforce bandage limit when prepping for dive */
+        function updateBandagePrepUI() {
+            if (bandageCount > maxBandages) {
+                bandageCount = maxBandages;
+                bandageCountSpan.textContent = bandageCount;
+            }
+        }
+
+        /* Patch: When enemy defeated, award pearls based on rarity, chance */
+        function handleEnemyDefeat(enemy) {
+            if (Math.random() < 0.5) {
+                let amt = 1;
+                switch (enemy.rarity) {
+                    case 'Common':
+                        amt = Math.floor(Math.random() * 5) + 1;
+                        break;
+                    case 'Uncommon':
+                        amt = Math.floor(Math.random() * 6) + 5;
+                        break;
+                    case 'Rare':
+                        amt = Math.floor(Math.random() * 16) + 10;
+                        break;
+                    case 'Epic':
+                        amt = Math.floor(Math.random() * 26) + 25;
+                        break;
+                    case 'Legendary':
+                        amt = Math.floor(Math.random() * 51) + 50;
+                        break;
+                    case 'Mythical':
+                        amt = Math.floor(Math.random() * 41) + 60;
+                        break;
+                    case 'Secret':
+                        amt = 100;
+                        break;
+                }
+                pearls += amt;
+                updatePearlDisplay();
+                addNarrativeLine(`You found ${amt} pearls!`);
+            }
+            updatePearlDisplay();
+        }
+
+        /* Patch: Flee logic (one attempt per battle, no loot on success) */
+        let fleeAttemptedThisCombat = false;
+
+        function resetFleeOnCombatStart() {
+            fleeAttemptedThisCombat = false;
+        }
+
+        /* Patch: Deep dive enemy spawn chance */
+        function shouldSpawnEnemyInDeepDive() {
+            return Math.random() < 0.3;
+        }
+
+        /* ------------- PATCH: Always Place Abandoned Coral Reef -------------- */
+        function ensureAbandonedCoralReef(map) {
+            const found = map.some(row => row.some(tile => (tile.type === 'landmark' && tile.details && tile.details.name === 'Abandoned Coral Reef')));
+            if (!found) {
+                let placed = false;
+                for (let tries = 0; tries < 100 && !placed; tries++) {
+                    let x = Math.floor(Math.random() * map[0].length),
+                        y = Math.floor(Math.random() * map.length);
+                    if (map[y][x].type === 'path') {
+                        map[y][x] = {
+                            type: 'landmark',
+                            details: {
+                                name: 'Abandoned Coral Reef'
+                            }
+                        };
+                        placed = true;
+                    }
+                }
+            }
+        }
+
+        /* ------------- PATCH: Sunken Battleship Acts As Normal Landmark -------------- */
+        function handleSunkenBattleshipAsNormalLandmark(landmark) {
+            if (landmark.name === 'Sunken Battleship') {
+                addNarrativeLine('You found supplies in the Sunken Battleship.');
+            }
+        }
 
         // --- Main Game Event Listeners ---
         mainButton.addEventListener('click', progressGame);
@@ -3864,16 +5394,29 @@
         commandsButton.addEventListener('click', () => switchScreen('commands'));
         commandsBackButton.addEventListener('click', () => switchScreen('game'));
         adminSubmitButton.addEventListener('click', checkAdminCode);
-        freeCraftingToggle.addEventListener('change', () => { isFreeCrafting = freeCraftingToggle.checked; if(isFreeCrafting) unlockAchievement('god_mode'); });
-        fastCooldownsToggle.addEventListener('change', () => { isCooldownHacked = fastCooldownsToggle.checked; });
-        infiniteMovesToggle.addEventListener('change', () => { hasInfiniteMoves = infiniteMovesToggle.checked; });
-        godHealthToggle.addEventListener('change', () => { hasGodHealth = godHealthToggle.checked; });
-        noEnemiesToggle.addEventListener('change', () => { noEnemies = noEnemiesToggle.checked; });
+        freeCraftingToggle.addEventListener('change', () => {
+            isFreeCrafting = freeCraftingToggle.checked;
+            if (isFreeCrafting) unlockAchievement('god_mode');
+        });
+        fastCooldownsToggle.addEventListener('change', () => {
+            isCooldownHacked = fastCooldownsToggle.checked;
+        });
+        infiniteMovesToggle.addEventListener('change', () => {
+            hasInfiniteMoves = infiniteMovesToggle.checked;
+        });
+        godHealthToggle.addEventListener('change', () => {
+            hasGodHealth = godHealthToggle.checked;
+        });
+        noEnemiesToggle.addEventListener('change', () => {
+            noEnemies = noEnemiesToggle.checked;
+        });
         saveButton.addEventListener('click', () => switchScreen('save'));
         saveLoadBackButton.addEventListener('click', () => switchScreen('game'));
         importButton.addEventListener('click', confirmImport);
         confirmImportButton.addEventListener('click', loadGame);
-        cancelImportButton.addEventListener('click', () => { importConfirmModal.style.display = 'none'; });
+        cancelImportButton.addEventListener('click', () => {
+            importConfirmModal.style.display = 'none';
+        });
         swimButton.addEventListener('click', swim);
         beginDiveButton.addEventListener('click', beginDive);
         useBandageButton.addEventListener('click', useBandage);
@@ -3891,7 +5434,11 @@
         statisticsBackButton.addEventListener('click', () => switchScreen('game'));
         bestiaryButton.addEventListener('click', () => switchScreen('bestiary'));
         bestiaryBackButton.addEventListener('click', () => switchScreen('statistics'));
-        
+        document.getElementById('nursery-tab').addEventListener('click', () => switchScreen('nursery'));
+        document.getElementById('merchant-tab').addEventListener('click', () => switchScreen('merchant'));
+        document.getElementById('nursery-back-button').addEventListener('click', () => switchScreen('game'));
+        document.getElementById('merchant-back-button').addEventListener('click', () => switchScreen('game'));
+
         document.querySelectorAll('.battleship-choice-button').forEach(button => {
             button.addEventListener('click', (e) => {
                 const item = e.target.dataset.item;
@@ -3901,14 +5448,36 @@
                 renderMinigame();
             });
         });
-        
+
+        document.querySelectorAll('.egg-box').forEach(box => {
+            box.addEventListener('click', function() {
+                const etype = this.getAttribute('data-type');
+                const eggConfig = eggTypes.find(e => e.type === etype);
+                if (!eggConfig) return;
+                if (pearls < eggConfig.price) {
+                    addNarrativeLine("You don't have enough pearls to buy this egg.");
+                    return;
+                }
+                pearls -= eggConfig.price;
+                updatePearlDisplay();
+                eggInventory.push({
+                    id: 'egg' + Date.now() + Math.floor(Math.random() * 10000),
+                    type: etype,
+                    label: eggConfig.label,
+                    state: 'unincubated'
+                });
+                renderEggInventory();
+                addNarrativeLine(`You bought a ${eggConfig.label}!`);
+            });
+        });
+
         resumeGameButton.addEventListener('click', () => {
             isGamePaused = false;
             afkModal.style.display = 'none';
             resetAfkTimer();
             processPopupQueue();
         });
-        
+
         // Add click sound to all buttons
         document.querySelectorAll('button').forEach(button => {
             button.addEventListener('click', playClickSound);
@@ -3924,675 +5493,18 @@
         initialNarrative.style.opacity = '1';
         initialNarrative.style.transform = 'translateY(0)';
         bouncingText.innerHTML = bouncingText.textContent.split('').map(letter => `<span>${letter === ' ' ? '&nbsp;' : letter}</span>`).join('');
-        bouncingText.querySelectorAll('span').forEach((span, index) => { span.style.animationDelay = `${index * 0.05}s`; });
-        document.body.addEventListener('click', () => { if (!isMusicPlaying && backgroundMusic.paused) toggleMusic(); }, { once: true });
+        bouncingText.querySelectorAll('span').forEach((span, index) => {
+            span.style.animationDelay = `${index * 0.05}s`;
+        });
+        document.body.addEventListener('click', () => {
+            if (!isMusicPlaying && backgroundMusic.paused) toggleMusic();
+        }, {
+            once: true
+        });
         resetAfkTimer();
         startTimer();
-
+        initializePetCatalog();
     </script>
 </body>
+
 </html>
-<!-- PATCH START: PHASE 1 - UI STUBS & STATE (Nursery, Merchant, Pets, Pearls) -->
-
-<!-- (Insert in the navigation tabs section, after existing tabs) -->
-<button id="nursery-tab" class="tab-button" style="display: none;">Nursery</button>
-<button id="merchant-tab" class="tab-button" style="display: none;">Egg Merchant</button>
-
-<!-- (Insert after the main game screens, as new hidden screens) -->
-<div id="nursery-screen" class="nursery-page" style="display: none;">
-  <h2>Deep-Sea Creature Nursery</h2>
-  <div id="incubator-area">
-    <h3>Incubators</h3>
-    <div id="incubator-slots" style="display:flex;gap:16px;">
-      <!-- 5 incubator slots -->
-      <div class="incubator-slot" data-slot="0"></div>
-      <div class="incubator-slot" data-slot="1"></div>
-      <div class="incubator-slot" data-slot="2"></div>
-      <div class="incubator-slot" data-slot="3"></div>
-      <div class="incubator-slot" data-slot="4"></div>
-    </div>
-  </div>
-  <div id="egg-inventory-area">
-    <h3>Egg Inventory</h3>
-    <div id="egg-inventory-list" style="display:flex;gap:12px;"></div>
-  </div>
-  <div id="pet-catalog-area">
-    <h3>Pet Catalog</h3>
-    <div id="pet-catalog-list" style="display:grid;grid-template-columns:repeat(5,32px);gap:4px;"></div>
-    <div id="pet-detail-popup" style="display:none;">
-      <!-- Expanding pet info popup, appears on hover -->
-    </div>
-  </div>
-  <button id="nursery-back-button" class="game-button back-button">Back</button>
-</div>
-
-<div id="merchant-screen" class="merchant-page" style="display: none;">
-  <h2>Egg Merchant</h2>
-  <div id="pearl-display" style="margin-bottom:12px;">Pearls: <span id="pearl-count">0</span></div>
-  <div id="egg-shop">
-    <!-- 5 egg boxes -->
-    <div class="egg-box" data-type="common">
-      <div class="egg-name">Common Egg</div>
-      <div class="egg-art" style="font-size:28px;">⬯</div>
-      <div class="egg-price">50 pearls</div>
-    </div>
-    <div class="egg-box" data-type="complex">
-      <div class="egg-name">Complex Egg</div>
-      <div class="egg-art" style="font-size:28px;">⬯</div>
-      <div class="egg-price">200 pearls</div>
-    </div>
-    <div class="egg-box" data-type="elite">
-      <div class="egg-name">Elite Egg</div>
-      <div class="egg-art" style="font-size:28px;">⬯</div>
-      <div class="egg-price">500 pearls</div>
-    </div>
-    <div class="egg-box" data-type="apocryphal">
-      <div class="egg-name">Apocryphal Egg</div>
-      <div class="egg-art" style="font-size:28px;">⬯</div>
-      <div class="egg-price">1k pearls</div>
-    </div>
-    <div class="egg-box" data-type="secret">
-      <div class="egg-name">Secret Egg</div>
-      <div class="egg-art" style="font-size:28px;">⬯</div>
-      <div class="egg-price">2.5k pearls</div>
-    </div>
-  </div>
-  <button id="merchant-back-button" class="game-button back-button">Back</button>
-</div>
-
-<!-- PATCH: Add CSS for new UI -->
-<style>
-#nursery-screen, #merchant-screen {
-  background: #222;
-  color: #fff;
-  border-radius: 12px;
-  padding: 18px;
-  margin: 12px;
-}
-.incubator-slot {
-  width: 48px; height: 48px; background:#fff; border:2px solid #222; display:flex; align-items:center; justify-content:center; cursor:pointer;
-}
-.egg-box {
-  display: inline-block; width: 110px; height: 120px; border: 2px solid #222; background: #fff; margin: 10px; border-radius: 8px; text-align: center; vertical-align: top; cursor: pointer; transition: box-shadow 0.2s;
-}
-.egg-box:hover { box-shadow: 0 0 8px #00bfff; }
-.egg-name { font-weight: bold; margin-top: 4px; }
-.egg-price { font-size: 1.08em; margin-bottom: 4px; }
-.pet-catalog-list {
-  display: grid;
-  grid-template-columns: repeat(5, 32px);
-  gap: 4px;
-  margin-top: 10px;
-}
-.pet-catalog-tiny {
-  width: 28px; height: 28px; background:#fff; border:1px solid #000; filter: blur(3px); cursor:pointer;
-}
-.pet-catalog-tiny.unlocked { filter:none; }
-.pet-catalog-tiny.equipped { border:2px solid #2fa32f; }
-#pet-detail-popup {
-  position: absolute; background: #fff; color: #111; border:2px solid #000; padding:10px; border-radius:6px; min-width:180px; z-index:10;
-}
-</style>
-
-<script>
-// --- PATCH: State Variables ---
-let pearls = 0;
-let eggInventory = []; // {type, label, id, state: 'unincubated'|'incubating'|'ready', timerEnd, petTypeIfReady}
-let incubatorSlots = [null, null, null, null, null]; // index: eggID or null
-let petsCatalog = []; // {name, rarity, perk, icon, unlocked, equipped}
-let equippedPets = []; // array of pet IDs, max 2
-let petUnlockAdmin = false;
-let starterEggGiven = false;
-
-// PATCH: Tab unlock logic, after finding 'Abandoned Coral Reef'
-function unlockNurseryMerchantTabs() {
-  document.getElementById('nursery-tab').style.display = '';
-  document.getElementById('merchant-tab').style.display = '';
-}
-
-// PATCH: Tab navigation logic (add to nav event listeners)
-document.getElementById('nursery-tab').addEventListener('click', () => switchScreen('nursery'));
-document.getElementById('merchant-tab').addEventListener('click', () => switchScreen('merchant'));
-document.getElementById('nursery-back-button').addEventListener('click', () => switchScreen('game'));
-document.getElementById('merchant-back-button').addEventListener('click', () => switchScreen('game'));
-
-// PATCH: Initialize pet catalog (tiny boxes, all locked/blurred)
-function initializePetCatalog() {
-  // Example structure, fill with all pets in future phases
-  petsCatalog = [
-    {name:'Nudibranch',rarity:'Common',perk:'Adaptive Defense',icon:'NH',unlocked:false,equipped:false},
-    // ... (fill with all 53 pets, see future phases)
-  ];
-  renderPetCatalog();
-}
-function renderPetCatalog() {
-  const list = document.getElementById('pet-catalog-list');
-  list.innerHTML = '';
-  petsCatalog.forEach((pet,i)=>{
-    let box = document.createElement('div');
-    box.className = 'pet-catalog-tiny' + (pet.unlocked?' unlocked':'') + (pet.equipped?' equipped':'');
-    box.title = pet.unlocked ? pet.name : '???';
-    box.innerText = pet.unlocked ? pet.icon : '';
-    // Hover/expand logic, equip/unequip in future phases
-    list.appendChild(box);
-  });
-}
-
-// PATCH: Run on load
-initializePetCatalog();
-
-</script>
-
-<!-- PATCH END: PHASE 1 - UI STUBS & STATE (Nursery, Merchant, Pets, Pearls) -->
-<!-- PHASE 2: Merchant Logic, Egg Incubation, Pet Hatching, Equip, Deep Dive, Admin, Save/Load -->
-
-<script>
-/* ------------------ PATCH: Merchant Egg Purchase Logic ------------------ */
-const eggTypes = [
-  {type: 'common', label: 'Common Egg', price: 50, hatch: 5*60, odds: {common:0.7, uncommon:0.2, rare:0.1}},
-  {type: 'complex', label: 'Complex Egg', price: 200, hatch: 15*60, odds: {uncommon:0.5, rare:0.3, epic:0.15, common:0.05}},
-  {type: 'elite', label: 'Elite Egg', price: 500, hatch: 30*60, odds: {rare:0.45, epic:0.4, legendary:0.1, uncommon:0.05}},
-  {type: 'apocryphal', label: 'Apocryphal Egg', price: 1000, hatch: 60*60, odds: {legendary:0.65, mythical:0.2, epic:0.15}},
-  {type: 'secret', label: 'Secret Egg', price: 2500, hatch: 2*60*60, odds: {legendary:0.45, mythical:0.5, secret:0.05}},
-];
-
-// Listen for clicks on egg boxes
-document.querySelectorAll('.egg-box').forEach(box => {
-  box.addEventListener('click', function() {
-    const etype = this.getAttribute('data-type');
-    const eggConfig = eggTypes.find(e=>e.type===etype);
-    if (!eggConfig) return;
-    if (pearls < eggConfig.price) {
-      addNarrativeLine("You don't have enough pearls to buy this egg.");
-      return;
-    }
-    pearls -= eggConfig.price;
-    updatePearlDisplay();
-    // Add egg to inventory
-    eggInventory.push({
-      id: 'egg'+Date.now()+Math.floor(Math.random()*10000),
-      type: etype,
-      label: eggConfig.label,
-      state: 'unincubated'
-    });
-    renderEggInventory();
-    addNarrativeLine(`You bought a ${eggConfig.label}!`);
-  });
-});
-
-function updatePearlDisplay() {
-  const el = document.getElementById('pearl-count');
-  if (el) el.textContent = pearls;
-}
-
-/* ------------------ PATCH: Egg Inventory, Incubation, Hatching  ------------------ */
-function renderEggInventory() {
-  const inv = document.getElementById('egg-inventory-list');
-  if (!inv) return;
-  inv.innerHTML = '';
-  eggInventory.forEach((egg, idx) => {
-    const el = document.createElement('div');
-    el.className = 'egg-inventory-egg';
-    el.style = 'width:32px;height:32px;background:#fff;border:1px solid #000;text-align:center;cursor:pointer;margin:3px;';
-    el.innerHTML = `<div style="font-size:28px;">⬯</div><div style="font-size:10px;">${egg.label}</div>`;
-    el.title = egg.label + (egg.state==='incubating' ? ' (Incubating)' : '');
-    el.onclick = () => selectEggForIncubation(idx);
-    inv.appendChild(el);
-  });
-}
-function renderIncubators() {
-  const area = document.getElementById('incubator-slots');
-  if (!area) return;
-  Array.from(area.children).forEach((slotDiv, i) => {
-    const eggId = incubatorSlots[i];
-    slotDiv.innerHTML = '';
-    if (eggId) {
-      const egg = eggInventory.find(e=>e.id===eggId);
-      if (!egg) { slotDiv.style.background = '#eee'; return; }
-      if (egg.state==='ready') {
-        slotDiv.innerHTML = `<div style="font-size:32px;animation:shake 0.5s infinite alternate;">⬯</div>`;
-        slotDiv.title = 'Ready to hatch! Click to hatch';
-        slotDiv.onclick = ()=>hatchEgg(i,eggId);
-      } else {
-        const tleft = Math.max(0, Math.floor((egg.timerEnd-Date.now())/1000));
-        slotDiv.innerHTML = `<div style="font-size:32px;">⬯</div><div style="font-size:10px;">${egg.label}<br>${Math.floor(tleft/60)}:${('0'+(tleft%60)).slice(-2)}</div>`;
-        slotDiv.title = 'Incubating';
-        slotDiv.onclick = null;
-      }
-      slotDiv.style.background = '#fff';
-    } else {
-      slotDiv.innerHTML = '';
-      slotDiv.title = 'Empty slot. Click an egg to incubate here.';
-      slotDiv.style.background = '#eee';
-    }
-  });
-}
-function selectEggForIncubation(invIdx) {
-  // Find first empty incubator
-  const slot = incubatorSlots.findIndex(s=>!s);
-  if (slot===-1) { addNarrativeLine("No incubator slots are free."); return; }
-  const egg = eggInventory[invIdx];
-  if (!egg || egg.state!=='unincubated') return;
-  // Start timer
-  const eggConf = eggTypes.find(e=>e.type===egg.type);
-  egg.timerEnd = Date.now() + (eggConf ? eggConf.hatch*1000 : 60000); // fallback 1min
-  egg.state = 'incubating';
-  incubatorSlots[slot] = egg.id;
-  renderEggInventory();
-  renderIncubators();
-  addNarrativeLine(`You started incubating a ${egg.label}.`);
-}
-function updateIncubatorsTick() {
-  for(let i=0;i<incubatorSlots.length;i++) {
-    const eggId = incubatorSlots[i];
-    if (!eggId) continue;
-    const egg = eggInventory.find(e=>e.id===eggId);
-    if (egg && egg.state==='incubating' && Date.now()>=egg.timerEnd) {
-      egg.state='ready';
-      renderIncubators();
-      addNarrativeLine(`Your ${egg.label} is ready to hatch!`);
-    }
-  }
-}
-setInterval(updateIncubatorsTick, 1000);
-
-// Hatching = wheel spin animation (simplified), pick a pet, handle duplicate
-function hatchEgg(slot, eggId) {
-  const egg = eggInventory.find(e=>e.id===eggId);
-  if (!egg || egg.state!=='ready') return;
-  // Start popup: simplified, real implementation would show a spin/wheel
-  let petWon = randomPetFromEggType(egg.type);
-  let already = petsCatalog.find(p=>p.name===petWon && p.unlocked);
-  if (already) {
-    pearls += 10;
-    updatePearlDisplay();
-    addNarrativeLine(`Duplicate pet! You get 10 pearls.`);
-  } else {
-    let catIdx = petsCatalog.findIndex(p=>p.name===petWon);
-    if (catIdx!==-1) {
-      petsCatalog[catIdx].unlocked = true;
-      addNarrativeLine(`You hatched a new pet: ${petWon}!`);
-      renderPetCatalog();
-    }
-  }
-  // Remove egg from slot/inventory
-  incubatorSlots[slot]=null;
-  let invIdx = eggInventory.findIndex(e=>e.id===eggId);
-  if (invIdx!==-1) eggInventory.splice(invIdx,1);
-  renderEggInventory();
-  renderIncubators();
-}
-
-/* ---- Helper for egg type to pet species ---- */
-function randomPetFromEggType(type) {
-  // For now, just random from all pets. In final, use rarity tables.
-  // TODO: Fill with correct odds & pet pools for each egg type.
-  let pool = petsCatalog.filter(p=>true); // all for now
-  let idx = Math.floor(Math.random()*pool.length);
-  return pool[idx].name;
-}
-
-/* ------------------ PATCH: Pet Equip/Unequip Logic ------------------ */
-function renderPetCatalog() {
-  const list = document.getElementById('pet-catalog-list');
-  list.innerHTML = '';
-  petsCatalog.forEach((pet,i)=>{
-    let box = document.createElement('div');
-    box.className = 'pet-catalog-tiny' + (pet.unlocked?' unlocked':'') + (pet.equipped?' equipped':'');
-    box.title = pet.unlocked ? pet.name : '???';
-    box.innerText = pet.unlocked ? pet.icon : '';
-    box.onmouseenter = e => showPetPopup(pet,i,box);
-    box.onmouseleave = e => hidePetPopup();
-    box.onclick = ()=>{
-      if (!pet.unlocked) return;
-      if (pet.equipped) {
-        pet.equipped = false;
-        equippedPets = equippedPets.filter(idx=>idx!==i);
-      } else {
-        if (equippedPets.length>=2) {
-          addNarrativeLine("Max 2 pets equipped at once. Unequip one first.");
-          return;
-        }
-        pet.equipped = true;
-        equippedPets.push(i);
-      }
-      renderPetCatalog();
-    };
-    list.appendChild(box);
-  });
-}
-function showPetPopup(pet,idx,anchor) {
-  if (!pet.unlocked) return;
-  const popup = document.getElementById('pet-detail-popup');
-  popup.innerHTML = `<b>${pet.name} (${pet.rarity})</b><br>${pet.perk}<br><button onclick="equipPet(${idx})">${pet.equipped?'Unequip':'Equip'}</button>`;
-  popup.style.display = 'block';
-  const rect = anchor.getBoundingClientRect();
-  popup.style.top = (window.scrollY+rect.bottom+8)+'px';
-  popup.style.left = (window.scrollX+rect.left-40)+'px';
-}
-function hidePetPopup() {
-  document.getElementById('pet-detail-popup').style.display = 'none';
-}
-function equipPet(idx) {
-  let pet = petsCatalog[idx];
-  if (!pet.unlocked) return;
-  if (pet.equipped) {
-    pet.equipped = false;
-    equippedPets = equippedPets.filter(i=>i!==idx);
-  } else {
-    if (equippedPets.length>=2) { addNarrativeLine("Max 2 pets equipped."); return; }
-    pet.equipped = true;
-    equippedPets.push(idx);
-  }
-  renderPetCatalog();
-  hidePetPopup();
-}
-
-/* ------------------ PATCH: Starter Egg Logic ------------------ */
-function giveStarterEggIfNeeded() {
-  if (!starterEggGiven) {
-    eggInventory.push({
-      id: 'egg'+Date.now()+Math.floor(Math.random()*10000),
-      type: 'elite',
-      label: 'Starter Rare Egg',
-      state: 'unincubated'
-    });
-    starterEggGiven = true;
-    renderEggInventory();
-    addNarrativeLine("You received a special starter egg! Incubate it to gain your first pet.");
-  }
-}
-
-/* ------------------ PATCH: Deep Dive, Enemy, Pearl, and Bandage Logic ------------------ */
-// Example: update deep dive minigame's enemy table, pearl drops, bandage limit, and enemy handling
-const deepDiveEnemies = [
-  // Fill with your deep dive enemy definitions later
-];
-let maxBandages = 20;
-
-/* Patch: Enforce bandage limit when prepping for dive */
-function updateBandagePrepUI() {
-  // When prepping for dive, show/limit bandages to 20
-  if (bandageCount > maxBandages) {
-    bandageCount = maxBandages;
-    bandageCountSpan.textContent = bandageCount;
-  }
-}
-
-/* Patch: When enemy defeated, award pearls based on rarity, chance */
-function handleEnemyDefeat(enemy) {
-  // 50% chance for pearls
-  if (Math.random()<0.5) {
-    let amt = 1;
-    switch(enemy.rarity) {
-      case 'Common': amt = Math.floor(Math.random()*5)+1; break;
-      case 'Uncommon': amt = Math.floor(Math.random()*6)+5; break;
-      case 'Rare': amt = Math.floor(Math.random()*16)+10; break;
-      case 'Epic': amt = Math.floor(Math.random()*26)+25; break;
-      case 'Legendary': amt = Math.floor(Math.random()*51)+50; break;
-      case 'Mythical': amt = Math.floor(Math.random()*41)+60; break;
-      case 'Secret': amt = 100; break;
-    }
-    pearls += amt;
-    updatePearlDisplay();
-    addNarrativeLine(`You found ${amt} pearls!`);
-  }
-  updatePearlDisplay();
-}
-
-/* Patch: Flee logic (one attempt per battle, no loot on success) */
-let fleeAttemptedThisCombat = false;
-function attemptFlee() {
-  if (fleeAttemptedThisCombat) {
-    addNarrativeLine("You can't flee again in this battle!");
-    return;
-  }
-  fleeAttemptedThisCombat = true;
-  // If successful, end combat, no loot
-  // ... rest of your flee code
-}
-
-/* Patch: Deep dive enemy spawn chance */
-function shouldSpawnEnemyInDeepDive() {
-  // 30% chance of enemy
-  return Math.random()<0.3;
-}
-
-/* ------------------ PATCH: Admin Command for Unlock All Pets ------------------ */
-function checkAdminCode() {
-  const code = document.getElementById('admin-code-input').value.trim();
-  if (code==='naturalpetmagnet') {
-    petsCatalog.forEach(p=>p.unlocked=true);
-    petUnlockAdmin = true;
-    renderPetCatalog();
-    addNarrativeLine("All pets unlocked via admin code!");
-    return;
-  }
-  // ...rest of your code
-}
-
-/* ------------------ PATCH: Save/Load for Eggs, Pearls, Pets, DeepDive ------------------ */
-function saveGame() {
-  // ...existing code
-  let saveObj = {
-    // ... your existing save state
-    pearls,
-    eggInventory,
-    incubatorSlots,
-    petsCatalog,
-    equippedPets,
-    starterEggGiven,
-    // ...other new state as needed
-  };
-  // ...existing code to persist
-}
-function loadGame() {
-  // ...existing code
-  pearls = loadedObj.pearls||0;
-  eggInventory = loadedObj.eggInventory||[];
-  incubatorSlots = loadedObj.incubatorSlots||[null,null,null,null,null];
-  petsCatalog = loadedObj.petsCatalog||[]; // Should restore with unlock/equip state
-  equippedPets = loadedObj.equippedPets||[];
-  starterEggGiven = !!loadedObj.starterEggGiven;
-  // ...rest of your load logic
-  renderEggInventory();
-  renderIncubators();
-  renderPetCatalog();
-  updatePearlDisplay();
-}
-
-/* ------------------ PATCH: Always Place Abandoned Coral Reef Once ------------------ */
-function ensureAbandonedCoralReef() {
-  // When generating regular dive map, always place this landmark at least once
-  // ... implement in your map gen logic
-}
-
-/* ------------------ PATCH: Sunken Battleship Landmark Acts as Normal ------------------ */
-function handleSunkenBattleshipAsNormalLandmark() {
-  // In landmark logic, treat sunken battleship as normal after first discovery
-  // ... implement as needed
-}
-</script>
-
-<!-- PHASE 2 END -->
-<!-- PHASE 3: Final Integration, Full Pet List, Deep Dive Enemies, Polishing, Additional UI/UX -->
-
-<script>
-/* ---------------- PATCH: Full Pet Catalog ------------------- */
-petsCatalog = [
-  // Common (10)
-  {name:'Nudibranch',rarity:'Common',perk:'Adaptive Defense - 5% dodge special',icon:'NH',unlocked:false,equipped:false},
-  {name:'Seahorse',rarity:'Common',perk:'Swift Current - +5 dive moves',icon:'SE',unlocked:false,equipped:false},
-  {name:'Starfish',rarity:'Common',perk:'Regenerative Aid - Heal 1/5s',icon:'SH',unlocked:false,equipped:false},
-  {name:'Sea Slug',rarity:'Common',perk:'Slime Trail - 10% slowed hit CD',icon:'SG',unlocked:false,equipped:false},
-  {name:'Hermit Crab',rarity:'Common',perk:'Fortify - +10% max hp',icon:'HB',unlocked:false,equipped:false},
-  {name:'Anemone Shrimp',rarity:'Common',perk:'Symbiotic Guard - Absorb 3 dmg',icon:'AS',unlocked:false,equipped:false},
-  {name:'Spiny Water Flea',rarity:'Common',perk:'Piercing Swarm - +1 dmg',icon:'SF',unlocked:false,equipped:false},
-  {name:'Brittle Star',rarity:'Common',perk:'Cooldown Link - -10% other pet CD',icon:'BS',unlocked:false,equipped:false},
-  {name:'Feather Star',rarity:'Common',perk:'Stealthy Current - 10% enemy miss',icon:'FS',unlocked:false,equipped:false},
-  {name:'Sea Urchin',rarity:'Common',perk:'Spiky Aura - 1 dmg on hit',icon:'SU',unlocked:false,equipped:false},
-  // Uncommon (10)
-  {name:'Dumbo Octopus',rarity:'Uncommon',perk:'Deep Descent - +10% hp/15s',icon:'DS',unlocked:false,equipped:false},
-  {name:'Cuttlefish',rarity:'Uncommon',perk:'Invisibility Ink - 2s invis',icon:'CF',unlocked:false,equipped:false},
-  {name:'Pufferfish',rarity:'Uncommon',perk:'Cooldown Link - -20% other pet CD',icon:'PF',unlocked:false,equipped:false},
-  {name:'Giant Clam',rarity:'Uncommon',perk:'Protective Shell - Absorb 8 dmg',icon:'GC',unlocked:false,equipped:false},
-  {name:'Sea Turtle',rarity:'Uncommon',perk:'Enduring Shell - +20% def/8s',icon:'ST',unlocked:false,equipped:false},
-  {name:'Leafy Seadragon',rarity:'Uncommon',perk:'Camouflage - +15% enemy miss',icon:'LD',unlocked:false,equipped:false},
-  {name:'Flying Fish',rarity:'Uncommon',perk:'Evasive Leap - dodge first 5 hits',icon:'FF',unlocked:false,equipped:false},
-  {name:'Atlantic Blue Tang',rarity:'Uncommon',perk:'Quick-Heal - +20% healing',icon:'AT',unlocked:false,equipped:false},
-  {name:'Vampire Crab',rarity:'Uncommon',perk:'Sanguine Strike - 10% lifesteal',icon:'VC',unlocked:false,equipped:false},
-  {name:'Blue Ringed Octopus',rarity:'Uncommon',perk:'Venomous Touch - 15% poison crit',icon:'BO',unlocked:false,equipped:false},
-  // Rare (10)
-  {name:'Lionfish',rarity:'Rare',perk:'Venomous Spines - 2/s poison',icon:'LF',unlocked:false,equipped:false},
-  {name:'Bobtail Squid',rarity:'Rare',perk:'Light Pulse - 4s blind, +20% CD',icon:'BS',unlocked:false,equipped:false},
-  {name:'Box Jellyfish',rarity:'Rare',perk:'Venomous Tentacle - 5% 20 poison',icon:'BJ',unlocked:false,equipped:false},
-  {name:'Glass Squid',rarity:'Rare',perk:'Crystal Shroud - 1s invuln',icon:'GQ',unlocked:false,equipped:false},
-  {name:'Bobbit Worm',rarity:'Rare',perk:'Cooldown Link - -15% other pet CD',icon:'BW',unlocked:false,equipped:false},
-  {name:'Sarcastic Fringehead',rarity:'Rare',perk:'Fierce Territory - +2/2s on <5hp',icon:'SF',unlocked:false,equipped:false},
-  {name:'Warty Frogfish',rarity:'Rare',perk:'Angler\'s Bait - +20% dmg, 5s',icon:'WF',unlocked:false,equipped:false},
-  {name:'Pink See-Through Fantasia',rarity:'Rare',perk:'Ethereal Flow - -25% dmg',icon:'PF',unlocked:false,equipped:false},
-  {name:'Strawberry Squid',rarity:'Rare',perk:'Lightburst - 2s disorient, +25% CD',icon:'SQ',unlocked:false,equipped:false},
-  {name:'Flamingo Tongue Snail',rarity:'Rare',perk:'Deflecting Shell - 10% reflect',icon:'FS',unlocked:false,equipped:false},
-  // Epic (10)
-  {name:'Sea Angel',rarity:'Epic',perk:'Spirit\'s Grace - 3hp/s for 5s',icon:'SA',unlocked:false,equipped:false},
-  {name:'Yeti Crab',rarity:'Epic',perk:'Frostbite - 10% freeze 2s',icon:'YC',unlocked:false,equipped:false},
-  {name:'Comb Jelly',rarity:'Epic',perk:'Bioluminescent Trail - 2/s & +20% CD',icon:'CJ',unlocked:false,equipped:false},
-  {name:'Vampire Squid',rarity:'Epic',perk:'Abyssal Shield - Absorb 25 dmg',icon:'VS',unlocked:false,equipped:false},
-  {name:'Barreleye Fish',rarity:'Epic',perk:'Clarity of Sight - +25% crit',icon:'BF',unlocked:false,equipped:false},
-  {name:'Coelacanth',rarity:'Epic',perk:'Cooldown Link - -20% other pet CD',icon:'CC',unlocked:false,equipped:false},
-  {name:'Bobbit Worm (Epic)',rarity:'Epic',perk:'Tunneling Strike - 2s invuln',icon:'BW',unlocked:false,equipped:false},
-  {name:'Giant Spider Crab',rarity:'Epic',perk:'Pincer Crush - 10 dmg, 3s stun',icon:'GC',unlocked:false,equipped:false},
-  {name:'Flashlight Fish',rarity:'Epic',perk:'Blinding Flash - 2s stun',icon:'FF',unlocked:false,equipped:false},
-  {name:'Cookiecutter Shark',rarity:'Epic',perk:'Bite of the Abyss - 2/s bleed',icon:'CS',unlocked:false,equipped:false},
-  // Legendary (10)
-  {name:'Giant Isopod',rarity:'Legendary',perk:'Hardened Exoskeleton - +50% armor/5s',icon:'GD',unlocked:false,equipped:false},
-  {name:'Giant Tube Worm',rarity:'Legendary',perk:'Ventilation Blast - 18 dmg',icon:'GW',unlocked:false,equipped:false},
-  {name:'Snailfish',rarity:'Legendary',perk:'Evasive Slime - +30% dodge/3s',icon:'SN',unlocked:false,equipped:false},
-  {name:'Moon Jellyfish',rarity:'Legendary',perk:'Calming Aura - heal 50hp, cleanse',icon:'MJ',unlocked:false,equipped:false},
-  {name:'Dragonfish (Legendary)',rarity:'Legendary',perk:'Cooldown Link - -25% other pet CD',icon:'DF',unlocked:false,equipped:false},
-  {name:'Pacific Blackdragon',rarity:'Legendary',perk:'Shadow Meld - 3s invis/immune',icon:'PB',unlocked:false,equipped:false},
-  {name:'Wobbegong Shark',rarity:'Legendary',perk:'Ambush Hunter - +40% back dmg',icon:'WS',unlocked:false,equipped:false},
-  {name:'Manta Ray',rarity:'Legendary',perk:'Abyssal Glide - 3s invuln',icon:'MR',unlocked:false,equipped:false},
-  {name:'Gulper Eel',rarity:'Legendary',perk:'Lacerating Bite - 10 dmg',icon:'GE',unlocked:false,equipped:false},
-  {name:'Mimic Octopus',rarity:'Legendary',perk:'Adaptive Mimicry - reflect special (50%)',icon:'MS',unlocked:false,equipped:false},
-  // Mythic (2)
-  {name:'Lion\'s Mane Jellyfish',rarity:'Mythic',perk:'Venomous Barrage - 1/s 20s, 1x/encounter',icon:'LM',unlocked:false,equipped:false},
-  {name:'Chimaera',rarity:'Mythic',perk:'Living Fossil - +50% hp, -15% CD',icon:'CH',unlocked:false,equipped:false},
-  // Secret (1)
-  {name:'Immortal Jellyfish',rarity:'Secret',perk:'Rejuvenation Cycle - revive, +20% dmg/10s, 1x/encounter',icon:'IJ',unlocked:false,equipped:false}
-];
-// Re-render catalog after replacing!
-if (typeof renderPetCatalog === 'function') renderPetCatalog();
-
-/* ------------- PATCH: Deep Dive Enemies (EXAMPLE STRUCTURE) -------------- */
-const deepDiveEnemies = [
-  {name: "Snipe Eel", rarity: "Common", health: 10, abilities: [], drops: ["Wood", "Fabric"], pearls: [1,5]},
-  {name: "Squidworm", rarity: "Common", health: 25, abilities: [
-      {name:"Tentacle Barrage",desc:"multiple hits",cooldown:2,damage:"2 per hit (3-4 hits)"}
-    ], drops: ["Fabric", "Rope"], pearls: [1,5]},
-  {name: "Dragonfish", rarity: "Uncommon", health: 35, abilities: [
-      {name:"Bioluminescent Flash",desc:"stun+quick bite",cooldown:8,damage:"5+3"}
-    ], drops: ["Fabric", "Bandages"], pearls: [5,10]},
-  // ... (Add all as per your full list above)
-  {name: "Great White", rarity: "Legendary", health: 150, abilities: [
-      {name:"Apex Charge",desc:"charge/knockback",cooldown:7,damage:"20"},
-      {name:"Tearing Bite",desc:"massive dmg",cooldown:12,damage:"30"}
-    ], drops: ["Tungsten", "Kevlar", "Harpoon Ammo"], pearls: [50,100]}
-  // ... etc.
-];
-
-/* ------------- PATCH: Full Egg-to-Pet Rarity Roll Logic -------------- */
-function randomPetFromEggType(type) {
-  // Map egg type to rarity odds
-  const egg = eggTypes.find(e=>e.type===type);
-  if (!egg) return petsCatalog[Math.floor(Math.random()*petsCatalog.length)].name;
-  // Pick a rarity
-  let rand = Math.random(), sum = 0, chosenRarity = null;
-  for (const [rarity, chance] of Object.entries(egg.odds)) {
-    sum += chance;
-    if (rand < sum) { chosenRarity = rarity.charAt(0).toUpperCase()+rarity.slice(1); break; }
-  }
-  // Get eligible pets
-  let pool = petsCatalog.filter(p=>p.rarity===chosenRarity);
-  if (pool.length===0) pool = petsCatalog;
-  let idx = Math.floor(Math.random()*pool.length);
-  return pool[idx].name;
-}
-
-/* ------------- PATCH: Abandoned Coral Reef Unlocks Tabs -------------- */
-function unlockNurseryMerchantTabs() {
-  document.getElementById('nursery-tab').style.display = '';
-  document.getElementById('merchant-tab').style.display = '';
-  addNarrativeLine("You have unlocked the Nursery and Egg Merchant!");
-}
-
-/* ------------- PATCH: Always Place Abandoned Coral Reef -------------- */
-function ensureAbandonedCoralReef(map) {
-  // map = 2D array of tiles for dive minigame
-  const found = map.some(row=>row.some(tile=>(tile.type==='landmark'&&tile.details&&tile.details.name==='Abandoned Coral Reef')));
-  if (!found) {
-    // Place on random path
-    let placed = false;
-    for (let tries=0;tries<100&&!placed;tries++) {
-      let x = Math.floor(Math.random()*map[0].length), y = Math.floor(Math.random()*map.length);
-      if (map[y][x].type==='path') {
-        map[y][x] = {type:'landmark',details:{name:'Abandoned Coral Reef'}};
-        placed = true;
-      }
-    }
-  }
-}
-
-/* ------------- PATCH: Sunken Battleship Acts As Normal Landmark -------------- */
-function handleSunkenBattleshipAsNormalLandmark(landmark) {
-  if (landmark.name==='Sunken Battleship') {
-    // After discovered, acts as normal landmark
-    // Implement as needed: just give standard rewards/materials
-    addNarrativeLine('You found supplies in the Sunken Battleship.');
-    // ...standard material logic...
-  }
-}
-
-/* ------------- PATCH: Pet Visual In Dives -------------- */
-function renderPetsInDive(playerX, playerY) {
-  // Show equipped pet icons ("@" is player) in dive grid UI
-  // Example: one left, one right, bobbing
-  // Implement visual in your minigame rendering
-}
-
-/* ------------- PATCH: Pet Perks In Combat -------------- */
-// In combat logic, check equippedPets, apply perks per description
-// Example (pseudo):
-// if (petsCatalog[petIdx].perk.includes('dodge')) { /* apply dodge logic */ }
-
-/* ------------- PATCH: Bandage Limit in UI & Inventory -------------- */
-function enforceBandageLimit() {
-  if (bandageCount > maxBandages) bandageCount = maxBandages;
-  bandageCountSpan.textContent = bandageCount;
-}
-
-/* ------------- PATCH: Flee Is One-Time Per Encounter -------------- */
-function resetFleeOnCombatStart() { fleeAttemptedThisCombat = false; }
-
-/* ------------- PATCH: Save/Load - All New State -------------- */
-// Already in Phase 2, just ensure all new properties are persisted!
-
-/* ------------- PATCH: Pet Catalog/Details Polish -------------- */
-function showPetPopup(pet,idx,anchor) {
-  if (!pet.unlocked) return;
-  const popup = document.getElementById('pet-detail-popup');
-  popup.innerHTML = `<b>${pet.name} (${pet.rarity})</b><br><i>${pet.perk}</i><br>`+
-    `<div style="margin:8px 0;">Icon: <span style="display:inline-block;width:20px;text-align:center;">${pet.icon}</span></div>`+
-    `<button onclick="equipPet(${idx})">${pet.equipped?'Unequip':'Equip'}</button>`;
-  popup.style.display = 'block';
-  const rect = anchor.getBoundingClientRect();
-  popup.style.top = (window.scrollY+rect.bottom+8)+'px';
-  popup.style.left = (window.scrollX+rect.left-40)+'px';
-}
-</script>
-
-<style>
-@keyframes shake { 0% {transform:translateY(0);} 100% {transform:translateY(-5px);} }
-</style>
-
-<!-- PHASE 3 END -->
