@@ -3932,4 +3932,667 @@
     </script>
 </body>
 </html>
+<!-- PATCH START: PHASE 1 - UI STUBS & STATE (Nursery, Merchant, Pets, Pearls) -->
 
+<!-- (Insert in the navigation tabs section, after existing tabs) -->
+<button id="nursery-tab" class="tab-button" style="display: none;">Nursery</button>
+<button id="merchant-tab" class="tab-button" style="display: none;">Egg Merchant</button>
+
+<!-- (Insert after the main game screens, as new hidden screens) -->
+<div id="nursery-screen" class="nursery-page" style="display: none;">
+  <h2>Deep-Sea Creature Nursery</h2>
+  <div id="incubator-area">
+    <h3>Incubators</h3>
+    <div id="incubator-slots" style="display:flex;gap:16px;">
+      <!-- 5 incubator slots -->
+      <div class="incubator-slot" data-slot="0"></div>
+      <div class="incubator-slot" data-slot="1"></div>
+      <div class="incubator-slot" data-slot="2"></div>
+      <div class="incubator-slot" data-slot="3"></div>
+      <div class="incubator-slot" data-slot="4"></div>
+    </div>
+  </div>
+  <div id="egg-inventory-area">
+    <h3>Egg Inventory</h3>
+    <div id="egg-inventory-list" style="display:flex;gap:12px;"></div>
+  </div>
+  <div id="pet-catalog-area">
+    <h3>Pet Catalog</h3>
+    <div id="pet-catalog-list" style="display:grid;grid-template-columns:repeat(5,32px);gap:4px;"></div>
+    <div id="pet-detail-popup" style="display:none;">
+      <!-- Expanding pet info popup, appears on hover -->
+    </div>
+  </div>
+  <button id="nursery-back-button" class="game-button back-button">Back</button>
+</div>
+
+<div id="merchant-screen" class="merchant-page" style="display: none;">
+  <h2>Egg Merchant</h2>
+  <div id="pearl-display" style="margin-bottom:12px;">Pearls: <span id="pearl-count">0</span></div>
+  <div id="egg-shop">
+    <!-- 5 egg boxes -->
+    <div class="egg-box" data-type="common">
+      <div class="egg-name">Common Egg</div>
+      <div class="egg-art" style="font-size:28px;">⬯</div>
+      <div class="egg-price">50 pearls</div>
+    </div>
+    <div class="egg-box" data-type="complex">
+      <div class="egg-name">Complex Egg</div>
+      <div class="egg-art" style="font-size:28px;">⬯</div>
+      <div class="egg-price">200 pearls</div>
+    </div>
+    <div class="egg-box" data-type="elite">
+      <div class="egg-name">Elite Egg</div>
+      <div class="egg-art" style="font-size:28px;">⬯</div>
+      <div class="egg-price">500 pearls</div>
+    </div>
+    <div class="egg-box" data-type="apocryphal">
+      <div class="egg-name">Apocryphal Egg</div>
+      <div class="egg-art" style="font-size:28px;">⬯</div>
+      <div class="egg-price">1k pearls</div>
+    </div>
+    <div class="egg-box" data-type="secret">
+      <div class="egg-name">Secret Egg</div>
+      <div class="egg-art" style="font-size:28px;">⬯</div>
+      <div class="egg-price">2.5k pearls</div>
+    </div>
+  </div>
+  <button id="merchant-back-button" class="game-button back-button">Back</button>
+</div>
+
+<!-- PATCH: Add CSS for new UI -->
+<style>
+#nursery-screen, #merchant-screen {
+  background: #222;
+  color: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  margin: 12px;
+}
+.incubator-slot {
+  width: 48px; height: 48px; background:#fff; border:2px solid #222; display:flex; align-items:center; justify-content:center; cursor:pointer;
+}
+.egg-box {
+  display: inline-block; width: 110px; height: 120px; border: 2px solid #222; background: #fff; margin: 10px; border-radius: 8px; text-align: center; vertical-align: top; cursor: pointer; transition: box-shadow 0.2s;
+}
+.egg-box:hover { box-shadow: 0 0 8px #00bfff; }
+.egg-name { font-weight: bold; margin-top: 4px; }
+.egg-price { font-size: 1.08em; margin-bottom: 4px; }
+.pet-catalog-list {
+  display: grid;
+  grid-template-columns: repeat(5, 32px);
+  gap: 4px;
+  margin-top: 10px;
+}
+.pet-catalog-tiny {
+  width: 28px; height: 28px; background:#fff; border:1px solid #000; filter: blur(3px); cursor:pointer;
+}
+.pet-catalog-tiny.unlocked { filter:none; }
+.pet-catalog-tiny.equipped { border:2px solid #2fa32f; }
+#pet-detail-popup {
+  position: absolute; background: #fff; color: #111; border:2px solid #000; padding:10px; border-radius:6px; min-width:180px; z-index:10;
+}
+</style>
+
+<script>
+// --- PATCH: State Variables ---
+let pearls = 0;
+let eggInventory = []; // {type, label, id, state: 'unincubated'|'incubating'|'ready', timerEnd, petTypeIfReady}
+let incubatorSlots = [null, null, null, null, null]; // index: eggID or null
+let petsCatalog = []; // {name, rarity, perk, icon, unlocked, equipped}
+let equippedPets = []; // array of pet IDs, max 2
+let petUnlockAdmin = false;
+let starterEggGiven = false;
+
+// PATCH: Tab unlock logic, after finding 'Abandoned Coral Reef'
+function unlockNurseryMerchantTabs() {
+  document.getElementById('nursery-tab').style.display = '';
+  document.getElementById('merchant-tab').style.display = '';
+}
+
+// PATCH: Tab navigation logic (add to nav event listeners)
+document.getElementById('nursery-tab').addEventListener('click', () => switchScreen('nursery'));
+document.getElementById('merchant-tab').addEventListener('click', () => switchScreen('merchant'));
+document.getElementById('nursery-back-button').addEventListener('click', () => switchScreen('game'));
+document.getElementById('merchant-back-button').addEventListener('click', () => switchScreen('game'));
+
+// PATCH: Initialize pet catalog (tiny boxes, all locked/blurred)
+function initializePetCatalog() {
+  // Example structure, fill with all pets in future phases
+  petsCatalog = [
+    {name:'Nudibranch',rarity:'Common',perk:'Adaptive Defense',icon:'NH',unlocked:false,equipped:false},
+    // ... (fill with all 53 pets, see future phases)
+  ];
+  renderPetCatalog();
+}
+function renderPetCatalog() {
+  const list = document.getElementById('pet-catalog-list');
+  list.innerHTML = '';
+  petsCatalog.forEach((pet,i)=>{
+    let box = document.createElement('div');
+    box.className = 'pet-catalog-tiny' + (pet.unlocked?' unlocked':'') + (pet.equipped?' equipped':'');
+    box.title = pet.unlocked ? pet.name : '???';
+    box.innerText = pet.unlocked ? pet.icon : '';
+    // Hover/expand logic, equip/unequip in future phases
+    list.appendChild(box);
+  });
+}
+
+// PATCH: Run on load
+initializePetCatalog();
+
+</script>
+
+<!-- PATCH END: PHASE 1 - UI STUBS & STATE (Nursery, Merchant, Pets, Pearls) -->
+<!-- PHASE 2: Merchant Logic, Egg Incubation, Pet Hatching, Equip, Deep Dive, Admin, Save/Load -->
+
+<script>
+/* ------------------ PATCH: Merchant Egg Purchase Logic ------------------ */
+const eggTypes = [
+  {type: 'common', label: 'Common Egg', price: 50, hatch: 5*60, odds: {common:0.7, uncommon:0.2, rare:0.1}},
+  {type: 'complex', label: 'Complex Egg', price: 200, hatch: 15*60, odds: {uncommon:0.5, rare:0.3, epic:0.15, common:0.05}},
+  {type: 'elite', label: 'Elite Egg', price: 500, hatch: 30*60, odds: {rare:0.45, epic:0.4, legendary:0.1, uncommon:0.05}},
+  {type: 'apocryphal', label: 'Apocryphal Egg', price: 1000, hatch: 60*60, odds: {legendary:0.65, mythical:0.2, epic:0.15}},
+  {type: 'secret', label: 'Secret Egg', price: 2500, hatch: 2*60*60, odds: {legendary:0.45, mythical:0.5, secret:0.05}},
+];
+
+// Listen for clicks on egg boxes
+document.querySelectorAll('.egg-box').forEach(box => {
+  box.addEventListener('click', function() {
+    const etype = this.getAttribute('data-type');
+    const eggConfig = eggTypes.find(e=>e.type===etype);
+    if (!eggConfig) return;
+    if (pearls < eggConfig.price) {
+      addNarrativeLine("You don't have enough pearls to buy this egg.");
+      return;
+    }
+    pearls -= eggConfig.price;
+    updatePearlDisplay();
+    // Add egg to inventory
+    eggInventory.push({
+      id: 'egg'+Date.now()+Math.floor(Math.random()*10000),
+      type: etype,
+      label: eggConfig.label,
+      state: 'unincubated'
+    });
+    renderEggInventory();
+    addNarrativeLine(`You bought a ${eggConfig.label}!`);
+  });
+});
+
+function updatePearlDisplay() {
+  const el = document.getElementById('pearl-count');
+  if (el) el.textContent = pearls;
+}
+
+/* ------------------ PATCH: Egg Inventory, Incubation, Hatching  ------------------ */
+function renderEggInventory() {
+  const inv = document.getElementById('egg-inventory-list');
+  if (!inv) return;
+  inv.innerHTML = '';
+  eggInventory.forEach((egg, idx) => {
+    const el = document.createElement('div');
+    el.className = 'egg-inventory-egg';
+    el.style = 'width:32px;height:32px;background:#fff;border:1px solid #000;text-align:center;cursor:pointer;margin:3px;';
+    el.innerHTML = `<div style="font-size:28px;">⬯</div><div style="font-size:10px;">${egg.label}</div>`;
+    el.title = egg.label + (egg.state==='incubating' ? ' (Incubating)' : '');
+    el.onclick = () => selectEggForIncubation(idx);
+    inv.appendChild(el);
+  });
+}
+function renderIncubators() {
+  const area = document.getElementById('incubator-slots');
+  if (!area) return;
+  Array.from(area.children).forEach((slotDiv, i) => {
+    const eggId = incubatorSlots[i];
+    slotDiv.innerHTML = '';
+    if (eggId) {
+      const egg = eggInventory.find(e=>e.id===eggId);
+      if (!egg) { slotDiv.style.background = '#eee'; return; }
+      if (egg.state==='ready') {
+        slotDiv.innerHTML = `<div style="font-size:32px;animation:shake 0.5s infinite alternate;">⬯</div>`;
+        slotDiv.title = 'Ready to hatch! Click to hatch';
+        slotDiv.onclick = ()=>hatchEgg(i,eggId);
+      } else {
+        const tleft = Math.max(0, Math.floor((egg.timerEnd-Date.now())/1000));
+        slotDiv.innerHTML = `<div style="font-size:32px;">⬯</div><div style="font-size:10px;">${egg.label}<br>${Math.floor(tleft/60)}:${('0'+(tleft%60)).slice(-2)}</div>`;
+        slotDiv.title = 'Incubating';
+        slotDiv.onclick = null;
+      }
+      slotDiv.style.background = '#fff';
+    } else {
+      slotDiv.innerHTML = '';
+      slotDiv.title = 'Empty slot. Click an egg to incubate here.';
+      slotDiv.style.background = '#eee';
+    }
+  });
+}
+function selectEggForIncubation(invIdx) {
+  // Find first empty incubator
+  const slot = incubatorSlots.findIndex(s=>!s);
+  if (slot===-1) { addNarrativeLine("No incubator slots are free."); return; }
+  const egg = eggInventory[invIdx];
+  if (!egg || egg.state!=='unincubated') return;
+  // Start timer
+  const eggConf = eggTypes.find(e=>e.type===egg.type);
+  egg.timerEnd = Date.now() + (eggConf ? eggConf.hatch*1000 : 60000); // fallback 1min
+  egg.state = 'incubating';
+  incubatorSlots[slot] = egg.id;
+  renderEggInventory();
+  renderIncubators();
+  addNarrativeLine(`You started incubating a ${egg.label}.`);
+}
+function updateIncubatorsTick() {
+  for(let i=0;i<incubatorSlots.length;i++) {
+    const eggId = incubatorSlots[i];
+    if (!eggId) continue;
+    const egg = eggInventory.find(e=>e.id===eggId);
+    if (egg && egg.state==='incubating' && Date.now()>=egg.timerEnd) {
+      egg.state='ready';
+      renderIncubators();
+      addNarrativeLine(`Your ${egg.label} is ready to hatch!`);
+    }
+  }
+}
+setInterval(updateIncubatorsTick, 1000);
+
+// Hatching = wheel spin animation (simplified), pick a pet, handle duplicate
+function hatchEgg(slot, eggId) {
+  const egg = eggInventory.find(e=>e.id===eggId);
+  if (!egg || egg.state!=='ready') return;
+  // Start popup: simplified, real implementation would show a spin/wheel
+  let petWon = randomPetFromEggType(egg.type);
+  let already = petsCatalog.find(p=>p.name===petWon && p.unlocked);
+  if (already) {
+    pearls += 10;
+    updatePearlDisplay();
+    addNarrativeLine(`Duplicate pet! You get 10 pearls.`);
+  } else {
+    let catIdx = petsCatalog.findIndex(p=>p.name===petWon);
+    if (catIdx!==-1) {
+      petsCatalog[catIdx].unlocked = true;
+      addNarrativeLine(`You hatched a new pet: ${petWon}!`);
+      renderPetCatalog();
+    }
+  }
+  // Remove egg from slot/inventory
+  incubatorSlots[slot]=null;
+  let invIdx = eggInventory.findIndex(e=>e.id===eggId);
+  if (invIdx!==-1) eggInventory.splice(invIdx,1);
+  renderEggInventory();
+  renderIncubators();
+}
+
+/* ---- Helper for egg type to pet species ---- */
+function randomPetFromEggType(type) {
+  // For now, just random from all pets. In final, use rarity tables.
+  // TODO: Fill with correct odds & pet pools for each egg type.
+  let pool = petsCatalog.filter(p=>true); // all for now
+  let idx = Math.floor(Math.random()*pool.length);
+  return pool[idx].name;
+}
+
+/* ------------------ PATCH: Pet Equip/Unequip Logic ------------------ */
+function renderPetCatalog() {
+  const list = document.getElementById('pet-catalog-list');
+  list.innerHTML = '';
+  petsCatalog.forEach((pet,i)=>{
+    let box = document.createElement('div');
+    box.className = 'pet-catalog-tiny' + (pet.unlocked?' unlocked':'') + (pet.equipped?' equipped':'');
+    box.title = pet.unlocked ? pet.name : '???';
+    box.innerText = pet.unlocked ? pet.icon : '';
+    box.onmouseenter = e => showPetPopup(pet,i,box);
+    box.onmouseleave = e => hidePetPopup();
+    box.onclick = ()=>{
+      if (!pet.unlocked) return;
+      if (pet.equipped) {
+        pet.equipped = false;
+        equippedPets = equippedPets.filter(idx=>idx!==i);
+      } else {
+        if (equippedPets.length>=2) {
+          addNarrativeLine("Max 2 pets equipped at once. Unequip one first.");
+          return;
+        }
+        pet.equipped = true;
+        equippedPets.push(i);
+      }
+      renderPetCatalog();
+    };
+    list.appendChild(box);
+  });
+}
+function showPetPopup(pet,idx,anchor) {
+  if (!pet.unlocked) return;
+  const popup = document.getElementById('pet-detail-popup');
+  popup.innerHTML = `<b>${pet.name} (${pet.rarity})</b><br>${pet.perk}<br><button onclick="equipPet(${idx})">${pet.equipped?'Unequip':'Equip'}</button>`;
+  popup.style.display = 'block';
+  const rect = anchor.getBoundingClientRect();
+  popup.style.top = (window.scrollY+rect.bottom+8)+'px';
+  popup.style.left = (window.scrollX+rect.left-40)+'px';
+}
+function hidePetPopup() {
+  document.getElementById('pet-detail-popup').style.display = 'none';
+}
+function equipPet(idx) {
+  let pet = petsCatalog[idx];
+  if (!pet.unlocked) return;
+  if (pet.equipped) {
+    pet.equipped = false;
+    equippedPets = equippedPets.filter(i=>i!==idx);
+  } else {
+    if (equippedPets.length>=2) { addNarrativeLine("Max 2 pets equipped."); return; }
+    pet.equipped = true;
+    equippedPets.push(idx);
+  }
+  renderPetCatalog();
+  hidePetPopup();
+}
+
+/* ------------------ PATCH: Starter Egg Logic ------------------ */
+function giveStarterEggIfNeeded() {
+  if (!starterEggGiven) {
+    eggInventory.push({
+      id: 'egg'+Date.now()+Math.floor(Math.random()*10000),
+      type: 'elite',
+      label: 'Starter Rare Egg',
+      state: 'unincubated'
+    });
+    starterEggGiven = true;
+    renderEggInventory();
+    addNarrativeLine("You received a special starter egg! Incubate it to gain your first pet.");
+  }
+}
+
+/* ------------------ PATCH: Deep Dive, Enemy, Pearl, and Bandage Logic ------------------ */
+// Example: update deep dive minigame's enemy table, pearl drops, bandage limit, and enemy handling
+const deepDiveEnemies = [
+  // Fill with your deep dive enemy definitions later
+];
+let maxBandages = 20;
+
+/* Patch: Enforce bandage limit when prepping for dive */
+function updateBandagePrepUI() {
+  // When prepping for dive, show/limit bandages to 20
+  if (bandageCount > maxBandages) {
+    bandageCount = maxBandages;
+    bandageCountSpan.textContent = bandageCount;
+  }
+}
+
+/* Patch: When enemy defeated, award pearls based on rarity, chance */
+function handleEnemyDefeat(enemy) {
+  // 50% chance for pearls
+  if (Math.random()<0.5) {
+    let amt = 1;
+    switch(enemy.rarity) {
+      case 'Common': amt = Math.floor(Math.random()*5)+1; break;
+      case 'Uncommon': amt = Math.floor(Math.random()*6)+5; break;
+      case 'Rare': amt = Math.floor(Math.random()*16)+10; break;
+      case 'Epic': amt = Math.floor(Math.random()*26)+25; break;
+      case 'Legendary': amt = Math.floor(Math.random()*51)+50; break;
+      case 'Mythical': amt = Math.floor(Math.random()*41)+60; break;
+      case 'Secret': amt = 100; break;
+    }
+    pearls += amt;
+    updatePearlDisplay();
+    addNarrativeLine(`You found ${amt} pearls!`);
+  }
+  updatePearlDisplay();
+}
+
+/* Patch: Flee logic (one attempt per battle, no loot on success) */
+let fleeAttemptedThisCombat = false;
+function attemptFlee() {
+  if (fleeAttemptedThisCombat) {
+    addNarrativeLine("You can't flee again in this battle!");
+    return;
+  }
+  fleeAttemptedThisCombat = true;
+  // If successful, end combat, no loot
+  // ... rest of your flee code
+}
+
+/* Patch: Deep dive enemy spawn chance */
+function shouldSpawnEnemyInDeepDive() {
+  // 30% chance of enemy
+  return Math.random()<0.3;
+}
+
+/* ------------------ PATCH: Admin Command for Unlock All Pets ------------------ */
+function checkAdminCode() {
+  const code = document.getElementById('admin-code-input').value.trim();
+  if (code==='naturalpetmagnet') {
+    petsCatalog.forEach(p=>p.unlocked=true);
+    petUnlockAdmin = true;
+    renderPetCatalog();
+    addNarrativeLine("All pets unlocked via admin code!");
+    return;
+  }
+  // ...rest of your code
+}
+
+/* ------------------ PATCH: Save/Load for Eggs, Pearls, Pets, DeepDive ------------------ */
+function saveGame() {
+  // ...existing code
+  let saveObj = {
+    // ... your existing save state
+    pearls,
+    eggInventory,
+    incubatorSlots,
+    petsCatalog,
+    equippedPets,
+    starterEggGiven,
+    // ...other new state as needed
+  };
+  // ...existing code to persist
+}
+function loadGame() {
+  // ...existing code
+  pearls = loadedObj.pearls||0;
+  eggInventory = loadedObj.eggInventory||[];
+  incubatorSlots = loadedObj.incubatorSlots||[null,null,null,null,null];
+  petsCatalog = loadedObj.petsCatalog||[]; // Should restore with unlock/equip state
+  equippedPets = loadedObj.equippedPets||[];
+  starterEggGiven = !!loadedObj.starterEggGiven;
+  // ...rest of your load logic
+  renderEggInventory();
+  renderIncubators();
+  renderPetCatalog();
+  updatePearlDisplay();
+}
+
+/* ------------------ PATCH: Always Place Abandoned Coral Reef Once ------------------ */
+function ensureAbandonedCoralReef() {
+  // When generating regular dive map, always place this landmark at least once
+  // ... implement in your map gen logic
+}
+
+/* ------------------ PATCH: Sunken Battleship Landmark Acts as Normal ------------------ */
+function handleSunkenBattleshipAsNormalLandmark() {
+  // In landmark logic, treat sunken battleship as normal after first discovery
+  // ... implement as needed
+}
+</script>
+
+<!-- PHASE 2 END -->
+<!-- PHASE 3: Final Integration, Full Pet List, Deep Dive Enemies, Polishing, Additional UI/UX -->
+
+<script>
+/* ---------------- PATCH: Full Pet Catalog ------------------- */
+petsCatalog = [
+  // Common (10)
+  {name:'Nudibranch',rarity:'Common',perk:'Adaptive Defense - 5% dodge special',icon:'NH',unlocked:false,equipped:false},
+  {name:'Seahorse',rarity:'Common',perk:'Swift Current - +5 dive moves',icon:'SE',unlocked:false,equipped:false},
+  {name:'Starfish',rarity:'Common',perk:'Regenerative Aid - Heal 1/5s',icon:'SH',unlocked:false,equipped:false},
+  {name:'Sea Slug',rarity:'Common',perk:'Slime Trail - 10% slowed hit CD',icon:'SG',unlocked:false,equipped:false},
+  {name:'Hermit Crab',rarity:'Common',perk:'Fortify - +10% max hp',icon:'HB',unlocked:false,equipped:false},
+  {name:'Anemone Shrimp',rarity:'Common',perk:'Symbiotic Guard - Absorb 3 dmg',icon:'AS',unlocked:false,equipped:false},
+  {name:'Spiny Water Flea',rarity:'Common',perk:'Piercing Swarm - +1 dmg',icon:'SF',unlocked:false,equipped:false},
+  {name:'Brittle Star',rarity:'Common',perk:'Cooldown Link - -10% other pet CD',icon:'BS',unlocked:false,equipped:false},
+  {name:'Feather Star',rarity:'Common',perk:'Stealthy Current - 10% enemy miss',icon:'FS',unlocked:false,equipped:false},
+  {name:'Sea Urchin',rarity:'Common',perk:'Spiky Aura - 1 dmg on hit',icon:'SU',unlocked:false,equipped:false},
+  // Uncommon (10)
+  {name:'Dumbo Octopus',rarity:'Uncommon',perk:'Deep Descent - +10% hp/15s',icon:'DS',unlocked:false,equipped:false},
+  {name:'Cuttlefish',rarity:'Uncommon',perk:'Invisibility Ink - 2s invis',icon:'CF',unlocked:false,equipped:false},
+  {name:'Pufferfish',rarity:'Uncommon',perk:'Cooldown Link - -20% other pet CD',icon:'PF',unlocked:false,equipped:false},
+  {name:'Giant Clam',rarity:'Uncommon',perk:'Protective Shell - Absorb 8 dmg',icon:'GC',unlocked:false,equipped:false},
+  {name:'Sea Turtle',rarity:'Uncommon',perk:'Enduring Shell - +20% def/8s',icon:'ST',unlocked:false,equipped:false},
+  {name:'Leafy Seadragon',rarity:'Uncommon',perk:'Camouflage - +15% enemy miss',icon:'LD',unlocked:false,equipped:false},
+  {name:'Flying Fish',rarity:'Uncommon',perk:'Evasive Leap - dodge first 5 hits',icon:'FF',unlocked:false,equipped:false},
+  {name:'Atlantic Blue Tang',rarity:'Uncommon',perk:'Quick-Heal - +20% healing',icon:'AT',unlocked:false,equipped:false},
+  {name:'Vampire Crab',rarity:'Uncommon',perk:'Sanguine Strike - 10% lifesteal',icon:'VC',unlocked:false,equipped:false},
+  {name:'Blue Ringed Octopus',rarity:'Uncommon',perk:'Venomous Touch - 15% poison crit',icon:'BO',unlocked:false,equipped:false},
+  // Rare (10)
+  {name:'Lionfish',rarity:'Rare',perk:'Venomous Spines - 2/s poison',icon:'LF',unlocked:false,equipped:false},
+  {name:'Bobtail Squid',rarity:'Rare',perk:'Light Pulse - 4s blind, +20% CD',icon:'BS',unlocked:false,equipped:false},
+  {name:'Box Jellyfish',rarity:'Rare',perk:'Venomous Tentacle - 5% 20 poison',icon:'BJ',unlocked:false,equipped:false},
+  {name:'Glass Squid',rarity:'Rare',perk:'Crystal Shroud - 1s invuln',icon:'GQ',unlocked:false,equipped:false},
+  {name:'Bobbit Worm',rarity:'Rare',perk:'Cooldown Link - -15% other pet CD',icon:'BW',unlocked:false,equipped:false},
+  {name:'Sarcastic Fringehead',rarity:'Rare',perk:'Fierce Territory - +2/2s on <5hp',icon:'SF',unlocked:false,equipped:false},
+  {name:'Warty Frogfish',rarity:'Rare',perk:'Angler\'s Bait - +20% dmg, 5s',icon:'WF',unlocked:false,equipped:false},
+  {name:'Pink See-Through Fantasia',rarity:'Rare',perk:'Ethereal Flow - -25% dmg',icon:'PF',unlocked:false,equipped:false},
+  {name:'Strawberry Squid',rarity:'Rare',perk:'Lightburst - 2s disorient, +25% CD',icon:'SQ',unlocked:false,equipped:false},
+  {name:'Flamingo Tongue Snail',rarity:'Rare',perk:'Deflecting Shell - 10% reflect',icon:'FS',unlocked:false,equipped:false},
+  // Epic (10)
+  {name:'Sea Angel',rarity:'Epic',perk:'Spirit\'s Grace - 3hp/s for 5s',icon:'SA',unlocked:false,equipped:false},
+  {name:'Yeti Crab',rarity:'Epic',perk:'Frostbite - 10% freeze 2s',icon:'YC',unlocked:false,equipped:false},
+  {name:'Comb Jelly',rarity:'Epic',perk:'Bioluminescent Trail - 2/s & +20% CD',icon:'CJ',unlocked:false,equipped:false},
+  {name:'Vampire Squid',rarity:'Epic',perk:'Abyssal Shield - Absorb 25 dmg',icon:'VS',unlocked:false,equipped:false},
+  {name:'Barreleye Fish',rarity:'Epic',perk:'Clarity of Sight - +25% crit',icon:'BF',unlocked:false,equipped:false},
+  {name:'Coelacanth',rarity:'Epic',perk:'Cooldown Link - -20% other pet CD',icon:'CC',unlocked:false,equipped:false},
+  {name:'Bobbit Worm (Epic)',rarity:'Epic',perk:'Tunneling Strike - 2s invuln',icon:'BW',unlocked:false,equipped:false},
+  {name:'Giant Spider Crab',rarity:'Epic',perk:'Pincer Crush - 10 dmg, 3s stun',icon:'GC',unlocked:false,equipped:false},
+  {name:'Flashlight Fish',rarity:'Epic',perk:'Blinding Flash - 2s stun',icon:'FF',unlocked:false,equipped:false},
+  {name:'Cookiecutter Shark',rarity:'Epic',perk:'Bite of the Abyss - 2/s bleed',icon:'CS',unlocked:false,equipped:false},
+  // Legendary (10)
+  {name:'Giant Isopod',rarity:'Legendary',perk:'Hardened Exoskeleton - +50% armor/5s',icon:'GD',unlocked:false,equipped:false},
+  {name:'Giant Tube Worm',rarity:'Legendary',perk:'Ventilation Blast - 18 dmg',icon:'GW',unlocked:false,equipped:false},
+  {name:'Snailfish',rarity:'Legendary',perk:'Evasive Slime - +30% dodge/3s',icon:'SN',unlocked:false,equipped:false},
+  {name:'Moon Jellyfish',rarity:'Legendary',perk:'Calming Aura - heal 50hp, cleanse',icon:'MJ',unlocked:false,equipped:false},
+  {name:'Dragonfish (Legendary)',rarity:'Legendary',perk:'Cooldown Link - -25% other pet CD',icon:'DF',unlocked:false,equipped:false},
+  {name:'Pacific Blackdragon',rarity:'Legendary',perk:'Shadow Meld - 3s invis/immune',icon:'PB',unlocked:false,equipped:false},
+  {name:'Wobbegong Shark',rarity:'Legendary',perk:'Ambush Hunter - +40% back dmg',icon:'WS',unlocked:false,equipped:false},
+  {name:'Manta Ray',rarity:'Legendary',perk:'Abyssal Glide - 3s invuln',icon:'MR',unlocked:false,equipped:false},
+  {name:'Gulper Eel',rarity:'Legendary',perk:'Lacerating Bite - 10 dmg',icon:'GE',unlocked:false,equipped:false},
+  {name:'Mimic Octopus',rarity:'Legendary',perk:'Adaptive Mimicry - reflect special (50%)',icon:'MS',unlocked:false,equipped:false},
+  // Mythic (2)
+  {name:'Lion\'s Mane Jellyfish',rarity:'Mythic',perk:'Venomous Barrage - 1/s 20s, 1x/encounter',icon:'LM',unlocked:false,equipped:false},
+  {name:'Chimaera',rarity:'Mythic',perk:'Living Fossil - +50% hp, -15% CD',icon:'CH',unlocked:false,equipped:false},
+  // Secret (1)
+  {name:'Immortal Jellyfish',rarity:'Secret',perk:'Rejuvenation Cycle - revive, +20% dmg/10s, 1x/encounter',icon:'IJ',unlocked:false,equipped:false}
+];
+// Re-render catalog after replacing!
+if (typeof renderPetCatalog === 'function') renderPetCatalog();
+
+/* ------------- PATCH: Deep Dive Enemies (EXAMPLE STRUCTURE) -------------- */
+const deepDiveEnemies = [
+  {name: "Snipe Eel", rarity: "Common", health: 10, abilities: [], drops: ["Wood", "Fabric"], pearls: [1,5]},
+  {name: "Squidworm", rarity: "Common", health: 25, abilities: [
+      {name:"Tentacle Barrage",desc:"multiple hits",cooldown:2,damage:"2 per hit (3-4 hits)"}
+    ], drops: ["Fabric", "Rope"], pearls: [1,5]},
+  {name: "Dragonfish", rarity: "Uncommon", health: 35, abilities: [
+      {name:"Bioluminescent Flash",desc:"stun+quick bite",cooldown:8,damage:"5+3"}
+    ], drops: ["Fabric", "Bandages"], pearls: [5,10]},
+  // ... (Add all as per your full list above)
+  {name: "Great White", rarity: "Legendary", health: 150, abilities: [
+      {name:"Apex Charge",desc:"charge/knockback",cooldown:7,damage:"20"},
+      {name:"Tearing Bite",desc:"massive dmg",cooldown:12,damage:"30"}
+    ], drops: ["Tungsten", "Kevlar", "Harpoon Ammo"], pearls: [50,100]}
+  // ... etc.
+];
+
+/* ------------- PATCH: Full Egg-to-Pet Rarity Roll Logic -------------- */
+function randomPetFromEggType(type) {
+  // Map egg type to rarity odds
+  const egg = eggTypes.find(e=>e.type===type);
+  if (!egg) return petsCatalog[Math.floor(Math.random()*petsCatalog.length)].name;
+  // Pick a rarity
+  let rand = Math.random(), sum = 0, chosenRarity = null;
+  for (const [rarity, chance] of Object.entries(egg.odds)) {
+    sum += chance;
+    if (rand < sum) { chosenRarity = rarity.charAt(0).toUpperCase()+rarity.slice(1); break; }
+  }
+  // Get eligible pets
+  let pool = petsCatalog.filter(p=>p.rarity===chosenRarity);
+  if (pool.length===0) pool = petsCatalog;
+  let idx = Math.floor(Math.random()*pool.length);
+  return pool[idx].name;
+}
+
+/* ------------- PATCH: Abandoned Coral Reef Unlocks Tabs -------------- */
+function unlockNurseryMerchantTabs() {
+  document.getElementById('nursery-tab').style.display = '';
+  document.getElementById('merchant-tab').style.display = '';
+  addNarrativeLine("You have unlocked the Nursery and Egg Merchant!");
+}
+
+/* ------------- PATCH: Always Place Abandoned Coral Reef -------------- */
+function ensureAbandonedCoralReef(map) {
+  // map = 2D array of tiles for dive minigame
+  const found = map.some(row=>row.some(tile=>(tile.type==='landmark'&&tile.details&&tile.details.name==='Abandoned Coral Reef')));
+  if (!found) {
+    // Place on random path
+    let placed = false;
+    for (let tries=0;tries<100&&!placed;tries++) {
+      let x = Math.floor(Math.random()*map[0].length), y = Math.floor(Math.random()*map.length);
+      if (map[y][x].type==='path') {
+        map[y][x] = {type:'landmark',details:{name:'Abandoned Coral Reef'}};
+        placed = true;
+      }
+    }
+  }
+}
+
+/* ------------- PATCH: Sunken Battleship Acts As Normal Landmark -------------- */
+function handleSunkenBattleshipAsNormalLandmark(landmark) {
+  if (landmark.name==='Sunken Battleship') {
+    // After discovered, acts as normal landmark
+    // Implement as needed: just give standard rewards/materials
+    addNarrativeLine('You found supplies in the Sunken Battleship.');
+    // ...standard material logic...
+  }
+}
+
+/* ------------- PATCH: Pet Visual In Dives -------------- */
+function renderPetsInDive(playerX, playerY) {
+  // Show equipped pet icons ("@" is player) in dive grid UI
+  // Example: one left, one right, bobbing
+  // Implement visual in your minigame rendering
+}
+
+/* ------------- PATCH: Pet Perks In Combat -------------- */
+// In combat logic, check equippedPets, apply perks per description
+// Example (pseudo):
+// if (petsCatalog[petIdx].perk.includes('dodge')) { /* apply dodge logic */ }
+
+/* ------------- PATCH: Bandage Limit in UI & Inventory -------------- */
+function enforceBandageLimit() {
+  if (bandageCount > maxBandages) bandageCount = maxBandages;
+  bandageCountSpan.textContent = bandageCount;
+}
+
+/* ------------- PATCH: Flee Is One-Time Per Encounter -------------- */
+function resetFleeOnCombatStart() { fleeAttemptedThisCombat = false; }
+
+/* ------------- PATCH: Save/Load - All New State -------------- */
+// Already in Phase 2, just ensure all new properties are persisted!
+
+/* ------------- PATCH: Pet Catalog/Details Polish -------------- */
+function showPetPopup(pet,idx,anchor) {
+  if (!pet.unlocked) return;
+  const popup = document.getElementById('pet-detail-popup');
+  popup.innerHTML = `<b>${pet.name} (${pet.rarity})</b><br><i>${pet.perk}</i><br>`+
+    `<div style="margin:8px 0;">Icon: <span style="display:inline-block;width:20px;text-align:center;">${pet.icon}</span></div>`+
+    `<button onclick="equipPet(${idx})">${pet.equipped?'Unequip':'Equip'}</button>`;
+  popup.style.display = 'block';
+  const rect = anchor.getBoundingClientRect();
+  popup.style.top = (window.scrollY+rect.bottom+8)+'px';
+  popup.style.left = (window.scrollX+rect.left-40)+'px';
+}
+</script>
+
+<style>
+@keyframes shake { 0% {transform:translateY(0);} 100% {transform:translateY(-5px);} }
+</style>
+
+<!-- PHASE 3 END -->
