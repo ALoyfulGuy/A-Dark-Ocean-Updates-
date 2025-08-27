@@ -5338,5 +5338,310 @@
         startTimer();
 
     </script>
+// --- PETS DATA ---
+const PETS = {
+  // Add all pets and their perks from your game here (see previous answer for complete list)
+  "Nudibranch": { rarity: "Common", perk: "Adaptive Defense" },
+  // ... all other pets ...
+  "Immortal Jellyfish": { rarity: "Secret", perk: "Rejuvenation Cycle" },
+};
+
+// --- STATUS TRACKING HELPERS ---
+function setStatus(statusObj, effect, durationSeconds) {
+  statusObj[effect] = Date.now() + durationSeconds * 1000;
+}
+function hasStatus(statusObj, effect) {
+  return statusObj[effect] && Date.now() < statusObj[effect];
+}
+function clearExpiredStatus(statusObj) {
+  Object.keys(statusObj).forEach(key => {
+    if (statusObj[key] < Date.now()) delete statusObj[key];
+  });
+}
+
+// --- MAIN PET PERK INTEGRATION ---
+function applyPetPerks(gameState, playerStatus, enemyStatus, combatContext) {
+  // combatContext: { round, isMelee, isCritical, attackDirection, etc. }
+  // playerStatus and enemyStatus are objects for status effects (e.g. poison, shield, etc.)
+
+  gameState.equippedPets.forEach(petName => {
+    const pet = PETS[petName];
+    if (!pet) return;
+
+    switch (pet.perk) {
+      // --- COMMON ---
+      case "Adaptive Defense":
+        if (combatContext.enemySpecial && Math.random() < 0.05)
+          combatContext.enemyAttackMiss = true;
+        break;
+      case "Swift Current":
+        gameState.diveMoves += 5;
+        break;
+      case "Regenerative Aid":
+        if (combatContext.round % 5 === 0)
+          gameState.playerHealth = Math.min(gameState.playerMaxHealth, gameState.playerHealth + 1);
+        break;
+      case "Slime Trail":
+        if (combatContext.playerWasAttacked) {
+          setStatus(enemyStatus, "slowed", 2);
+          gameState.enemyAttackCooldown *= 1.1;
+        }
+        break;
+      case "Fortify":
+        gameState.playerMaxHealth = Math.floor(gameState.playerMaxHealth * 1.1);
+        break;
+      case "Symbiotic Guard":
+        if (!playerStatus.shieldActive) playerStatus.shieldActive = 3;
+        break;
+      case "Piercing Swarm":
+        combatContext.damage += 1;
+        break;
+      case "Cooldown Link 10":
+        gameState.cooldownMultiplier = (gameState.cooldownMultiplier || 1) * 0.9;
+        break;
+      case "Stealthy Current":
+        gameState.enemyHitChance = (gameState.enemyHitChance || 1) * 0.9;
+        break;
+      case "Spiky Aura":
+        if (combatContext.playerWasAttacked) gameState.enemyHealth -= 1;
+        break;
+
+      // --- UNCOMMON ---
+      case "Deep Descent":
+        if (!hasStatus(playerStatus, "deepDescent"))
+          setStatus(playerStatus, "deepDescent", 15);
+        break;
+      case "Invisibility Ink":
+        setStatus(playerStatus, "invisible", 2);
+        break;
+      case "Cooldown Link 20":
+        gameState.cooldownMultiplier = (gameState.cooldownMultiplier || 1) * 0.8;
+        break;
+      case "Protective Shell":
+        if (!playerStatus.shellActive) playerStatus.shellActive = 8;
+        break;
+      case "Enduring Shell":
+        setStatus(playerStatus, "defenseBoost", 8);
+        break;
+      case "Camouflage":
+        gameState.enemyHitChance = (gameState.enemyHitChance || 1) * 0.85;
+        break;
+      case "Evasive Leap":
+        playerStatus.evasiveLeap = 5;
+        break;
+      case "Quick-Heal":
+        gameState.healingItemEffect = (gameState.healingItemEffect || 1) * 1.2;
+        break;
+      case "Sanguine Strike":
+        if (Math.random() < 0.1)
+          gameState.playerHealth = Math.min(gameState.playerMaxHealth, gameState.playerHealth + combatContext.damage);
+        break;
+      case "Venomous Touch":
+        if (combatContext.isCritical && Math.random() < 0.15)
+          setStatus(enemyStatus, "poisoned", 3); // Poison effect handled elsewhere
+        break;
+
+      // --- RARE ---
+      case "Venomous Spines":
+        if (combatContext.isMelee)
+          setStatus(enemyStatus, "poisoned", 5); // Poison effect handled elsewhere
+        break;
+      case "Light Pulse":
+        setStatus(enemyStatus, "blinded", 4);
+        gameState.enemyAttackCooldown *= 1.2;
+        break;
+      case "Venomous Tentacle":
+        if (combatContext.isRanged && Math.random() < 0.05)
+          gameState.enemyHealth -= 20;
+        break;
+      case "Crystal Shroud":
+        setStatus(playerStatus, "invulnerable", 1);
+        break;
+      case "Cooldown Link 15":
+        gameState.cooldownMultiplier = (gameState.cooldownMultiplier || 1) * 0.85;
+        break;
+      case "Fierce Territory":
+        if (gameState.playerHealth <= 5)
+          setStatus(enemyStatus, "fierceDot", 2);
+        break;
+      case "Angler's Bait":
+        setStatus(enemyStatus, "baited", 5);
+        break;
+      case "Ethereal Flow":
+        combatContext.incomingDamage *= 0.75;
+        break;
+      case "Lightburst":
+        setStatus(enemyStatus, "disoriented", 2);
+        gameState.enemyAttackCooldown *= 1.25;
+        break;
+      case "Deflecting Shell":
+        if (Math.random() < 0.1)
+          gameState.enemyHealth -= combatContext.incomingDamage;
+        break;
+
+      // --- EPIC ---
+      case "Spirit's Grace":
+        setStatus(playerStatus, "spiritGrace", 5);
+        break;
+      case "Frostbite":
+        if (Math.random() < 0.1)
+          setStatus(enemyStatus, "frozen", 2);
+        break;
+      case "Bioluminescent Trail":
+        setStatus(enemyStatus, "bioTrailDot", 1);
+        gameState.enemyAttackCooldown *= 1.2;
+        break;
+      case "Abyssal Shield":
+        if (!playerStatus.abyssalShield) playerStatus.abyssalShield = 25;
+        break;
+      case "Clarity of Sight":
+        combatContext.damage *= 1.25;
+        break;
+      case "Cooldown Link 20":
+        gameState.cooldownMultiplier = (gameState.cooldownMultiplier || 1) * 0.8;
+        break;
+      case "Tunneling Strike":
+        setStatus(playerStatus, "invulnerable", 2);
+        break;
+      case "Pincer Crush":
+        if (!enemyStatus.stunned) {
+          gameState.enemyHealth -= 10;
+          setStatus(enemyStatus, "stunned", 3);
+        }
+        break;
+      case "Blinding Flash":
+        setStatus(enemyStatus, "stunned", 2);
+        break;
+      case "Bite of the Abyss":
+        setStatus(enemyStatus, "bleed", 1);
+        break;
+
+      // --- LEGENDARY ---
+      case "Hardened Exoskeleton":
+        setStatus(playerStatus, "armorBoost", 5);
+        break;
+      case "Ventilation Blast":
+        gameState.enemyHealth -= 18;
+        break;
+      case "Evasive Slime":
+        if (Math.random() < 0.3) combatContext.enemyAttackMiss = true;
+        break;
+      case "Calming Aura":
+        gameState.playerHealth = Math.max(gameState.playerHealth, 50);
+        for (let k in playerStatus) delete playerStatus[k];
+        break;
+      case "Cooldown Link 25":
+        gameState.cooldownMultiplier = (gameState.cooldownMultiplier || 1) * 0.75;
+        break;
+      case "Shadow Meld":
+        setStatus(playerStatus, "invisible", 3);
+        setStatus(playerStatus, "immune", 3);
+        break;
+      case "Ambush Hunter":
+        if (combatContext.attackDirection === "behind")
+          combatContext.damage *= 1.4;
+        break;
+      case "Abyssal Glide":
+        setStatus(playerStatus, "invulnerable", 3);
+        break;
+      case "Lacerating Bite":
+        gameState.enemyHealth -= 10;
+        break;
+      case "Adaptive Mimicry":
+        if (combatContext.enemySpecial)
+          gameState.enemyHealth -= Math.floor(combatContext.enemySpecialValue * 0.5);
+        break;
+
+      // --- MYTHIC ---
+      case "Venomous Barrage":
+        if (!enemyStatus.venomousBarrageUsed) {
+          setStatus(enemyStatus, "venomDot", 20);
+          enemyStatus.venomousBarrageUsed = true;
+        }
+        break;
+      case "Living Fossil":
+        gameState.playerMaxHealth = Math.floor(gameState.playerMaxHealth * 1.5);
+        gameState.playerAttackCooldown *= 0.85;
+        break;
+
+      // --- SECRET ---
+      case "Rejuvenation Cycle":
+        if (gameState.playerHealth <= 0 && !playerStatus.revived) {
+          gameState.playerHealth = gameState.playerMaxHealth;
+          combatContext.damage *= 1.2;
+          playerStatus.revived = true;
+          setStatus(playerStatus, "rejuvenationBuff", 10);
+        }
+        break;
+    }
+  });
+}
+
+// --- COMBAT ROUND EXAMPLE ---
+function processCombatRound(gameState, playerStatus, enemyStatus, combatContext) {
+  // 1. Apply pet perks before attacks
+  applyPetPerks(gameState, playerStatus, enemyStatus, combatContext);
+
+  // 2. Handle status effects
+  clearExpiredStatus(playerStatus);
+  clearExpiredStatus(enemyStatus);
+
+  // 3. Enemy attacks
+  let damage = combatContext.incomingDamage || gameState.enemyAttackDamage;
+  if (hasStatus(playerStatus, "invulnerable") || hasStatus(playerStatus, "invisible")) {
+    combatContext.enemyAttackMiss = true;
+    damage = 0;
+  } else if (hasStatus(playerStatus, "immune")) {
+    damage = 0;
+  }
+  if (!combatContext.enemyAttackMiss) {
+    // Shields
+    if (playerStatus.shieldActive) {
+      if (playerStatus.shieldActive >= damage) {
+        playerStatus.shieldActive -= damage;
+        damage = 0;
+      } else {
+        damage -= playerStatus.shieldActive;
+        playerStatus.shieldActive = 0;
+      }
+    }
+    // Abyssal Shield
+    if (playerStatus.abyssalShield) {
+      if (playerStatus.abyssalShield >= damage) {
+        playerStatus.abyssalShield -= damage;
+        damage = 0;
+      } else {
+        damage -= playerStatus.abyssalShield;
+        playerStatus.abyssalShield = 0;
+      }
+    }
+    gameState.playerHealth -= damage;
+  }
+
+  // 4. Player attacks
+  let playerDamage = combatContext.damage || gameState.playerAttackDamage;
+  gameState.enemyHealth -= playerDamage;
+
+  // 5. Apply DoTs and buffs/debuffs
+  // -- Example: Poison
+  if (hasStatus(enemyStatus, "poisoned")) gameState.enemyHealth -= 2; // Or whatever DoT logic you want
+  if (hasStatus(enemyStatus, "bleed")) gameState.enemyHealth -= 2;
+  if (hasStatus(enemyStatus, "venomDot")) gameState.enemyHealth -= 1;
+  if (hasStatus(enemyStatus, "bioTrailDot")) gameState.enemyHealth -= 2;
+  if (hasStatus(playerStatus, "spiritGrace")) gameState.playerHealth = Math.min(gameState.playerMaxHealth, gameState.playerHealth + 3);
+
+  // -- Example: fierceDot (enemy takes damage if player is low health)
+  if (hasStatus(enemyStatus, "fierceDot")) gameState.enemyHealth -= 2;
+
+  // -- Example: Buff from Living Fossil or Rejuvenation Cycle
+  // Add any desired buff processing here
+
+  // 6. Clean up expired or one-time effects if needed
+
+  // 7. Return updated state (or just rely on mutations)
+  return { gameState, playerStatus, enemyStatus };
+}
+
+export { applyPetPerks, processCombatRound, PETS };
 </body>
 </html>
